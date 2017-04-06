@@ -1,0 +1,80 @@
+@import "var";
+@import "base/reset";
+@import "base/_muiReset";
+@import "base/_normalize";
+* {
+    font-family: "microsoft yahei";
+}
+$home_pd: 0.035rem;
+.home-banner {
+    margin-top: $home_pd;
+}
+.home-server-wrap {
+    margin-top: $home_pd;
+    .mui-row {
+        .mui-col-sm-4,
+        .mui-col-xs-4 {
+            height: 0.84rem;
+        }
+    }
+}
+
+.expert-list {
+    .mui-table-view-cell {
+        padding: 0.175rem;
+        a {
+            padding: 0;
+            .mui-media-object {
+                width: 1rem;
+                height: 1rem;
+                border: 0.02rem solid $main_cl;
+                max-width: initial;
+                border-radius: 50%;
+            }
+        }
+        .mui-media-body {
+            margin-top: 0.02rem;
+            strong {
+                font-weight: normal;
+                line-height: 0.3rem;
+                display: block;
+                border-bottom: 1px solid #615e5d;
+                span {
+                    font-size: 0.12rem;
+                }
+            }
+            p {
+                margin-top: 0.05rem;
+                white-space: initial;
+                font-size: 0.12rem;
+                line-height: 0.16rem;
+                color: #595757;
+            }
+            div.foot {
+                padding-top: 0.04rem;
+                text-align: right;
+                span.tag {
+                    padding: 0.01rem 0.07rem;
+                    background-color: #ffde90;
+                    border-radius: 100px;
+                    font-size: 0.12rem;
+                    display: inline-block;
+                    color: #FFFFFF;
+                    margin-left: 0.05rem;
+                }
+                .tag.jk {
+                    background-color: #45c8a9;
+                }
+                .tag.zr {
+                    background-color: #6ef017;
+                }
+            }
+        }
+    }
+    .mui-table-view-cell > a:not(.mui-btn) {
+        margin: initial;
+    }
+    .mui-table-view-cell:nth-child(2n+1) {
+        background-color: #fcf2d7;
+    }
+}

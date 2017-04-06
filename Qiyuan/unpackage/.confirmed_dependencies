@@ -1,0 +1,46 @@
+{
+  "index.html": {
+    "resources": [
+      "js/common.js",
+      "js/mui.min.js",
+      "css/libs/mui.min.css",
+      "css/style.css",
+      "css/fonts/mui.ttf",
+      "imgs/temp/banner/1.jpg",
+      "js/JRZH.js"
+    ],
+    "refer": [
+      "page/login/reg.html",
+      "page/expert/list_main.html",
+      "page/expert/list_sub.html"
+    ]
+  },
+  "page/login/reg.html": {
+    "resources": [
+      "page/login/css/style.css",
+      "js/common.js",
+      "js/mui.min.js",
+      "css/libs/mui.min.css",
+      "css/style.css",
+      "page/login/js/app.js",
+      "js/JRZH.js",
+      "css/fonts/mui.ttf"
+    ]
+  },
+  "page/expert/list_main.html": {
+    "resources": [
+      "js/JRZH.js",
+      "page/expert/list_sub.html",
+      "css/libs/mui.min.css"
+    ],
+    "refer": [
+      "page/expert/list_sub.html"
+    ]
+  },
+  "page/expert/list_sub.html": {
+    "resources": [
+      "css/libs/mui.min.css",
+      "imgs/temp/exp/1.png"
+    ]
+  }
+}

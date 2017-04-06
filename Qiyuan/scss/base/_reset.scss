@@ -1,0 +1,49 @@
+html{
+    font-size: 62.5%;
+}
+body {
+    background-color: $body_bg;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.clear:before {
+    content: "";
+    display: block;
+    clear: both;
+}
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.pd-border-t:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #FFFFFF;
+}
+.mt5 {
+    margin-top: 5px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+.mt15 {
+    margin-top: 15px;
+}
+.pd-border-r:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 1px;
+    background-color: #FFFFFF;
+}

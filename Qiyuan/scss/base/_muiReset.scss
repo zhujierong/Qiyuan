@@ -1,0 +1,16 @@
+//mui - reset
+$mui_bar_height: 0.44rem;
+.mui-bar {
+    height: $mui_bar_height;
+}
+.mui-bar-nav {
+    background-color: $bar_nav_bg;
+    .mui-title {
+        color: $bar_nav_color;
+        line-height: $mui_bar_height;
+        font-size: 0.16rem;
+    }
+}
+.mui-bar-nav~.mui-content {
+    padding-top: $mui_bar_height;
+}

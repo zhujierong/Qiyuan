@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/libs/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				preloadPages: [{
+					url: "page/expert/list_main.html",
+					styles: {
+						top: "0" //新页面顶部位置
+					},
+					subpages: [{
+						url: 'page/expert/list_sub.html',
+						id: 'page/expert/list_sub.html',
+						styles: {
+							top: "0.44rem",
+							bottom: '0px',
+						}
+					}]
+				}]
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">琦媛国际</h1>
+			<a class="mui-icon mui-icon-right-nav mui-pull-right">返回</a>
+		</header>
+		<div class="mui-content">
+			<!--banner-->
+			<div id="slider" class="mui-slider home-banner">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="imgs/temp/banner/1.jpg" alt="" />
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="imgs/temp/banner/1.jpg" alt="" />
+						</a>
+					</div>
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="imgs/temp/banner/1.jpg" alt="" />
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="imgs/temp/banner/1.jpg" alt="" />
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="imgs/temp/banner/1.jpg" alt="" />
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="imgs/temp/banner/1.jpg" alt="" />
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--服务-->
+			<div class="home-server-wrap">
+				<div class="mui-row">
+					<div class="mui-col-xs-4 mui-col-sm-4">1</div>
+					<div class="mui-col-xs-4 mui-col-sm-4">2</div>
+					<div class="mui-col-xs-4 mui-col-sm-4">3</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-4 mui-col-sm-4">1</div>
+					<div class="mui-col-xs-4 mui-col-sm-4">2</div>
+					<div class="mui-col-xs-4 mui-col-sm-4">3</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-4 mui-col-sm-4">1</div>
+					<div class="mui-col-xs-4 mui-col-sm-4">2</div>
+					<div class="mui-col-xs-4 mui-col-sm-4">3</div>
+				</div>
+			</div>
+		</div>
+		<!--导航-->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-phone"></span>
+				<span class="mui-tab-label">服务</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">动态</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<script src="js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui(".mui-bar-tab").on("tap", ".mui-tab-item", function() {
+				plus.webview.show("page/expert/list_main.html");
+			});
+
+			mui(".mui-bar").on("tap", ".mui-icon-right-nav", function() {
+				mui.openWindow({
+					url: "page/login/reg.html",
+					id: "page/login/reg.html",
+					styles: {
+						top: "0.44rem", //新页面顶部位置
+						bottom: "0", //新页面底部位置
+					},
+					extras: {
+						//自定义扩展参数，可以用来处理页面间传值
+					},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					show: {
+						autoShow: true, //页面loaded事件发生后自动显示，默认为true
+						event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
+						aniShow: "pop-in",
+						extras: {} //窗口动画是否使用图片加速
+					},
+					waiting: {
+						autoShow: false, //自动显示等待框，默认为true
+						title: '正在加载...', //等待对话框上显示的提示内容
+						options: {}
+					}
+				})
+			});
+		</script>
+	</body>
+
+</html>
