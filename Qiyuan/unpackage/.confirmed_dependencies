@@ -7,7 +7,16 @@
       "css/style.css",
       "css/fonts/mui.ttf",
       "imgs/temp/banner/1.jpg",
-      "js/JRZH.js"
+      "js/JRZH.js",
+      "imgs/temp/1.jpg",
+      "imgs/temp/5.jpg",
+      "imgs/temp/9.jpg",
+      "imgs/temp/4.jpg",
+      "imgs/temp/3.jpg",
+      "imgs/temp/8.jpg",
+      "imgs/temp/6.jpg",
+      "imgs/temp/7.jpg",
+      "imgs/temp/2.jpg"
     ],
     "refer": [
       "page/login/reg.html",
@@ -31,7 +40,8 @@
     "resources": [
       "js/JRZH.js",
       "page/expert/list_sub.html",
-      "css/libs/mui.min.css"
+      "css/libs/mui.min.css",
+      "css/style.css"
     ],
     "refer": [
       "page/expert/list_sub.html"

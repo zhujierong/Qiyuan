@@ -45,7 +45,17 @@
 					for(var i = cells.length, len = i + 3; i < len; i++) {
 						var li = document.createElement('li');
 						li.className = 'mui-table-view-cell';
-						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+						li.innerHTML = '<a href="javascript:;">' +
+							'<img class="mui-media-object mui-pull-left" src="../../imgs/temp/exp/1.png">' +
+							'<div class="mui-media-body">' +
+							'<strong>潘台君 <span>台湾</span> <span>医学教授</span></strong>' +
+							'<p>集团汇聚了中地强大的健康医疗台台等地强大的健康医疗团队，结合了......</p>' +
+							'<div class="foot">' +
+							'<span class="tag jk">抗衰老</span>' +
+							'<span class="tag jk">健康管理</span>' +
+							'</div>' +
+							'</div>' +
+							'</a>';
 						//下拉刷新，新纪录插到最前面；
 						table.insertBefore(li, table.firstChild);
 					}
@@ -64,7 +74,17 @@
 					for(var i = cells.length, len = i + 20; i < len; i++) {
 						var li = document.createElement('li');
 						li.className = 'mui-table-view-cell';
-						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+						li.innerHTML = '<a href="javascript:;">' +
+							'<img class="mui-media-object mui-pull-left" src="../../imgs/temp/exp/1.png">' +
+							'<div class="mui-media-body">' +
+							'<strong>潘台君 <span>台湾</span> <span>医学教授</span></strong>' +
+							'<p>集团汇聚了中地强大的健康医疗台台等地强大的健康医疗团队，结合了......</p>' +
+							'<div class="foot">' +
+							'<span class="tag jk">抗衰老</span>' +
+							'<span class="tag jk">健康管理</span>' +
+							'</div>' +
+							'</div>' +
+							'</a>';
 						table.appendChild(li);
 					}
 				}, 1500);

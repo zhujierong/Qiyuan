@@ -26,7 +26,15 @@
 		mui.init({
 			gestureConfig: {
 				doubletap: true
-			}
+			},
+			subpages: [{
+				url: 'list_sub.html',
+				id: 'list_sub.html',
+				styles: {
+					top: '0.44rem',
+					bottom: '0px',
+				}
+			}]
 		});
 
 		var contentWebview = null;
