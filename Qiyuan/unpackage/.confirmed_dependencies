@@ -1,56 +1,120 @@
 {
-  "index.html": {
-    "resources": [
-      "js/common.js",
-      "js/mui.min.js",
-      "css/libs/mui.min.css",
-      "css/style.css",
-      "css/fonts/mui.ttf",
-      "imgs/temp/banner/1.jpg",
-      "js/JRZH.js",
-      "imgs/temp/1.jpg",
-      "imgs/temp/5.jpg",
-      "imgs/temp/9.jpg",
-      "imgs/temp/4.jpg",
-      "imgs/temp/3.jpg",
-      "imgs/temp/8.jpg",
-      "imgs/temp/6.jpg",
-      "imgs/temp/7.jpg",
-      "imgs/temp/2.jpg"
-    ],
-    "refer": [
-      "page/login/reg.html",
-      "page/expert/list_main.html",
-      "page/expert/list_sub.html"
-    ]
-  },
-  "page/login/reg.html": {
-    "resources": [
-      "page/login/css/style.css",
-      "js/common.js",
-      "js/mui.min.js",
-      "css/libs/mui.min.css",
-      "css/style.css",
-      "page/login/js/app.js",
-      "js/JRZH.js",
-      "css/fonts/mui.ttf"
-    ]
-  },
-  "page/expert/list_main.html": {
-    "resources": [
-      "js/JRZH.js",
-      "page/expert/list_sub.html",
-      "css/libs/mui.min.css",
-      "css/style.css"
-    ],
-    "refer": [
-      "page/expert/list_sub.html"
-    ]
-  },
-  "page/expert/list_sub.html": {
-    "resources": [
-      "css/libs/mui.min.css",
-      "imgs/temp/exp/1.png"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"js/common.js",
+			"js/mui.min.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"css/fonts/mui.ttf",
+			"imgs/temp/banner/1.jpg",
+			"js/JRZH.js",
+			"imgs/temp/1.jpg",
+			"imgs/temp/5.jpg",
+			"imgs/temp/9.jpg",
+			"imgs/temp/4.jpg",
+			"imgs/temp/3.jpg",
+			"imgs/temp/8.jpg",
+			"imgs/temp/6.jpg",
+			"imgs/temp/7.jpg",
+			"imgs/temp/2.jpg"
+		],
+		"refer": [
+			"page/login/reg.html",
+			"page/expert/list_main.html",
+			"page/expert/list_sub.html"
+		]
+	},
+	"page/login/reg.html": {
+		"resources": [
+			"page/login/css/style.css",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"page/login/js/app.js",
+			"js/JRZH.js",
+			"css/fonts/mui.ttf"
+		]
+	},
+	"page/expert/list_main.html": {
+		"resources": [
+			"js/JRZH.js",
+			"page/expert/list_sub.html",
+			"css/libs/mui.min.css",
+			"css/style.css"
+		],
+		"refer": [
+			"page/expert/list_sub.html"
+		]
+	},
+	"page/expert/list_sub.html": {
+		"resources": [
+			"css/libs/mui.min.css",
+			"imgs/temp/exp/1.png"
+		]
+	},
+	"page/home/index.html": {
+		"resources": [
+			"imgs/temp/1.jpg",
+			"css/libs/mui.min.css",
+			"imgs/temp/5.jpg",
+			"imgs/temp/9.jpg",
+			"imgs/temp/4.jpg",
+			"css/style.css",
+			"js/JRZH.js",
+			"imgs/temp/banner/1.jpg",
+			"js/common.js",
+			"imgs/temp/3.jpg",
+			"js/mui.min.js",
+			"imgs/temp/6.jpg",
+			"imgs/temp/7.jpg",
+			"css/fonts/mui.ttf",
+			"imgs/temp/2.jpg"
+		],
+		"refer": [
+			"page/server/list_main.html"
+		]
+	},
+	"page/server/list_sub.html": {
+		"resources": [
+			"imgs/temp/exp/1.png",
+			"css/fonts/mui.ttf",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js",
+			"imgs/temp/server/list.jpg",
+			"imgs/icon/serch.png"
+		],
+		"refer": [
+			"page/server/info.html"
+		]
+	},
+	"page/server/list_main.html": {
+		"resources": [
+			"page/server/list_sub.html",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js",
+			"css/fonts/mui.ttf"
+		],
+		"refer": [
+			"page/server/list_sub.html"
+		]
+	},
+	"page/server/info.html": {
+		"resources": [
+			"imgs/temp/info/1.jpg",
+			"imgs/temp/info/2.jpg",
+			"css/libs/mui.min.css",
+			"css/fonts/mui.ttf",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/style.css",
+			"js/JRZH.js"
+		]
+	}
 }

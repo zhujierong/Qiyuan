@@ -1,5 +1,5 @@
 //mui - reset
-$mui_bar_nav_height: 0.44rem;
+$mui_bar_nav_height: 44px;
 $mui_bar_tab_height: 0.44rem;
 .mui-bar-nav {
     height: $mui_bar_nav_height;
@@ -21,4 +21,16 @@ $mui_bar_tab_height: 0.44rem;
 }
 .home-server-wrap {
     padding-bottom: 0.5rem + 0.035rem;
+}
+.mui-table-view-cell:after {
+    left: 0;
+}
+.mui-bar-nav {
+    box-shadow: none;
+}
+.mui-scroll-wrapper.filter-top {
+    top: $mui_bar_nav_height;
+}
+.mui-bar-nav.mui-bar .mui-icon {
+    color: #FFFFFF;
 }

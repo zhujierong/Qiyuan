@@ -4,6 +4,9 @@ html {
 body {
   background-color: #f5f5f5; }
 
+ul {
+  list-style: none; }
+
 .left {
   float: left; }
 
@@ -48,15 +51,15 @@ body {
   background-color: #FFFFFF; }
 
 .mui-bar-nav {
-  height: 0.44rem;
+  height: 44px;
   background-color: #f3cd61; }
   .mui-bar-nav .mui-title {
     color: #fff;
-    line-height: 0.44rem;
+    line-height: 44px;
     font-size: 0.16rem; }
 
 .mui-bar-nav ~ .mui-content {
-  padding-top: 0.44rem; }
+  padding-top: 44px; }
 
 .mui-bar-tab {
   height: 0.44rem; }
@@ -66,6 +69,18 @@ body {
 .home-server-wrap {
   padding-bottom: 0.535rem; }
 
+.mui-table-view-cell:after {
+  left: 0; }
+
+.mui-bar-nav {
+  box-shadow: none; }
+
+.mui-scroll-wrapper.filter-top {
+  top: 44px; }
+
+.mui-bar-nav.mui-bar .mui-icon {
+  color: #FFFFFF; }
+
 .panel-wrap {
   background-color: #FFFFFF; }
   .panel-wrap .p-head {
@@ -74,6 +89,34 @@ body {
     .panel-wrap .p-head span {
       font-size: 0.14rem;
       line-height: 1.86rem; }
+
+.filter-tab {
+  height: 40px;
+  line-height: 38px;
+  padding: 0;
+  margin: 0; }
+  .filter-tab ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    background-color: #f5f5f5; }
+    .filter-tab ul li {
+      padding: 0 0.15rem;
+      font-size: 0.14rem;
+      float: left;
+      width: 25%;
+      position: relative;
+      border-top: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc; }
+    .filter-tab ul li.active:before {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      height: 0.03rem;
+      width: 100%;
+      background-color: #d4b27e; }
 
 * {
   font-family: "microsoft yahei"; }
@@ -97,6 +140,41 @@ body {
   .home-server-wrap .mui-row.no-bd-bt .mui-col-sm-4,
   .home-server-wrap .mui-row.no-bd-bt .mui-col-xs-4 {
     border-bottom: 0 solid #ddd; }
+
+.common-list .mui-table-view-cell {
+  padding: 0.175rem 0.2rem; }
+  .common-list .mui-table-view-cell a {
+    padding: 0; }
+    .common-list .mui-table-view-cell a .mui-media-object {
+      width: 0.8rem;
+      height: 0.8rem;
+      max-width: initial; }
+  .common-list .mui-table-view-cell .mui-media-body {
+    margin-top: 0.02rem; }
+    .common-list .mui-table-view-cell .mui-media-body strong {
+      font-weight: normal;
+      line-height: 0.3rem;
+      display: block;
+      border-bottom: 1px solid #615e5d; }
+      .common-list .mui-table-view-cell .mui-media-body strong span {
+        font-size: 0.12rem; }
+    .common-list .mui-table-view-cell .mui-media-body p {
+      margin-top: 0.05rem;
+      white-space: initial;
+      font-size: 0.12rem;
+      line-height: 0.16rem;
+      color: #595757; }
+    .common-list .mui-table-view-cell .mui-media-body div.foot {
+      padding-top: 0.04rem;
+      text-align: right; }
+      .common-list .mui-table-view-cell .mui-media-body div.foot span.tag {
+        padding: 0.01rem 0.07rem;
+        background-color: #f3cd61;
+        border-radius: 100px;
+        font-size: 0.12rem;
+        display: inline-block;
+        color: #FFFFFF;
+        margin-left: 0.05rem; }
 
 .expert-list .mui-table-view-cell {
   padding: 0.175rem; }
@@ -128,7 +206,7 @@ body {
       text-align: right; }
       .expert-list .mui-table-view-cell .mui-media-body div.foot span.tag {
         padding: 0.01rem 0.07rem;
-        background-color: #ffde90;
+        background-color: #f3cd61;
         border-radius: 100px;
         font-size: 0.12rem;
         display: inline-block;
@@ -142,5 +220,30 @@ body {
   margin: initial; }
 .expert-list .mui-table-view-cell:nth-child(2n+1) {
   background-color: #fcf2d7; }
+
+.server-list .mui-table-view-cell {
+  padding: 0; }
+  .server-list .mui-table-view-cell a {
+    padding: 0.15rem;
+    margin: 0; }
+    .server-list .mui-table-view-cell a .mui-media-object {
+      width: 1rem;
+      height: 1rem;
+      max-width: initial; }
+  .server-list .mui-table-view-cell div.foot span.serch {
+    padding: 0.01rem 0.07rem;
+    border-radius: 5px;
+    font-size: 0.12rem;
+    display: inline-block;
+    color: #FFFFFF;
+    margin-left: 0.05rem;
+    padding-left: 22px;
+    background: url("../imgs/icon/serch.png") no-repeat 5px center;
+    background-size: auto 66%;
+    background-color: #f3cd61; }
+
+.ueditor-text img {
+  max-width: 100%;
+  vertical-align: bottom; }
 
 /*# sourceMappingURL=style.css.map */
