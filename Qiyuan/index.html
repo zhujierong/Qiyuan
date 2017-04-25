@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>琦媛国际</title>
+		<link href="css/libs/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+
+	<body>
+		<div class="mui-locker-wrap">
+			<div class="tx-warp">
+				<img src="imgs/temp/exp/tx.jpg" /><br />
+				<span>欢迎你，清风！</span>
+			</div>
+			<p></p>
+			<div class="mui-locker" data-locker-options='{"ringColor":"rgba(221,221,221,1)","fillColor":"#fbfaf7","pointColor":"#f3cd61","lineColor":"#f3cd61"}' data-locker-width='320' data-locker-height='320'></div>
+			<div class="mui-text-center">
+				<a href="">忘记手势密码</a>|
+				<a href="">用其他账号登录</a>
+			</div>
+		</div>
+		<!--导航-->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" id="home-webview">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="server-webview">
+				<span class="mui-icon mui-icon-phone"></span>
+				<span class="mui-tab-label">服务</span>
+			</a>
+			<a class="mui-tab-item" id="store-webview">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" id="activity-webview">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">社区</span>
+			</a>
+			<a class="mui-tab-item" id="account-webview">
+				<span class="mui-icon mui-icon mui-icon-person"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+	</body>
+	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.locker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var menu_view = {
+			subpages: [{ //首页
+				url: "page/home/home.html",
+				id: "home-webview",
+				styles: {
+					top: 0,
+					bottom: JRZH.styles.menuHeight
+				}
+			}],
+			preloadPages: [{ //服务
+				url: "page/server/list_main.html",
+				id: "server-webview",
+				styles: {
+					top: 0,
+					bottom: JRZH.styles.menuHeight
+				}
+			}, { //商城
+				url: "page/store/list_main.html",
+				id: "store-webview",
+				styles: {
+					top: 0,
+					bottom: JRZH.styles.menuHeight
+				}
+			}, { //活动
+				url: "page/activity/list_main.html",
+				id: "store-webview",
+				styles: {
+					top: 0,
+					bottom: JRZH.styles.menuHeight
+				}
+			}, { //社区
+				url: "page/community/list_main.html",
+				id: "activity-webview",
+				styles: {
+					top: 0,
+					bottom: JRZH.styles.menuHeight
+				}
+			}, { //账户
+				url: "page/account/home.html",
+				id: "account-webview",
+				styles: {
+					top: 0,
+					bottom: JRZH.styles.menuHeight
+				}
+			}]
+		}
+		mui.init({
+			//			subpages: menu_view.subpages,
+			preloadPages: menu_view.preloadPages
+		});
+
+		//菜单 - 导航跳转
+		mui.plusReady(function() {
+
+			var homePage = mui.preload(menu_view.subpages[0]);
+			var openHome = function() {
+				//			mui.fire(homePage, 'show', null);
+				setTimeout(function() {
+					mui.openWindow({
+						id: "home-webview"
+					});
+				}, 0);
+			};
+			var state = app.getState("$state");
+			var settings = app.getSettings("$settings");
+			if(state.token && settings.gestures) { //锁屏弹出
+				mui(".mui-locker-wrap")[0].style.display = "block";
+			} else {
+				//未锁屏
+				openHome();
+			}
+
+			var preloadViews = [];
+			mui(".mui-bar-tab").on("tap", ".mui-tab-item", function() {
+				if(preloadViews.length == 0) {
+					preloadViews = preloadViewsInit();
+				}
+
+				var future_page = plus.webview.getWebviewById(this.getAttribute("id"));
+				//需要登陆的页面
+				if(future_page.id == "account-webview") {
+					//登陆状态
+					var state = app.getState();
+					console.log("state:" + JSON.stringify(state));
+					var settings = app.getSettings();
+					console.log("settings:" + JSON.stringify(settings));
+					if(state.token) {
+						//异步判断登陆是否过期
+						//已登录
+						future_page.show();
+					} else {
+						//未登录
+						mui.openWindow({
+							url: "page/login/login.html",
+							id: "page-login",
+							show: {
+								aniShow: "slide-in-right"
+							},
+							waiting: {
+								autoShow: false
+							}
+						})
+						return;
+					}
+				} else {
+					future_page.show();
+				}
+				mui(preloadViews).each(function(index, obj) {
+					if(preloadViews[index] == future_page) {
+						future_page.show();
+					} else {
+						preloadViews[index].hide();
+					}
+				});
+
+			});
+		});
+
+		function preloadViewsInit() {
+			var preloadViews = [];
+			mui(menu_view.subpages).each(function() {
+				preloadViews.push(plus.webview.getWebviewById(this.id));
+			});
+			mui(menu_view.preloadPages).each(function() {
+				preloadViews.push(plus.webview.getWebviewById(this.id));
+			});
+			return preloadViews;
+		}
+	</script>
+
+</html>

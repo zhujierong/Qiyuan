@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>琦媛商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+	</head>
+
+	<body>
+		<div class="mui-content active-cont">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background-color: #FFFFFF;">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item1mobile">最新发布</a>
+						<a class="mui-control-item" href="#item2mobile">往期活动</a>
+					</div>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+
+									<li>
+										<a href="javascript:void(0)">
+											<div class="item-wrap">
+												<img src="../../../imgs/temp/video/2.jpg" alt="" />
+												<div class="text">
+													<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会111111</strong>
+													<p><span>2017年3月16日</span> <span>广州</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">
+											<div class="item-wrap">
+												<img src="../../../imgs/temp/video/3.jpg" alt="" />
+												<div class="text">
+													<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>
+													<p><span>2017年3月16日</span> <span>广州</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">
+											<div class="item-wrap">
+												<img src="../../../imgs/temp/banner/1.jpg" alt="" />
+												<div class="text">
+													<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>
+													<p><span>2017年3月16日</span> <span>广州</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+
+									<li>
+										<a href="javascript:void(0)">
+											<div class="item-wrap">
+												<img src="../../../imgs/temp/video/4.jpg" alt="" />
+												<div class="text">
+													<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>
+													<p><span>2017年3月16日</span> <span>广州</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">
+											<div class="item-wrap">
+												<img src="../../../imgs/temp/video/2.jpg" alt="" />
+												<div class="text">
+													<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>
+													<p><span>2017年3月16日</span> <span>广州</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)">
+											<div class="item-wrap">
+												<img src="../../../imgs/temp/banner/1.jpg" alt="" />
+												<div class="text">
+													<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>
+													<p><span>2017年3月16日</span> <span>广州</span></p>
+												</div>
+											</div>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script>
+			mui.init();
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration: deceleration
+				});
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							//							down: {
+							//								callback: function() {
+							//									var self = this;
+							//									setTimeout(function() {
+							//										var ul = self.element.querySelector('.mui-table-view');
+							//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+							//										self.endPullDownToRefresh();
+							//									}, 1000);
+							//								}
+							//							}
+							//							,
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.appendChild(createFragment(ul, index, 5));
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+						});
+					});
+					var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment();
+						var li;
+						for(var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.innerHTML = '<li>' +
+								'<a href="javascript:void(0)">' +
+								'<div class="item-wrap">' +
+								'<img src="../../../imgs/temp/banner/1.jpg" alt="" />' +
+								'<div class="text">' +
+								'<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>' +
+								'<p><span>2017年3月16日</span> <span>广州</span></p>' +
+								'</div>' +
+								'</div>' +
+								'</a>' +
+								'</li>';
+
+							fragment.appendChild(li);
+						}
+						return fragment;
+					};
+				});
+			})(mui);
+		</script>
+	</body>
+
+</html>

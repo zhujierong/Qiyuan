@@ -5,13 +5,15 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/libs/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
 
 		<style>
 			ul {
 				font-size: 14px;
 				color: #8f8f94;
 			}
+			
 			.mui-btn {
 				padding: 10px;
 			}
@@ -33,15 +35,18 @@
 						<li>你可以设置 “锁屏图案”，这样可通过手势密码代替输入账号、密码；</li>
 					</ul>
 				</p>
-				<!--<button  class="mui-btn mui-btn-block mui-btn-primary">设置</button>-->
-				<!--
+				<button class="mui-btn mui-btn-block mui-btn-primary">设置</button>
+
 				<button id='exit' class="mui-btn mui-btn-block mui-btn-green">关闭</button>
-                <button id='logout' class="mui-btn mui-btn-red mui-btn-block">注销登录</button>
-                -->
+				<button id='logout' class="mui-btn mui-btn-red mui-btn-block">注销登录</button>
+
 			</div>
 		</div>
-		<script src="js/mui.min.js"></script>
-		<script src="js/app.js"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.enterfocus.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			(function($, doc) {
 				$.init();
@@ -58,7 +63,7 @@
 					var backButtonPress = 0;
 					$.back = function(event) {
 						backButtonPress++;
-						if (backButtonPress > 1) {
+						if(backButtonPress > 1) {
 							plus.runtime.quit();
 						} else {
 							plus.nativeUI.toast('再按一次退出应用');

@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>琦媛服务</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -14,11 +14,15 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<h1 id="title" class="mui-title">琦媛服务</h1>
+			<div class="mui-row segmented-control-new">
+				<button class="mui-col-sm-6 mui-col-xs-6 control-item active" id="server-show">琦媛服务</button>
+				<button class="mui-col-sm-6 mui-col-xs-6 control-item" id="expert-show">权威专家</button>
+			</div>
 		</header>
 		<div class="mui-content"></div>
 	</body>
 	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
@@ -27,22 +31,41 @@
 			gestureConfig: {
 				doubletap: true
 			},
-			subpages: [{
-				url: 'list_sub.html',
-				id: 'list_sub.html',
+			subpages: [{ //健康管理
+				url: 'expert/list_sub.html',
+				id: 'expert-list_sub',
 				styles: {
-					top: '0px',
-					bottom: '0px',
+					top: JRZH.styles.headerHeight,
+					bottom: 0
+				}
+			}, { //琦媛服务
+				url: 'serving/list_sub.html',
+				id: 'serving-list_sub',
+				styles: {
+					top: JRZH.styles.headerHeight,
+					bottom: 0
 				}
 			}]
 		});
+		//琦媛服务
+		mui(".segmented-control-new").on("tap", "#server-show", function() {
 
-		var contentWebview = null;
-		document.querySelector('header').addEventListener('doubletap', function() {
-			if(contentWebview == null) {
-				contentWebview = plus.webview.currentWebview().children()[0];
-			}
-			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+			$(this).addClass("active").siblings().removeClass("active");
+
+			var serving_sub = plus.webview.getWebviewById("serving-list_sub");
+			var expert_sub = plus.webview.getWebviewById("expert-list_sub");
+			serving_sub.show();
+			expert_sub.hide();
+		});
+		//权威专家
+		mui(".segmented-control-new").on("tap", "#expert-show", function() {
+
+			$(this).addClass("active").siblings().removeClass("active");
+
+			var serving_sub = plus.webview.getWebviewById("serving-list_sub");
+			var expert_sub = plus.webview.getWebviewById("expert-list_sub");
+			expert_sub.show();
+			serving_sub.hide();
 		});
 	</script>
 

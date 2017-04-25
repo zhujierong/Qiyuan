@@ -1,29 +1,43 @@
 html {
     //  font-size: 62.5%;
-    font-size: 200px;
+    font-size: 120px;
 }
+
 body {
     background-color: $body_bg;
 }
+
 ul {
     list-style: none;
 }
+
 .left {
     float: left;
 }
+
 .right {
     float: right;
 }
+
 .clear:before {
     content: "";
     display: block;
     clear: both;
 }
+
 .clear:after {
     content: "";
     display: block;
     clear: both;
 }
+
+.article {
+    text-indent: 2em;
+    font-size: .14rem;
+    line-height: 2em;
+    color: #666;
+}
+
 .pd-border-t:before {
     content: "";
     position: absolute;
@@ -33,15 +47,19 @@ ul {
     height: 1px;
     background-color: #FFFFFF;
 }
+
 .mt5 {
     margin-top: 5px;
 }
+
 .mt10 {
     margin-top: 10px;
 }
+
 .mt15 {
     margin-top: 15px;
 }
+
 .pd-border-r:before {
     content: "";
     position: absolute;

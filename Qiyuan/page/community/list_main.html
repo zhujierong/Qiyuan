@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>活动</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<div class="mui-row segmented-control-new">
+				<button class="mui-col-sm-4 mui-col-xs-4 control-item" id="circle-list_sub">圈子</button>
+				<button class="mui-col-sm-4 mui-col-xs-4 control-item active" id="activity-list_sub">活动</button>
+				<button class="mui-col-sm-4 mui-col-xs-4 control-item" id="information-list_sub">资讯</button>
+			</div>
+		</header>
+		<div class="mui-content">
+
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var subpages = [{ //活动
+			url: 'activity/list_sub.html',
+			id: 'activity-list_sub',
+			styles: {
+				top: JRZH.styles.headerHeight,
+				bottom: 0,
+			}
+		}, { //圈子
+			url: 'circle/list_sub.html',
+			id: 'circle-list_sub',
+			styles: {
+				top: JRZH.styles.headerHeight,
+				bottom: 0,
+			}
+		}, { //资讯
+			url: 'information/list_sub.html',
+			id: 'information-list_sub',
+			styles: {
+				top: JRZH.styles.headerHeight,
+				bottom: 0,
+			}
+		}]
+		//启用双击监听
+		mui.init({
+			gestureConfig: {
+				doubletap: true
+			},
+			subpages: subpages
+		});
+
+		var subpages_view = [];
+		//圈子
+		mui(".segmented-control-new").on("tap", ".control-item", function() {
+
+			if(subpages_view.length <= 0) {
+				mui(subpages).each(function() {
+					subpages_view.push(plus.webview.getWebviewById(this.id))
+				});
+			}
+			var item = document.querySelectorAll(".segmented-control-new .control-item");
+			mui(item).each(function() {
+				this.classList.remove("active");
+			});
+			this.classList.add("active");
+			var after_view = plus.webview.getWebviewById(this.getAttribute("id"));
+			mui(subpages_view).each(function() {
+				if(this == after_view) {
+					this.show();
+				} else {
+					this.hide()
+				}
+			});
+		});
+		//		//活动
+		//		mui(".segmented-control-new").on("tap", "#expert-show", function() {
+		//
+		//			$(this).addClass("active").siblings().removeClass("active");
+		//
+		//			var serving_sub = plus.webview.getWebviewById("serving-list_sub");
+		//			var expert_sub = plus.webview.getWebviewById("expert-list_sub");
+		//			expert_sub.show();
+		//			serving_sub.hide();
+		//		});
+		//		//资讯
+		//		mui(".segmented-control-new").on("tap", "#expert-show", function() {
+		//
+		//			$(this).addClass("active").siblings().removeClass("active");
+		//
+		//			var serving_sub = plus.webview.getWebviewById("serving-list_sub");
+		//			var expert_sub = plus.webview.getWebviewById("expert-list_sub");
+		//			expert_sub.show();
+		//			serving_sub.hide();
+		//		});
+
+		var contentWebview = null;
+		document.querySelector('header').addEventListener('doubletap', function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
+	</script>
+
+</html>

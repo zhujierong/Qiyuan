@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>琦媛服务</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">个人账户</h1>
+			<a id="gotoMore" class="mui-icon mui-icon-gear mui-pull-right"></a>
+		</header>
+		<div class="mui-content"></div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//启用双击监听
+		mui.init({
+			gestureConfig: {
+				doubletap: true
+			}
+		});
+		mui.plusReady(function() {
+			mui(".mui-bar-nav").on("tap", "#gotoMore", function() {
+				mui.openWindow("../more/setting.html", "more-setting");
+			})
+		});
+		var contentWebview = null;
+		document.querySelector('header').addEventListener('doubletap', function() {
+			if(contentWebview == null) {
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});
+	</script>
+
+</html>
