@@ -29,9 +29,9 @@
 		}
 	};
 
-//	owner.isLogin(function(){
-//		
-//	})
+	//	owner.isLogin(function(){
+	//		
+	//	})
 
 	owner.createState = function(name, callback) {
 		var state = owner.getState();
@@ -46,17 +46,29 @@
 	 **/
 	owner.reg = function(regInfo, callback) {
 		callback = callback || $.noop;
-		regInfo = regInfo || {};
-		regInfo.mobile = regInfo.mobile || '';
-		regInfo.password = regInfo.password || '';
 
-		if(!checkEmail(regInfo.email)) {
-			return callback('邮箱地址不合法');
-		}
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		users.push(regInfo);
-		localStorage.setItem('$users', JSON.stringify(users));
-		return callback();
+		mui.ajax(JRZH.BASE_URL + 'user/register.json', {
+			data: regInfo,
+			dataType: 'json', //服务器返回json格式数据
+			type: 'post', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			success: function(data) {
+
+				if(data.status == 1) {
+					var users = JSON.parse(localStorage.getItem('$users') || '[]');
+					users.push(regInfo);
+					localStorage.setItem('$users', JSON.stringify(users));
+					successcallback(data);
+				} else {
+					errorcallback(data);
+				}
+
+			},
+			error: function(xhr, type, errorThrown) {
+				JRZH.xhrError()
+			}
+		});
+
 	};
 
 	/**
@@ -106,42 +118,82 @@
 	 * 设置应用本地配置
 	 **/
 	owner.getSettings = function() {
-		var settingsText = localStorage.getItem('$settings') || "{}";
-		return JSON.parse(settingsText);
-	}
-	/**
-	 * 获取本地是否安装客户端
-	 **/
+			var settingsText = localStorage.getItem('$settings') || "{}";
+			return JSON.parse(settingsText);
+		}
+		/**
+		 * 获取本地是否安装客户端
+		 **/
 	owner.isInstalled = function(id) {
-		if(id === 'qihoo' && mui.os.plus) {
-			return true;
-		}
-		if(mui.os.android) {
-			var main = plus.android.runtimeMainActivity();
-			var packageManager = main.getPackageManager();
-			var PackageManager = plus.android.importClass(packageManager)
-			var packageName = {
-				"qq": "com.tencent.mobileqq",
-				"weixin": "com.tencent.mm",
-				"sinaweibo": "com.sina.weibo"
+			if(id === 'qihoo' && mui.os.plus) {
+				return true;
 			}
-			try {
-				return packageManager.getPackageInfo(packageName[id], PackageManager.GET_ACTIVITIES);
-			} catch(e) {}
-		} else {
-			switch(id) {
-				case "qq":
-					var TencentOAuth = plus.ios.import("TencentOAuth");
-					return TencentOAuth.iphoneQQInstalled();
-				case "weixin":
-					var WXApi = plus.ios.import("WXApi");
-					return WXApi.isWXAppInstalled()
-				case "sinaweibo":
-					var SinaAPI = plus.ios.import("WeiboSDK");
-					return SinaAPI.isWeiboAppInstalled()
-				default:
-					break;
+			if(mui.os.android) {
+				var main = plus.android.runtimeMainActivity();
+				var packageManager = main.getPackageManager();
+				var PackageManager = plus.android.importClass(packageManager)
+				var packageName = {
+					"qq": "com.tencent.mobileqq",
+					"weixin": "com.tencent.mm",
+					"sinaweibo": "com.sina.weibo"
+				}
+				try {
+					return packageManager.getPackageInfo(packageName[id], PackageManager.GET_ACTIVITIES);
+				} catch(e) {}
+			} else {
+				switch(id) {
+					case "qq":
+						var TencentOAuth = plus.ios.import("TencentOAuth");
+						return TencentOAuth.iphoneQQInstalled();
+					case "weixin":
+						var WXApi = plus.ios.import("WXApi");
+						return WXApi.isWXAppInstalled()
+					case "sinaweibo":
+						var SinaAPI = plus.ios.import("WeiboSDK");
+						return SinaAPI.isWeiboAppInstalled()
+					default:
+						break;
+				}
 			}
 		}
+		/*
+		 * 发送验证码
+		 */
+	owner.sendCode = function(sendElem, mobile, time, successcallback, errorcallback) {
+		if(sendElem.classList.contains("disabled")) return;
+		if(isNaN(time)) time = 120;
+		sendElem.classList.add("disabled");
+		sendElem.innerHTML = time + "s再次发送";
+		var interTime = setInterval(function() {
+			var _number = parseInt(sendElem.innerHTML) - 1;
+			sendElem.innerHTML = _number + "s再次发送";
+			if(_number <= 0) {
+				sendElem.innerHTML = "发送验证码";
+				sendElem.classList.remove("disabled");
+				clearInterval(interTime);
+			}
+		}, 1000);
+		mui.ajax(JRZH.BASE_URL + 'user/sendMobileMsg.json', {
+			data: {
+				mobile: mobile
+			},
+			dataType: 'json', //服务器返回json格式数据
+			type: 'post', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			success: function(data) {
+				if(data.status == 1) {
+					successcallback(data);
+				} else {
+					errorcallback(data);
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+				sendElem.innerHTML = "发送验证码";
+				sendElem.classList.remove("disabled");
+				clearInterval(interTime);
+				JRZH.xhrError();
+			}
+		});
 	}
+
 }(mui, window.app = {}));

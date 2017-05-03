@@ -141,7 +141,17 @@
 					if(state.token) {
 						//异步判断登陆是否过期
 						//已登录
-						future_page.show();
+						mui.openWindow({
+								url: "page/login/login.html",
+								id: "page-login",
+								show: {
+									aniShow: "slide-in-right"
+								},
+								waiting: {
+									autoShow: false
+								}
+							})
+							//						future_page.show();
 					} else {
 						//未登录
 						mui.openWindow({

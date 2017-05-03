@@ -7,6 +7,11 @@
 		<title>注册</title>
 		<link href="../../css/libs/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+		<style type="text/css">
+			.mui-page {
+				display: none;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -24,7 +29,7 @@
 					<div class="mui-input-row">
 						<label>短信验证</label>
 						<input id='codeSMS' type="text" maxlength="6" class="mui-input" placeholder="短信验证码">
-						<a class="mui-btn mui-btn-primary mui-pull-right">发送验证码</a>
+						<a id="sendCode" class="mui-btn mui-btn-primary mui-pull-right">发送验证码</a>
 					</div>
 					<div class="mui-input-row">
 						<label>密码</label>
@@ -39,11 +44,11 @@
 				<form class="mui-input-group">
 					<div class="mui-input-row">
 						<label>姓名</label>
-						<input id='userName' type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
+						<input value="朱杰荣" id='userName' type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
 					</div>
 					<div class="mui-input-row">
 						<label>年龄</label>
-						<input id='userAge' type="number" maxlength="3" class="mui-input-clear mui-input" placeholder="请输入年龄">
+						<input value="25" id='userAge' type="number" maxlength="3" class="mui-input-clear mui-input" placeholder="请输入年龄">
 					</div>
 					<div class="mui-input-row">
 						<label>性别</label>
@@ -82,6 +87,7 @@
 				$.plusReady(function() {
 					var settings = app.getSettings();
 
+					var sendCodeButton = doc.getElementById('sendCode');
 					var sexSwitch = doc.getElementById('userSexSwitch');
 					var regNextButton = doc.getElementById("reg-next")
 					var regPreButton = doc.getElementById("reg-pre")
@@ -91,11 +97,26 @@
 					var codeSMS = doc.getElementById('codeSMS');
 					var passwordBox = doc.getElementById('password');
 
-					var NameBox = doc.getElementById('userName');
+					var nameBox = doc.getElementById('userName');
 					var userAgeBox = doc.getElementById('userAge');
 					var userSexBox = doc.getElementById('userSex');
 					var userEmailBox = doc.getElementById('userEmail');
 					var refereeBox = doc.getElementById('referee');
+
+					sendCodeButton.addEventListener("tap", function() {
+
+						var mobile = mobileBox.value;
+						if(!JRZH.reg.mobile(mobile)) {
+							return plus.nativeUI.toast('请填写正确的手机号码');
+						}
+						app.sendCode(sendCodeButton, mobile, 6, function(data) {
+							plus.nativeUI.toast("短信验证码：" + data.object.code);
+							sendCodeButton.setAttribute("codeText", data.object.code);
+						}, function(error) {
+							plus.nativeUI.toast(error.message);
+						});
+
+					});
 
 					sexSwitch.addEventListener("toggle", function(event) {
 						if(event.detail.isActive) {
@@ -104,7 +125,18 @@
 							userSexBox.value = "女";
 						}
 					});
+
 					//验证数据
+					codeSMS.addEventListener("blur", function() {
+
+						if(!sendCodeButton.classList.contains("disabled")) return;
+						var codeInput = this.value;
+						var spanCode = sendCodeButton.getAttribute("codeText");
+						if(codeInput != spanCode) {
+							return plus.nativeUI.toast('短信验证码错误');
+						}
+
+					});
 					var regInfo = {};
 					regNextButton.addEventListener("tap", function(event) {
 
@@ -117,13 +149,22 @@
 							return plus.nativeUI.toast('请填写正确的手机号码');
 						}
 
+						var spanCode = sendCodeButton.getAttribute("codeText");
+
+						if(regInfo.codeSMS != spanCode) {
+							if(regInfo.codeSMS.length == 0)
+								return plus.nativeUI.toast('短信验证码不能为空');
+							return plus.nativeUI.toast('短信验证码错误');
+						}
+
 						if(regInfo.password.length < 6) {
 							return plus.nativeUI.toast('密码最短需要 6 个字符');
 						}
 						document.getElementById("contentno1").style.display = "none";
 						document.getElementById("contentno2").style.display = "block";
 
-						NameBox.focus();
+						nameBox.focus();
+
 					});
 					regPreButton.addEventListener("tap", function() {
 						document.getElementById("contentno1").style.display = "block";
@@ -131,36 +172,46 @@
 					});
 					regButton.addEventListener('tap', function(event) {
 
-						regInfo["name"] = NameBox.value;
+						regInfo["mobile"] = mobileBox.value;
+						regInfo["code"] = codeSMS.value;
+						regInfo["password"] = passwordBox.value;
+						regInfo["nickName"] = nameBox.value;
 						regInfo["age"] = userAgeBox.value;
-						regInfo["sex"] = userSexBox.value;
+						regInfo["sex"] = userSexBox.value == "男" ? 1 : 2;
+						regInfo["ditchId"] = refereeBox.value;
+						regInfo["realName"] = nameBox.value;
 						regInfo["email"] = userEmailBox.value;
-						regInfo["referee"] = refereeBox.value;
+						/*regInfo["thirdpartyNum"] = "第三方账户";
+						regInfo["cardId"] = "身份证";
+						regInfo["address"] = "地址";
+						regInfo["birthday"] = "出生日期";*/
 
-						if(!JRZH.reg.mobile(regInfo.mobile)) {
+						if(regInfo.realName.length <= 0) {
+							return plus.nativeUI.toast('姓名不能为空');
+						}
+						if(regInfo.age.length <= 0) {
+							return plus.nativeUI.toast('年龄不能为空');
+						}
+						if(regInfo.email.length > 0 && !JRZH.reg.email(regInfo.email)) {
+							return plus.nativeUI.toast('邮箱地址不合法');
+						}
+						if(regInfo.mobile.length > 0 && !JRZH.reg.mobile(regInfo.mobile)) {
 							return plus.nativeUI.toast('请填写正确的引荐人手机号码');
 						}
 
-						app.reg(regInfo, function(err) {
-							if(err) {
-								plus.nativeUI.toast(err);
-								return;
-							}
+						app.reg(regInfo, function(data) {
+							console.log(JSON.stringify(data))
 							plus.nativeUI.toast('注册成功');
-							$.openWindow({
-								url: 'login.html',
-								id: 'login',
-								show: {
-									aniShow: 'pop-in'
-								}
-							});
+							//							$.openWindow({
+							//								url: 'login.html',
+							//								id: 'login',
+							//								show: {
+							//									aniShow: 'pop-in'
+							//								}
+							//							});
+						}, function(error) {
+							plus.nativeUI.toast(data.message);
 						});
-
-						//						var passwordConfirm = passwordConfirmBox.value;
-						//						if(passwordConfirm != regInfo.password) {
-						//							plus.nativeUI.toast('密码两次输入不一致');
-						//							return;
-						//						}
 
 					});
 				});

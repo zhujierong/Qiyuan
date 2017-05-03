@@ -6,7 +6,6 @@
 * {
     font-family: "microsoft yahei";
 }
-
 $home_pd: 0.035rem;
 .home-page {
     background-color: #FFFFFF;
@@ -14,9 +13,7 @@ $home_pd: 0.035rem;
         background-color: #FFFFFF;
     }
 }
-
 .home-banner {}
-
 .home-server-wrap {
     margin-top: $home_pd - 0.005rem;
     .mui-row {
@@ -38,7 +35,6 @@ $home_pd: 0.035rem;
         }
     }
 }
-
 .expert-list {
     .mui-table-view-cell {
         padding: 0;
@@ -100,7 +96,6 @@ $home_pd: 0.035rem;
         background-color: #fcf2d7;
     }
 }
-
 .expert-content {
     .expert-top {
         position: relative;
@@ -115,8 +110,8 @@ $home_pd: 0.035rem;
             -o-transform: translateY(-50%);
             transform: translateY(-50%);
             width: 100%;
-            filter: url(/static/svg/filter.svg#blur);
-            filter: blur(10px);
+            filter:url("/static/svg/filter.svg#blur");
+            filter:blur(10px);
             -webkit-filter: blur(10px);
             -moz-filter: blur(10px);
             -o-filter: blur(10px);
@@ -125,45 +120,42 @@ $home_pd: 0.035rem;
         div.cont {
             position: relative;
             z-index: 2;
-            padding-bottom: .15rem;
+            padding-bottom: 0.15rem;
             div.t {
                 img {
                     width: 1.2rem;
                     height: 1.2rem;
                     display: block;
-                    margin: 0 auto;
-                    margin-top: .4rem;
+                    margin: 0.4rem auto 0;
                     border-radius: 0.6rem;
                     border: 0.06rem solid rgba(255, 255, 255, 0.61);
                 }
             }
             div.b {
-                padding: 0 $common_pd;
-                padding-top: 0.20rem;
+                padding: 0.20rem $common_pd 0;
                 text-align: center;
                 span.tag {
                     display: inline-block;
                     padding: 0.03rem 0.15rem;
                     background-color: #9cbf3e;
                     border-radius: 2rem;
-                    font-size: .14rem;
+                    font-size: 0.14rem;
                     color: #FFFFFF;
-                    margin-bottom: .1rem;
+                    margin-bottom: 0.1rem;
                 }
             }
         }
     }
     .expert-info {
         .mui-collapse-content {
-            padding: 0.15rem 0.15rem;
+            padding: 0.15rem;
         }
     }
     .expert-project {
-        margin-top: .1rem;
-        margin-bottom: .1rem;
+        margin-top: 0.1rem;
+        margin-bottom: 0.1rem;
     }
 }
-
 .serving-list {
     .mui-table-view-cell {
         a {
@@ -175,14 +167,12 @@ $home_pd: 0.035rem;
         }
     }
 }
-
 .ueditor-text {
     img {
         max-width: 100%;
         vertical-align: bottom;
     }
 }
-
 .store-info {
     .store-top {
         padding: 0.2rem $common_pd;
@@ -194,7 +184,7 @@ $home_pd: 0.035rem;
         }
         div.foot.money {
             text-align: left;
-            font-size: .14rem;
+            font-size: 0.14rem;
             color: #999;
             padding-top: 5px;
             span.now {
@@ -203,7 +193,7 @@ $home_pd: 0.035rem;
                 color: $cl_red;
                 i {
                     font-style: normal;
-                    font-size: .14rem;
+                    font-size: 0.14rem;
                 }
             }
             span.before {
@@ -212,18 +202,18 @@ $home_pd: 0.035rem;
                 color: #666;
                 i {
                     font-style: normal;
-                    font-size: .14rem;
+                    font-size: 0.14rem;
                 }
             }
         }
     }
     .store-bottom {
         .mui-slider-indicator.mui-segmented-control {
-            margin-top: .1rem;
+            margin-top: 0.1rem;
             background-color: #FFFFFF;
         }
         .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
-            border-top: 0px solid #c8c7cc;
+            border-top: 0 solid #c8c7cc;
         }
         .common-htmltext {
             padding: 0.05rem;
@@ -242,13 +232,12 @@ $home_pd: 0.035rem;
         }
     }
 }
-
 .active-cont {
     ul {
-        padding: 0px;
+        padding: 0;
         li {
-            margin: 0 .15rem;
-            padding: .06rem 0rem;
+            margin: 0 0.15rem;
+            padding: 0.06rem 0;
             border-bottom: 1px dashed #DDDDDD;
             div.item-wrap {
                 position: relative;
@@ -258,7 +247,7 @@ $home_pd: 0.035rem;
                 }
                 div.text {
                     position: absolute;
-                    top: 0px;
+                    top: 0;
                     left: 50%;
                     width: 80%;
                     -webkit-transform: translateX(-50%);
@@ -267,20 +256,20 @@ $home_pd: 0.035rem;
                     -o-transform: translateX(-50%);
                     transform: translateX(-50%);
                     background-color: rgba(29, 134, 215, 0.8);
-                    padding: .1rem .15rem;
+                    padding: 0.1rem 0.15rem;
                     text-align: center;
                     color: #FFFFFF;
                     strong {
-                        font-size: .16rem;
+                        font-size: 0.16rem;
                         color: #FFFFFF;
                         line-height: 1.5em;
                     }
                     p {
-                        padding-top: .1rem;
-                        margin: 0px;
+                        padding-top: 0.1rem;
+                        margin: 0;
                         span {
                             color: #FFFFFF;
-                            font-size: .14rem;
+                            font-size: 0.14rem;
                         }
                     }
                 }
@@ -288,7 +277,6 @@ $home_pd: 0.035rem;
         }
     }
 }
-
 .information-list {
     .mui-table-view-cell {
         a {
@@ -301,14 +289,14 @@ $home_pd: 0.035rem;
             p {}
             div.foot.icon-text {
                 text-align: left;
-                padding-top: .05rem;
+                padding-top: 0.05rem;
                 span.text {
                     .mui-icon {
-                        font-size: .14rem;
+                        font-size: 0.14rem;
                         padding-right: 5px;
                     }
                     color: #999999;
-                    font-size: .12rem;
+                    font-size: 0.12rem;
                 }
                 span.r {
                     float: right;
@@ -317,25 +305,24 @@ $home_pd: 0.035rem;
         }
     }
 }
-
 .video-list {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     background-color: #FFFFFF;
     .mui-table-view-cell {
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
         a:not(.mui-btn) {
-            padding: 0px;
-            margin: 0px;
+            padding: 0;
+            margin: 0;
             .mui-media-head {
-                padding-top: .05rem;
+                padding-top: 0.05rem;
                 margin: 0 $common_pd;
-                height: .5rem;
-                line-height: .45rem;
+                height: 0.5rem;
+                line-height: 0.45rem;
                 border-top: 1px solid #efefef;
                 strong {
-                    font-size: .16rem;
+                    font-size: 0.16rem;
                     font-weight: normal;
                 }
             }
@@ -345,8 +332,8 @@ $home_pd: 0.035rem;
                 position: relative;
                 .msak {
                     position: absolute;
-                    top: 0px;
-                    left: 0px;
+                    top: 0;
+                    left: 0;
                     width: 100%;
                     height: 100%;
                     background-color: rgba(0, 0, 0, 0.2);
@@ -354,7 +341,7 @@ $home_pd: 0.035rem;
                         position: absolute;
                         top: 50%;
                         left: 50%;
-                        width: .5rem;
+                        width: 0.5rem;
                         margin-left: -0.25rem;
                         margin-top: -0.25rem;
                     }
@@ -365,15 +352,15 @@ $home_pd: 0.035rem;
             }
             .mui-media-footer {
                 clear: both;
-                height: .4rem;
-                line-height: .4rem;
+                height: 0.4rem;
+                line-height: 0.4rem;
                 margin: 0 $common_pd;
                 span.text {
-                    font-size: .14rem;
+                    font-size: 0.14rem;
                     color: #666;
                     i.mui-icon {
-                        font-size: .20rem;
-                        padding-right: .05rem;
+                        font-size: 0.20rem;
+                        padding-right: 0.05rem;
                     }
                 }
                 span.r {
@@ -386,10 +373,9 @@ $home_pd: 0.035rem;
         display: none;
     }
 }
-
 .mui-locker-wrap {
     position: fixed;
-    top: 0px;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -397,15 +383,15 @@ $home_pd: 0.035rem;
     background-color: #FFFFFF;
     display: none;
     .tx-warp {
-        padding-top: .5rem;
+        padding-top: 0.5rem;
         text-align: center;
         img {
             width: 1rem;
             border-radius: 100%;
         }
         span {
-            font-size: .14rem;
-            padding-top: .1rem;
+            font-size: 0.14rem;
+            padding-top: 0.1rem;
             color: $main_cl;
             display: inline-block;
         }
@@ -418,9 +404,20 @@ $home_pd: 0.035rem;
         color: #AAAAAA;
         font-size: 12px;
         a {
-            font-size: .14rem;
+            font-size: 0.14rem;
             color: #999;
-            padding: 0 .1rem;
+            padding: 0 0.1rem;
+        }
+    }
+}
+.mui-content-padded {
+    .link-area {
+        a {
+            font-size: 0.14rem;
+            color: #999999;
+        }
+        span {
+            font-size: 0.12rem;
         }
     }
 }

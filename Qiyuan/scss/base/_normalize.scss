@@ -10,7 +10,6 @@
     }
     .p-cont {}
 }
-
 .filter-tab {
     height: 40px;
     line-height: 38px;
@@ -42,7 +41,6 @@
         }
     }
 }
-
 .common-list2 {
     .mui-table-view-cell {
         padding: 0.175rem 0.2rem;
@@ -89,7 +87,6 @@
         }
     }
 }
-
 .common-list {
     .mui-table-view-cell {
         padding: 0;
@@ -134,7 +131,7 @@
             }
             div.foot.money {
                 text-align: left;
-                font-size: .14rem;
+                font-size: 0.14rem;
                 color: #999;
                 padding-top: 5px;
                 span.now {
@@ -143,7 +140,7 @@
                     color: $cl_red;
                     i {
                         font-style: normal;
-                        font-size: .14rem;
+                        font-size: 0.14rem;
                     }
                 }
                 span.before {
@@ -151,41 +148,39 @@
                     color: #666;
                     i {
                         font-style: normal;
-                        font-size: .14rem;
+                        font-size: 0.14rem;
                     }
                 }
             }
         }
     }
 }
-
 .footer-btns {
     height: 45px;
     .wrap {
         position: fixed;
-        bottom: 0px;
-        left: 0px;
+        bottom: 0;
+        left: 0;
         width: 100%;
         background-color: #FFFFFF;
         border-top: 1px solid #DDDDDD;
         .mui-btn {
-            margin: 0px;
-            padding: 0px;
-            border-radius: 0px;
-            border-width: 0px;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            border-width: 0;
             height: 45px;
             line-height: 45px;
             color: $main_cl;
-            font-size: .18rem;
+            font-size: 0.18rem;
         }
         .mui-btn-primary {
-            font-size: .16rem;
+            font-size: 0.16rem;
             color: #FFFFFF;
             background-color: $main_cl;
         }
     }
 }
-
 .mui-bar-nav {
     .mui-segmented-control {
         top: 50%;
@@ -198,7 +193,7 @@
         border: 1px solid #FFFFFF;
         .mui-control-item {
             line-height: 30px;
-            font-size: .14rem;
+            font-size: 0.14rem;
             border-color: #FFFFFF;
             border-left: 1px solid #FFFFFF;
             color: rgba(255, 255, 255, .9);
@@ -213,7 +208,6 @@
         }
     }
 }
-
 .segmented-control-new {
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -236,19 +230,19 @@
     .control-item {
         display: table-cell;
         overflow: hidden;
-        -webkit-transition: background-color .1s linear;
-        transition: background-color .1s linear;
+        -webkit-transition: background-color 0.1s linear;
+        transition: background-color 0.1s linear;
         text-align: center;
         white-space: nowrap;
         text-overflow: ellipsis;
         line-height: 30px;
-        font-size: .14rem;
+        font-size: 0.14rem;
         border-color: #FFFFFF;
         border-left: 1px solid #FFFFFF;
         color: rgba(255, 255, 255, 0.9);
         background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 0px;
-        padding: 0px;
+        border-radius: 0;
+        padding: 0;
     }
     .control-item:first-child {
         border-left-width: 0;
@@ -258,11 +252,10 @@
         background-color: #FFFFFF;
     }
 }
-
 .account-form-cont {
     .mui-input-row {
-        height: .45rem;
-        line-height: .45rem;
+        height: 0.45rem;
+        line-height: 0.45rem;
         position: relative;
         .mui-btn.mui-pull-right {
             position: absolute;
@@ -272,9 +265,21 @@
             -ms-transform: translateY(-50%);
             -o-transform: translateY(-50%);
             transform: translateY(-50%);
-            right: .15rem;
-            padding: .07rem;
+            right: 0.15rem;
+            padding: 0.07rem;
             width: auto;
+            color: #FFFFFF;
+            border: 0;
+            font-size: 0.14rem;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+        .mui-btn.mui-pull-right.disabled {
+            background-color: #BBBBBB;
+            color: #fbfbfb;
         }
     }
     .mui-switch {
@@ -285,7 +290,7 @@
         -ms-transform: translateY(-50%);
         -o-transform: translateY(-50%);
         transform: translateY(-50%);
-        right: .15rem;
+        right: 0.15rem;
         margin: 0;
     }
 }

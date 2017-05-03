@@ -1,4 +1,13 @@
 var JRZH = {
+	port: "http://192.168.1.113:8080",
+	BASE_URL: "http://192.168.1.113:8080/qiy/mobile/",
+	xhrError: function(text) {
+		var msg = '哎呀,网络连接出错啦!';
+		if(text) {
+			msg = text;
+		}
+		plus.nativeUI.toast(msg);
+	},
 	styles: {
 		headerHeight: '44px',
 		menuHeight: '50px',
@@ -33,7 +42,7 @@ var JRZH = {
 			return /^1[34578]\d{9}$/.test(text);
 		},
 		email: function(text) {
-			return /^[a-zA-Z0-9][a-zA-Z0-9_\\.]+[a-zA-Z0-9]@[a-z0-9]{2,7}(\\.[a-z]{2,3}){1,3}$/.test(text);
+			return /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(text);
 		}
 	}
 }
