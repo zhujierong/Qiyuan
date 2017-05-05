@@ -8,7 +8,9 @@
 		};
 	a.addEventListener && (d.addEventListener(e, c, !1), a.addEventListener("DOMContentLoaded", c, !1))
 })(document, window);
-//筛选宽度计算
+/*
+ * 初始化顶部筛选条的宽度比例
+ */
 JRZH.filterInit();
 mui(".mui-bar-nav").on("tap", "#collect", function() {
 	$(this).toggleClass("mui-icon-star-filled");

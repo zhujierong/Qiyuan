@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>知识宝典</title>
+		<title>资讯</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -21,7 +21,8 @@
 						<a class="mui-control-item" href="#item2mobile">视频专区</a>
 					</div>
 				</div>
-				<div class="mui-slider-group">
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div id="muiSliderGroup" class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
@@ -194,75 +195,214 @@
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
-		<script src="../../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
 			mui.init();
-			(function($) {
-				//阻尼系数
-				var deceleration = mui.os.ios ? 0.003 : 0.0009;
-				$('.mui-scroll-wrapper').scroll({
-					bounce: false,
-					indicators: true, //是否显示滚动条
-					deceleration: deceleration
-				});
-				$.ready(function() {
+			mui.plusReady(function() {
+				initData();
+			});
+
+			function initData() {
+				var topTabs = document.querySelectorAll("#sliderSegmentedControl .mui-scroll")[0];
+				var muiSliderGroup = document.querySelectorAll("#muiSliderGroup")[0];
+				appData.intellectualType({}, function(response) {
+					var viewTypeList = response.object.viewList;
+					var strhtml = "";
+					var strCent = "";
+					//处理tab下部动画条 
+					document.getElementById("sliderProgressBar").classList.add("mui-col-xs-4");
+					for(var index in viewTypeList) {
+						strhtml += '<a class="mui-control-item" href="#tab' + viewTypeList[index].id + '">' + viewTypeList[index].name + '</a>';
+						strCent += '<div id="tab' + viewTypeList[index].id + '" class="mui-slider-item mui-control-content">' +
+							'<div class="mui-scroll-wrapper">' +
+							'<div class="mui-scroll">' +
+							'<ul class="mui-table-view common-list serving-list" typeid=' + viewTypeList[index].id + ' page="0" nomore="false">' +
+							'</ul>' +
+							'</div>' +
+							'</div>' +
+							'</div>';
+					}
+
+					topTabs.innerHTML = strhtml;
+					muiSliderGroup.innerHTML = strCent;
+					mui(".mui-slider").slider();
+					//阻尼系数
+					var deceleration = mui.os.ios ? 0.003 : 0.0009;
+					mui('.mui-scroll-wrapper').scroll({
+						scrollY: true, //是否竖向滚动
+						scrollX: false, //是否横向滚动
+						bounce: true, //是否启用回弹
+						deceleration: deceleration
+					});
+					JRZH.filterInit();
 					//循环初始化所有下拉刷新，上拉加载。
-					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-						$(pullRefreshEl).pullToRefresh({
-							//							down: {
-							//								callback: function() {
-							//									var self = this;
-							//									setTimeout(function() {
-							//										var ul = self.element.querySelector('.mui-table-view');
-							//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
-							//										self.endPullDownToRefresh();
-							//									}, 1000);
-							//								}
-							//							},
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							down: {
+								auto: true, //可选,默认false.自动上拉加载一次
+								callback: refreshList
+							},
 							up: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
-										self.endPullUpToRefresh();
-									}, 1000);
-								}
+								auto: true, //可选,默认false.自动上拉加载一次
+								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+								callback: loadMoreList
 							}
 						});
 					});
-					var createFragment = function(ul, index, count, reverse) {
-						var length = ul.querySelectorAll('li').length;
-						var fragment = document.createDocumentFragment();
-						var li;
-						for(var i = 0; i < count; i++) {
-							li = document.createElement('li');
-							li.className = 'mui-table-view-cell';
-							li.innerHTML = '<a href="javascript:;">' +
-								'<img class="mui-media-object mui-pull-left" src="../../imgs/temp/server/list.jpg">' +
-								'<div class="mui-media-body">' +
-								'<strong>健康监测</strong>' +
-								'<p>艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>' +
-								'<div class="foot money">' +
-								'<span class="now">' +
-								'<i>¥</i>1000</span>抵' +
-								'<span class="before">' +
-								'<i>¥</i>5000' +
-								'</span>' +
-								'</div>' +
-								'</div>' +
-								'</a>';
-
-							fragment.appendChild(li);
-						}
-						return fragment;
-					};
+				}, function(response) {
+					plus.nativeUI.toast(response.message);
 				});
-			})(mui);
+
+			}
+
+			function refreshList() {
+				var self = this;
+				var ul = self.element.querySelector('.mui-table-view');
+				var typeid = ul.getAttribute("typeid");
+				var page = 1;
+				appData.intellectual({
+					typeId: typeid,
+					page: page,
+					rows: 10
+				}, function(response) {
+					ul.setAttribute("page", page);
+					var listStr = "";
+					var viewList = response.object.viewList;
+					ul.innerHTML = "";
+					ul.appendChild(createList(viewList));
+					self.endPullDownToRefresh();
+					plus.nativeUI.toast("刷新成功");
+				}, function(response) {
+					console.log(JSON.stringify(response))
+				}, function() {
+					self.endPullDownToRefresh();
+				});
+			}
+
+			function loadMoreList() {
+				var self = this;
+				var ul = self.element.querySelector('.mui-table-view');
+				if(ul.getAttribute("nomore") == "true") {
+					//没有更多数据了
+					self.endPullUpToRefresh(true);
+					return;
+				}
+				var typeid = ul.getAttribute("typeid");
+				var page = ul.getAttribute("page") * 1 + 1;
+				var row = 10;
+				appData.intellectual({
+					typeId: typeid,
+					page: page,
+					rows: row
+				}, function(response) {
+					ul.setAttribute("page", page);
+					var listStr = "";
+					var viewList = response.object.viewList;
+					if(viewList.length <= 0) {
+						self.endPullUpToRefresh(true);
+						return
+					}
+					ul.appendChild(createList(viewList));
+					self.endPullUpToRefresh(false);
+				}, function(response) {
+					console.log(JSON.stringify(response))
+				}, function() {
+					self.endPullUpToRefresh();
+				});
+			}
+
+			function createList(viewList) {
+				var fragment = document.createDocumentFragment();
+				for(var i in viewList) {
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					viewList[i].synopsis = JRZH.maxTextLength(viewList[i].synopsis, 55, true);
+					var htmlstr = "";
+					htmlstr = '<a href="javascript:;" id="' + viewList[i].id + '">' +
+						'<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">' +
+						'<div class="mui-media-body">' +
+						'<strong>健康是人最宝贵的财富</strong>' +
+						'<p>琦媛以疾病预测、疾病预防、健康促进和个性化健康 健康促进和服务......</p>' +
+						'<div class="foot icon-text">' +
+						'<span class="text">2345条评论</span>' +
+						'<span class="r text">2017-4-21</span>' +
+						'</div>' +
+						'</div>' +
+						'</a>';
+					li.innerHTML = htmlstr;
+					fragment.appendChild(li);
+
+				}
+				return fragment;
+			};
+
+			//			(function($) {
+			//				//阻尼系数
+			//				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			//				$('.mui-scroll-wrapper').scroll({
+			//					bounce: false,
+			//					indicators: true, //是否显示滚动条
+			//					deceleration: deceleration
+			//				});
+			//				$.ready(function() {
+			//					//循环初始化所有下拉刷新，上拉加载。
+			//					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+			//						$(pullRefreshEl).pullToRefresh({
+			//							//							down: {
+			//							//								callback: function() {
+			//							//									var self = this;
+			//							//									setTimeout(function() {
+			//							//										var ul = self.element.querySelector('.mui-table-view');
+			//							//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+			//							//										self.endPullDownToRefresh();
+			//							//									}, 1000);
+			//							//								}
+			//							//							},
+			//							up: {
+			//								callback: function() {
+			//									var self = this;
+			//									setTimeout(function() {
+			//										var ul = self.element.querySelector('.mui-table-view');
+			//										ul.appendChild(createFragment(ul, index, 5));
+			//										self.endPullUpToRefresh();
+			//									}, 1000);
+			//								}
+			//							}
+			//						});
+			//					});
+			//					var createFragment = function(ul, index, count, reverse) {
+			//						var length = ul.querySelectorAll('li').length;
+			//						var fragment = document.createDocumentFragment();
+			//						var li;
+			//						for(var i = 0; i < count; i++) {
+			//							li = document.createElement('li');
+			//							li.className = 'mui-table-view-cell';
+			//							li.innerHTML = '<a href="javascript:;">' +
+			//								'<img class="mui-media-object mui-pull-left" src="../../imgs/temp/server/list.jpg">' +
+			//								'<div class="mui-media-body">' +
+			//								'<strong>健康监测</strong>' +
+			//								'<p>艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>' +
+			//								'<div class="foot money">' +
+			//								'<span class="now">' +
+			//								'<i>¥</i>1000</span>抵' +
+			//								'<span class="before">' +
+			//								'<i>¥</i>5000' +
+			//								'</span>' +
+			//								'</div>' +
+			//								'</div>' +
+			//								'</a>';
+			//
+			//							fragment.appendChild(li);
+			//						}
+			//						return fragment;
+			//					};
+			//				});
+			//			})(mui);
 		</script>
 	</body>
 

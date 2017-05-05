@@ -44,5 +44,17 @@ var JRZH = {
 		email: function(text) {
 			return /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(text);
 		}
+	},
+	/*
+	 * 最大长度裁剪
+	 */
+	maxTextLength: function(text, maxlength, iswave) {
+		if(typeof text != "string" && typeof maxlength != "number" && text.length < maxlength) return text;
+		if(iswave) {
+			return text.substring(0, Math.random() * 10 + maxlength - 10 - 3) + "...";
+		} else {
+			return text.substring(0, maxlength - 3) + "...";
+		}
+		return text;
 	}
 }

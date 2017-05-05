@@ -641,9 +641,7 @@ input[type='submit'].mui-active:enabled,
 .active-cont ul {
   padding: 0; }
   .active-cont ul li {
-    margin: 0 0.15rem;
-    padding: 0.06rem 0;
-    border-bottom: 1px dashed #DDDDDD; }
+    padding-top: 0.05rem; }
     .active-cont ul li div.item-wrap {
       position: relative; }
       .active-cont ul li div.item-wrap img {
@@ -660,7 +658,7 @@ input[type='submit'].mui-active:enabled,
         -o-transform: translateX(-50%);
         transform: translateX(-50%);
         background-color: rgba(29, 134, 215, 0.8);
-        padding: 0.1rem 0.15rem;
+        padding: 0.15rem 0.15rem;
         text-align: center;
         color: #FFFFFF; }
         .active-cont ul li div.item-wrap div.text strong {

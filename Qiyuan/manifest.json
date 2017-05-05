@@ -513,7 +513,8 @@
 					"js/zepto_1.1.3.js",
 					"js/mui.min.js",
 					"css/style.css",
-					"js/JRZH.js"
+					"js/JRZH.js",
+					"js/appdata.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -567,7 +568,8 @@
 					"css/style.css",
 					"css/fonts/mui.ttf",
 					"js/JRZH.js",
-					"js/common.js"
+					"js/common.js",
+					"js/appdata.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -619,7 +621,8 @@
 					"imgs/temp/banner/1.jpg",
 					"imgs/temp/video/2.jpg",
 					"imgs/temp/video/3.jpg",
-					"imgs/temp/video/4.jpg"
+					"imgs/temp/video/4.jpg",
+					"js/appdata.js"
 				],
 				"refer": [],
 				"priority": 0
