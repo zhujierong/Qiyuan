@@ -164,16 +164,24 @@
 						htmlstr += '<span class="tag">' + labels[j] + '</span>'
 					}
 					htmlstr += '</div></div></a>';
+					li.setAttribute("id", viewList[i].id)
 					li.innerHTML = htmlstr;
+					li.addEventListener("tap", function() {
+						var eqid = this.getAttribute("id");
+						openInfo({
+							eqId: eqid
+						});
+					});
 					fragment.appendChild(li);
 				}
 				return fragment;
 			}
 
-			function openInfo(url, id, extras) {
-				mui.openWindow({
-					url: url,
-					id: id,
+			function openInfo(extras) {
+				console.log(JSON.stringify(extras));
+				var _webView = mui.openWindow({
+					url: "info.html",
+					id: "expert-info",
 					styles: {
 						top: 0, //新页面顶部位置
 						bottom: 0, //新页面底部位置
@@ -190,7 +198,8 @@
 						title: '正在加载...', //等待对话框上显示的提示内容
 						options: {}
 					}
-				})
+				});
+				_webView.show("slide-in-right");
 			}
 		</script>
 	</body>

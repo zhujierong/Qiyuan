@@ -31,16 +31,16 @@
 			gestureConfig: {
 				doubletap: true
 			},
-			subpages: [{ //健康管理
-				url: 'expert/list_sub.html',
-				id: 'expert-list_sub',
+			subpages: [{ //琦媛服务
+				url: 'serving/list_sub.html',
+				id: 'serving-list_sub',
 				styles: {
 					top: JRZH.styles.headerHeight,
 					bottom: 0
 				}
-			}, { //琦媛服务
-				url: 'serving/list_sub.html',
-				id: 'serving-list_sub',
+			}, { //健康管理
+				url: 'expert/list_sub.html',
+				id: 'expert-list_sub',
 				styles: {
 					top: JRZH.styles.headerHeight,
 					bottom: 0
@@ -59,7 +59,6 @@
 		});
 		//权威专家
 		mui(".segmented-control-new").on("tap", "#expert-show", function() {
-
 			$(this).addClass("active").siblings().removeClass("active");
 
 			var serving_sub = plus.webview.getWebviewById("serving-list_sub");

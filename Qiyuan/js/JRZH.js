@@ -47,6 +47,9 @@ var JRZH = {
 	},
 	/*
 	 * 最大长度裁剪
+	 * text ：文本
+	 * maxlength ：最大长度
+	 * iswave ：长度波动（true：波动）
 	 */
 	maxTextLength: function(text, maxlength, iswave) {
 		if(typeof text != "string" && typeof maxlength != "number" && text.length < maxlength) return text;

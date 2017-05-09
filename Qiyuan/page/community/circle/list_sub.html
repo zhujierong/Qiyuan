@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>圈子</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
+	</head>
+
+	<body>
+		<div class="mui-content active-cont">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background-color: #FFFFFF;">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item1mobile">最新</a>
+						<a class="mui-control-item" href="#item2mobile">热门</a>
+					</div>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view circle-list">
+
+									<li class="circle-item">
+										<a href="javascript:void(0)" class="mui-control-item">
+											<div class="top go-pson-home-page">
+												<div class="l">
+													<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+													<span>小泽777</span>
+												</div>
+												<div class="r">
+													<span>2017-5-6</span>
+												</div>
+											</div>
+											<div class="cont">
+												<div class="text-title">
+													<span>健康监测</span>
+												</div>
+												<span class="img-box"><img src="../../../imgs/temp/3.jpg" alt="" /></span>
+												<span class="img-box"><img src="../../../imgs/temp/1.jpg" alt="" /></span>
+												<span class="img-box"><img src="../../../imgs/temp/2.jpg" alt="" /></span>
+												<div class="clear"></div>
+												<div class="text">
+													<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
+												</div>
+											</div>
+										</a>
+										<div class="footer">
+											<span><i class="iconfont icon-browse"></i>3572</span>
+											<span><i class="iconfont icon-comments"></i>3572</span>
+											<span><i class="iconfont icon-good"></i>3572</span>
+											<div class="clear"></div>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view circle-list">
+
+									<li class="circle-item">
+										<a href="javascript:void(0)" class="mui-control-item">
+											<div class="top go-pson-home-page">
+												<div class="l">
+													<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+													<span>小泽777</span>
+												</div>
+												<div class="r">
+													<span>2017-5-6</span>
+												</div>
+											</div>
+											<div class="cont">
+												<div class="text-title">
+													<span>健康监测</span>
+												</div>
+												<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+												<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+												<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+												<div class="clear"></div>
+												<div class="text">
+													<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
+												</div>
+											</div>
+										</a>
+										<div class="footer">
+											<span><i class="iconfont icon-browse"></i>3572</span>
+											<span><i class="iconfont icon-comments"></i>3572</span>
+											<span><i class="iconfont icon-good"></i>3572</span>
+											<div class="clear"></div>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script>
+			mui.init();
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('.mui-scroll-wrapper').scroll({
+				bounce: false,
+				indicators: true, //是否显示滚动条
+				deceleration: deceleration
+			});
+			mui(".circle-list").on("tap", ".cont", function() {
+				var _webView = mui.openWindow({
+					url: "info.html",
+					id: "ccircle-info",
+					styles: {},
+					extras: {
+						csid: "1234"
+					}
+				})
+				_webView.show("slide-in-right");
+			});
+			mui(".mui-content").on("tap", ".go-pson-home-page", function() {
+				openPsonMore();
+			});
+
+			function openPsonMore() {
+				var _webView = mui.openWindow({
+					url: "homepage.html",
+					id: "ccircle-homepage",
+					styles: {},
+					extras: {
+						csid: "1234"
+					}
+				});
+				_webView.show("slide-in-right");
+			}
+			mui.ready(function() {
+				//循环初始化所有下拉刷新，上拉加载。
+				mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					mui(pullRefreshEl).pullToRefresh({
+						up: {
+							callback: function() {
+								var self = this;
+								setTimeout(function() {
+									var ul = self.element.querySelector('.mui-table-view');
+									ul.appendChild(createFragment(ul, index, 5));
+									self.endPullUpToRefresh();
+								}, 1000);
+							}
+						}
+					});
+				});
+				var createFragment = function(ul, index, count, reverse) {
+					var length = ul.querySelectorAll('li').length;
+					var fragment = document.createDocumentFragment();
+					var li;
+					for(var i = 0; i < count; i++) {
+						li = document.createElement('li');
+						li.className = "circle-item";
+						li.innerHTML = '<a href="javascript:void(0)" class="mui-control-item">' +
+							'<div class="top">' +
+							'<div class="l">' +
+							'<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />' +
+							'<span>小泽777</span>' +
+							'</div>' +
+							'<div class="r">' +
+							'<span>2017-5-6</span>' +
+							'</div>' +
+							'</div>' +
+							'<div class="cont">' +
+							'<div class="text-title">' +
+							'<span>健康监测</span>' +
+							'</div>' +
+							'<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>' +
+							'<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>' +
+							'<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>' +
+							'<div class="clear"></div>' +
+							'<div class="text">' +
+							'<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>' +
+							'</div>' +
+							'</div>' +
+							'</a>' +
+							'<div class="footer">' +
+							'<span><i class="iconfont icon-browse"></i>3572</span>' +
+							'<span><i class="iconfont icon-comments"></i>3572</span>' +
+							'<span><i class="iconfont icon-good"></i>3572</span>' +
+							'<div class="clear"></div>' +
+							'</div>';
+
+						fragment.appendChild(li);
+					}
+					return fragment;
+				};
+			});
+		</script>
+	</body>
+
+</html>

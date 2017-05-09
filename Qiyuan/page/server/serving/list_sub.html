@@ -20,6 +20,29 @@
 				</div>
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 				<div id="muiSliderGroup" class="mui-slider-group">
+
+					<div class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view common-list serving-list" page="0" nomore="false">
+
+									<li class="mui-table-view-cell">
+										<a href="javascript:;" class="mui-control-item">
+											<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/3.jpg">
+											<div class="mui-media-body">
+												<strong>' + viewList[i].title + '</strong>
+												<p>' + viewList[i].synopsis + '</p>
+												<div class="foot">
+												</div>
+											</div>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -34,12 +57,12 @@
 			mui.plusReady(function() {
 				initData();
 			});
-
-			mui(".mui-table-view").on("tap", ".mui-table-view-cell a", function() {
+			mui("#muiSliderGroup").on("tap", ".mui-table-view-cell a", function() {
+				var eqId = this.getAttribute("id");
 				var url = "info.html",
 					id = "serving-info",
 					extras = {
-						id: 2018532
+						eqId: eqId
 					};
 				openInfo(url, id, extras);
 			});
@@ -175,7 +198,7 @@
 			};
 
 			function openInfo(url, id, extras) {
-				mui.openWindow({
+				var _webView = mui.openWindow({
 					url: url,
 					id: id,
 					styles: {
@@ -194,7 +217,8 @@
 						title: '正在加载...', //等待对话框上显示的提示内容
 						options: {}
 					}
-				})
+				});
+				_webView.show("slide-in-right");
 			}
 		</script>
 	</body>

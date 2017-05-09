@@ -17,16 +17,14 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 id="title" class="mui-title">权威专家</h1>
 		</header>
-		<div class="mui-content expert-content">
+		<div class="mui-content expert-content" ng-app="jrzhApp" ng-controller="jrzhCtrl">
 			<div class="expert-top">
 				<div class="cont">
 					<div class="t">
 						<img src="../../../imgs/temp/exp/tx.jpg" />
 					</div>
 					<div class="b">
-						<span class="tag">健康管理</span>
-						<span class="tag">自然医学</span>
-						<span class="tag">自然医学</span>
+						<span class="tag" ng-repeat="item in expertinfo.labelIdArr" ng-bind="item"></span>
 					</div>
 				</div>
 				<img class="bg" src="../../../imgs/temp/exp/tx.jpg" />
@@ -34,21 +32,21 @@
 			<div class="expert-info">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
-						<strong>金先生（Mr.yiwen Jin)</strong>
+						<strong ng-bind="expertinfo.name">134</strong>
 					</li>
 					<li class="mui-table-view-cell">
-						擅长项目：鼻部
+						职称：<span ng-bind="expertinfo.professionalStr"></span>
 					</li>
 					<li class="mui-table-view-cell">
-						擅长项目：鼻部
+						擅长项目：<span ng-bind="expertinfo.labelIdStr"></span>
 					</li>
 					<li class="mui-table-view-cell">
-						擅长项目：鼻部
+						所在医院：<span ng-bind="expertinfo.hospital"></span>
 					</li>
 					<li class="mui-table-view-cell mui-collapse">
 						<a class="mui-navigate-right" href="#">专家简介</a>
 						<div class="mui-collapse-content">
-							<p class="article">现为中国中医研究院西苑医院老年医学研究所研究员 张国玺研究员从事老年医学及养生保健方面的研究近20年 编著有《新编抗衰老中药学》、《中国实用传统养生术》、《老年医学在中国》、《抗衰老药物学》等10余部学术著作 发表有关延缓衰老及养生保健方面的论文及文章数十篇 并获多项成果奖。目前 张国玺研究员主要从事养生保健知识方面的研究和讲座活动 广受好评。 6.胡维勤:中央警卫局中南海门诊部保健专家 主任医师 正师级 教授。他先后为朱德、华国锋、谷牧、姚依林等多位领导同志做过保健医生 并在党和国家的多次重大会议和活动中担任保健工作 也多次承担外国元首、重要领导人来访的医疗保健任务 积累了丰富的保健经验 被国务院评为“有突出贡献的医学科学家” 享受国务院颁布的政府特殊津贴。 著有《将中医进行到底》 7.张家瑞:台湾省台南县人 1948年6月出生 财团法人台南高工文教基金会董事 台湾中华全民自然养生协会秘书长 台湾中华离子医学 民间团体 教授 台湾中华自然医学宣导中心创办人。 著有《不生病之真法》 8.曲黎敏:北京中医药大学副教授 硕士生导师 “中华医道研究会”常务副会长。</p>
+							<p class="article" ng-bind="expertinfo.synopsis"> </p>
 						</div>
 					</li>
 				</ul>
@@ -59,54 +57,31 @@
 					<li class="mui-table-view-cell">服务预约</li>
 				</ul>
 				<ul class="mui-table-view common-list">
-					<li class="mui-table-view-cell">
+					<li class="mui-table-view-cell" ng-repeat="item in expertinfo.informationList">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
+							<div class="mui-media-body">
+								<strong ng-bind="item.title"></strong>
+								<p ng-bind="item.synopsis">艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>
+							</div>
+						</a>
+					</li>
+					<!--<li class="mui-table-view-cell">
 						<a href="javascript:;">
 							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
 							<div class="mui-media-body">
 								<strong>健康监测</strong>
 								<p>艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>
-								<!--<div class="foot money">
+								<div class="foot money">
 									<span class="now">
 														<i>¥</i>1000</span>抵
 									<span class="before">
 															<i>¥</i>5000
 														</span>
-								</div>-->
+								</div>
 							</div>
 						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
-							<div class="mui-media-body">
-								<strong>健康监测</strong>
-								<p>艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>
-								<!--<div class="foot money">
-									<span class="now">
-														<i>¥</i>1000</span>抵
-									<span class="before">
-															<i>¥</i>5000
-														</span>
-								</div>-->
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
-							<div class="mui-media-body">
-								<strong>健康监测</strong>
-								<p>艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>
-								<!--<div class="foot money">
-									<span class="now">
-														<i>¥</i>1000</span>抵
-									<span class="before">
-															<i>¥</i>5000
-														</span>
-								</div>-->
-							</div>
-						</a>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 
@@ -120,33 +95,66 @@
 		</div>
 	</body>
 	<script src="../../../js/mui.min.js"></script>
-	<script src="../../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		//启用双击监听
-		mui.init();
-		mui(".footer-btns").on("tap", "#expert-apply", function() {
-			//登陆判断
-			console.log(JSON.stringify(app.getState()));
-			mui.confirm('成功申请预约后，琦媛将为您安排专家服务时间', '确定要预约专家？', function(e) {
-				if(e.index == 1) {
-					mui.toast("成功申请预约")
-				}
-			})
-		});
-		mui.plusReady(function() {
-			mui(".footer-btns").on("tap", "#dial", function() {
-				mui.confirm("拨打客服电话？", "", ["否", "是"], function(val) {
-					//					console.log(val)
-					//					console.log()
-					//					console.log(JSON.stringify(val))
-					if(val.index == 1)
-						plus.device.dial("4004961368", false);
+		angular.module("jrzhApp", [])
+			.controller("jrzhCtrl", function($scope) {
+				$scope.expertinfo = {};
+				mui.init();
+				mui(".footer-btns").on("tap", "#expert-apply", function() {
+					//登陆判断
+					console.log(JSON.stringify(app.getState()));
+					mui.confirm('成功申请预约后，琦媛将为您安排专家服务时间', '确定要预约专家？', function(e) {
+						if(e.index == 1) {
+							mui.toast("成功申请预约")
+						}
+					})
+				});
+
+				mui.plusReady(function() {
+
+					var eqid = plus.webview.currentWebview().eqId;
+					appData.specialistList({
+						eqId: eqid,
+					}, function(response) {
+						var view = response.object.viewList[0];
+						view.labelIdArr = view.labelIdStr.split(",");
+						view.informationIdArr = view.informationIds.split(",");
+						view.informationList = [];
+						$scope.$apply(function() {
+							$scope.expertinfo = view;
+						});
+						mui.each(view.informationIdArr, function(index, item) {
+							appData.specialistList({
+								eqId: item
+							}, function(response) {
+								var view = response.object.viewList[0];
+								view.synopsis = JSON.maxTextLength(view.synopsis, 50, true);
+								$scope.$apply(function() {
+									$scope.expertinfo.informationList.push(view);
+								});
+							}, function(response) {
+								plus.nativeUI.toast(response.message);
+							})
+						});
+
+					}, function(response) {
+						console.log(JSON.stringify(response))
+					}, function() {});
+
+					mui(".footer-btns").on("tap", "#dial", function() {
+						mui.confirm("拨打客服电话？", "", ["否", "是"], function(val) {
+							if(val.index == 1)
+								plus.device.dial("4004961368", false);
+						});
+					});
 				});
 			});
-		});
+		//启用双击监听
 	</script>
 
 </html>

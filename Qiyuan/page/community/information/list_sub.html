@@ -36,11 +36,8 @@
 												<p>琦媛以疾病预测、疾病预防、健康促进和个性化健康 健康促进和服务......</p>
 												<div class="foot icon-text">
 													<span class="text">
-														<!--<i class="mui-icon mui-icon mui-icon-chat"></i>245-->
-														2345条评论
-													</span>
-													<span class="r text">2017-4-21</span>
-												</div>
+          <!--<i class="mui-icon mui-icon mui-icon-chat"></i>245-->2345条评论</span>
+													<span class="r text">2017-4-21</span></div>
 											</div>
 										</a>
 									</li>
@@ -204,9 +201,69 @@
 			mui.init();
 			mui.plusReady(function() {
 				initData();
+
+				mui("#item1mobile").on("tap", ".mui-table-view-cell", function() {
+					goNewsInfo();
+				});
+				mui("#item2mobile").on("tap", ".mui-table-view-cell", function() {
+					goVideoInfo();
+				});
 			});
 
+			function goNewsInfo() {
+				var information_webView = mui.openWindow({
+					url: "info.html",
+					id: "information-info",
+					styles: {},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					subpages: [{
+						url: "temp/rmationInfo.html?12123213",
+						id: "information-info-sub",
+						styles: {
+							top: JRZH.styles.headerHeight,
+							bottom: 0,
+						}
+					}],
+					show: {
+						autoShow: true, //页面loaded事件发生后自动显示，默认为true
+						event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
+						extras: {} //窗口动画是否使用图片加速
+					},
+					waiting: {
+						autoShow: false, //自动显示等待框，默认为true
+					}
+				});
+				information_webView.show("slide-in-right");
+			}
+
+			function goVideoInfo() {
+				var information_webView = mui.openWindow({
+					url: "info.html",
+					id: "information-info",
+					styles: {},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					subpages: [{
+						url: "temp/rmationVideo.html?12123213",
+						id: "rmationVideo-info-sub",
+						styles: {
+							top: JRZH.styles.headerHeight,
+							bottom: 0,
+						}
+					}],
+					show: {
+						autoShow: true, //页面loaded事件发生后自动显示，默认为true
+						event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
+						extras: {} //窗口动画是否使用图片加速
+					},
+					waiting: {
+						autoShow: false, //自动显示等待框，默认为true
+					}
+				});
+				information_webView.show("slide-in-right");
+			}
+
 			function initData() {
+
 				var topTabs = document.querySelectorAll("#sliderSegmentedControl .mui-scroll")[0];
 				var muiSliderGroup = document.querySelectorAll("#muiSliderGroup")[0];
 				appData.intellectualType({}, function(response) {
@@ -340,69 +397,6 @@
 				}
 				return fragment;
 			};
-
-			//			(function($) {
-			//				//阻尼系数
-			//				var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			//				$('.mui-scroll-wrapper').scroll({
-			//					bounce: false,
-			//					indicators: true, //是否显示滚动条
-			//					deceleration: deceleration
-			//				});
-			//				$.ready(function() {
-			//					//循环初始化所有下拉刷新，上拉加载。
-			//					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-			//						$(pullRefreshEl).pullToRefresh({
-			//							//							down: {
-			//							//								callback: function() {
-			//							//									var self = this;
-			//							//									setTimeout(function() {
-			//							//										var ul = self.element.querySelector('.mui-table-view');
-			//							//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
-			//							//										self.endPullDownToRefresh();
-			//							//									}, 1000);
-			//							//								}
-			//							//							},
-			//							up: {
-			//								callback: function() {
-			//									var self = this;
-			//									setTimeout(function() {
-			//										var ul = self.element.querySelector('.mui-table-view');
-			//										ul.appendChild(createFragment(ul, index, 5));
-			//										self.endPullUpToRefresh();
-			//									}, 1000);
-			//								}
-			//							}
-			//						});
-			//					});
-			//					var createFragment = function(ul, index, count, reverse) {
-			//						var length = ul.querySelectorAll('li').length;
-			//						var fragment = document.createDocumentFragment();
-			//						var li;
-			//						for(var i = 0; i < count; i++) {
-			//							li = document.createElement('li');
-			//							li.className = 'mui-table-view-cell';
-			//							li.innerHTML = '<a href="javascript:;">' +
-			//								'<img class="mui-media-object mui-pull-left" src="../../imgs/temp/server/list.jpg">' +
-			//								'<div class="mui-media-body">' +
-			//								'<strong>健康监测</strong>' +
-			//								'<p>艺术大师为满足每一位贵宾需求而“量身订制”， 打造专属于...</p>' +
-			//								'<div class="foot money">' +
-			//								'<span class="now">' +
-			//								'<i>¥</i>1000</span>抵' +
-			//								'<span class="before">' +
-			//								'<i>¥</i>5000' +
-			//								'</span>' +
-			//								'</div>' +
-			//								'</div>' +
-			//								'</a>';
-			//
-			//							fragment.appendChild(li);
-			//						}
-			//						return fragment;
-			//					};
-			//				});
-			//			})(mui);
 		</script>
 	</body>
 

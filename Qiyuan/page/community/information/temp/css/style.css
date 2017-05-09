@@ -1,0 +1,42 @@
+* {
+	font-family: "microsoft yahei" !important;
+	margin: 0px;
+	padding: 0px;
+}
+
+.info-wrap h2 {
+	font-weight: normal;
+	margin-top: 22px;
+	margin-bottom: 8px;
+	margin-left: 20px;
+}
+
+.info-wrap h5 {
+	font-weight: normal;
+	font-size: medium;
+	color: grey;
+	padding-bottom: 15px;
+	margin: 0 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	border-bottom: 1px solid #ddd;
+}
+
+.info-wrap h5 span1 {
+	font-family: "arial" !important;
+	margin-right: 5px;
+}
+
+.info-wrap h5 span2 {
+	margin-left: 5px;
+	color: rgb(40, 120, 126);
+}
+
+.img-wrap {
+	text-align: justify;
+	margin: 0 20px;
+}
+
+.img-wrap img {
+	max-width: 100%;
+}

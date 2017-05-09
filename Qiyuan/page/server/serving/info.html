@@ -17,18 +17,32 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 id="title" class="mui-title">服务详情</h1>
 		</header>
-		<div class="mui-content ueditor-text">
+		<div class="mui-content ueditor-text" id="ueditor-text">
 			<img src="../../../imgs/temp/info/1.jpg" />
 			<img src="../../../imgs/temp/info/2.jpg" />
 		</div>
 	</body>
 	<script src="../../../js/mui.min.js"></script>
-	<script src="../../../js/zepto_1.1.3.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		//启用双击监听
 		mui.init();
+		mui.plusReady(function() {
+			var eqid = plus.webview.currentWebview().eqId;
+			console.log(eqid)
+			appData.servingList({
+				eqid: eqid
+			}, function(response) {
+				console.log(JSON.stringify(response))
+				console.log(response.object.viewList.length);
+				var serObj = response.object.viewList[0]
+				mui("#ueditor-text").innerHTML = serObj.content;
+			}, function(response) {
+				console.log(JSON.stringify(response))
+			})
+		});
 	</script>
 
 </html>

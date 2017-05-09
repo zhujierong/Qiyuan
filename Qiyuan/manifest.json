@@ -419,7 +419,9 @@
 					"css/libs/mui.min.css",
 					"js/mui.min.js",
 					"css/style.css",
-					"js/zepto_1.1.3.js"
+					"js/zepto_1.1.3.js",
+					"js/common.js",
+					"js/JRZH.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -496,7 +498,8 @@
 					"js/mui.min.js",
 					"js/angular.js",
 					"js/appdata.js",
-					null
+					null,
+					"imgs/temp/3.jpg"
 				],
 				"refer": [
 					"page/server/serving/info.html"
@@ -530,7 +533,8 @@
 					"js/zepto_1.1.3.js",
 					"css/style.css",
 					"css/libs/mui.min.css",
-					"css/fonts/mui.ttf"
+					"css/fonts/mui.ttf",
+					"js/appdata.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -571,7 +575,13 @@
 					"js/common.js",
 					"js/appdata.js"
 				],
-				"refer": [],
+				"refer": [
+					"temp/rmationVideo.html",
+					"temp/rmationInfo.html",
+					"page/community/information/info.html",
+					"page/community/information/temp/rmationInfo.html",
+					"page/community/information/temp/rmationVideo.html"
+				],
 				"priority": 0
 			},
 			"page/login/login.html": {
@@ -638,7 +648,8 @@
 					"css/libs/mui.min.css"
 				],
 				"refer": [
-					"page/community/information/list_sub.html"
+					"page/community/information/list_sub.html",
+					"page/community/circle/list_sub.html"
 				],
 				"priority": 0
 			},
@@ -691,6 +702,117 @@
 					"js/JRZH.js",
 					"css/fonts/mui.ttf",
 					"imgs/temp/exp/tx.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/community/circle/list_sub.html": {
+				"resources": [
+					"css/fonts/iconfont.css",
+					"css/fonts/iconfont.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"imgs/temp/exp/tx.jpg",
+					"imgs/temp/1.jpg",
+					"js/mui.pullToRefresh.material.js",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js",
+					"imgs/temp/3.jpg",
+					"imgs/temp/2.jpg",
+					"css/fonts/iconfont.woff"
+				],
+				"refer": [
+					"page/community/circle/info.html"
+				],
+				"priority": 0
+			},
+			"page/community/circle/info.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/JRZH.js",
+					"imgs/temp/3.jpg",
+					"js/mui.min.js",
+					"imgs/temp/exp/tx.jpg",
+					"imgs/temp/1.jpg",
+					"css/fonts/iconfont.css",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"css/fonts/mui.ttf",
+					"css/fonts/iconfont.ttf"
+				],
+				"refer": [
+					"page/community/circle/homepage.html",
+					"page/server/serving/info.html"
+				],
+				"priority": 0
+			},
+			"page/community/circle/homepage.html": {
+				"resources": [
+					"js/mui.min.js",
+					"imgs/temp/wxtx.jpg",
+					"imgs/temp/server/list.jpg",
+					"js/common.js",
+					"imgs/temp/exp/tx.jpg",
+					"imgs/temp/1.jpg",
+					"css/fonts/iconfont.css",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js",
+					"css/fonts/mui.ttf",
+					"css/fonts/iconfont.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"temp/rmationVideo.html": {
+				"resources": [
+					"temp/css/style.css",
+					"temp/myvideo.mp4"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"temp/rmationInfo.html": {
+				"resources": [
+					"temp/img/20150425125339083908.gif",
+					"temp/css/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/community/information/info.html": {
+				"resources": [
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/appdata.js",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js",
+					"css/fonts/mui.ttf",
+					"page/community/information/temp/rmationInfo.html"
+				],
+				"refer": [
+					"page/community/information/temp/rmationVideo.html"
+				],
+				"priority": 0
+			},
+			"page/community/information/temp/rmationInfo.html": {
+				"resources": [
+					"page/community/information/temp/img/20150425125339083908.gif",
+					"page/community/information/temp/css/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/community/information/temp/rmationVideo.html": {
+				"resources": [
+					"page/community/information/temp/css/style.css"
 				],
 				"refer": [],
 				"priority": 0
