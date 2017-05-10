@@ -166,6 +166,28 @@
 					indicators: true, //是否显示滚动条
 					deceleration: deceleration
 				});
+
+				mui(".mui-slider-group").on("tap", ".mui-table-view-cell", function() {
+					goNewsInfo();
+				});
+
+				function goNewsInfo() {
+					var _webView = mui.openWindow({
+						url: "info.html",
+						id: "store-info",
+						styles: {},
+						createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
+							extras: {} //窗口动画是否使用图片加速
+						},
+						waiting: {
+							autoShow: false, //自动显示等待框，默认为true
+						}
+					});
+					_webView.show("slide-in-right");
+				}
 				$.ready(function() {
 					//循环初始化所有下拉刷新，上拉加载。
 					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {

@@ -438,7 +438,9 @@
 					"js/common.js",
 					"js/JRZH.js"
 				],
-				"refer": [],
+				"refer": [
+					"page/store/info.html"
+				],
 				"priority": 0
 			},
 			"page/server/pullrefresh_main.html": {
@@ -634,7 +636,10 @@
 					"imgs/temp/video/4.jpg",
 					"js/appdata.js"
 				],
-				"refer": [],
+				"refer": [
+					"temp/activity.html",
+					"page/community/activity/info.html"
+				],
 				"priority": 0
 			},
 			"page/community/list_main.html": {
@@ -645,10 +650,10 @@
 					"js/JRZH.js",
 					"css/libs/mui.css",
 					"css/style.css",
-					"css/libs/mui.min.css"
+					"css/libs/mui.min.css",
+					"page/community/information/list_sub.html"
 				],
 				"refer": [
-					"page/community/information/list_sub.html",
 					"page/community/circle/list_sub.html"
 				],
 				"priority": 0
@@ -795,7 +800,8 @@
 					"css/style.css",
 					"js/JRZH.js",
 					"css/fonts/mui.ttf",
-					"page/community/information/temp/rmationInfo.html"
+					"page/community/information/temp/rmationInfo.html",
+					"temp/rmationInfo.html"
 				],
 				"refer": [
 					"page/community/information/temp/rmationVideo.html"
@@ -813,6 +819,40 @@
 			"page/community/information/temp/rmationVideo.html": {
 				"resources": [
 					"page/community/information/temp/css/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"temp/activity.html": {
+				"resources": [
+					"temp/img/20150425125339083908.gif",
+					"temp/css/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/store/info.html": {
+				"resources": [
+					"js/zepto_1.1.3.js",
+					"imgs/temp/info/1.jpg",
+					"js/mui.min.js",
+					"imgs/temp/info/2.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/community/activity/info.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/appdata.js",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js",
+					"css/fonts/mui.ttf",
+					"temp/activity.html"
 				],
 				"refer": [],
 				"priority": 0

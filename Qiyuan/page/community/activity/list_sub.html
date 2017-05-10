@@ -86,18 +86,33 @@
 					deceleration: deceleration
 				});
 				mui(".mui-slider-group").on("tap", ".mui-table-view li", function() {
+					console.log(2134)
 					goNewsInfo();
 				});
 
 				function goNewsInfo() {
 					var _webView = mui.openWindow({
-						url: "../../../temp/activity.html",
+						url: "info.html",
 						id: "activity-info",
 						styles: {},
-						extras: {
-							csid: "1234"
+						createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						subpages: [{
+							url: "../../../temp/activity.html",
+							id: "activity-info-sub",
+							styles: {
+								top: JRZH.styles.headerHeight,
+								bottom: 0,
+							}
+						}],
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
+							extras: {} //窗口动画是否使用图片加速
+						},
+						waiting: {
+							autoShow: false, //自动显示等待框，默认为true
 						}
-					})
+					});
 					_webView.show("slide-in-right");
 				}
 				$.ready(function() {

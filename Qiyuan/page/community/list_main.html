@@ -15,8 +15,8 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<div class="mui-row segmented-control-new">
-				<button class="mui-col-sm-4 mui-col-xs-4 control-item" id="circle-list_sub">圈子</button>
-				<button class="mui-col-sm-4 mui-col-xs-4 control-item active" id="activity-list_sub">活动</button>
+				<button class="mui-col-sm-4 mui-col-xs-4 control-item" id="activity-list_sub">活动</button>
+				<button class="mui-col-sm-4 mui-col-xs-4 control-item active" id="circle-list_sub">圈子</button>
 				<button class="mui-col-sm-4 mui-col-xs-4 control-item" id="information-list_sub">资讯</button>
 			</div>
 		</header>
@@ -28,7 +28,14 @@
 	<script src="../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		var subpages = [{ //活动
+		var subpages = [{ //资讯
+				url: 'information/list_sub.html',
+				id: 'information-list_sub',
+				styles: {
+					top: JRZH.styles.headerHeight,
+					bottom: 0,
+				}
+			}, { //活动
 				url: 'activity/list_sub.html',
 				id: 'activity-list_sub',
 				styles: {
@@ -38,13 +45,6 @@
 			}, { //圈子
 				url: 'circle/list_sub.html',
 				id: 'circle-list_sub',
-				styles: {
-					top: JRZH.styles.headerHeight,
-					bottom: 0,
-				}
-			}, { //资讯
-				url: 'information/list_sub.html',
-				id: 'information-list_sub',
 				styles: {
 					top: JRZH.styles.headerHeight,
 					bottom: 0,

@@ -31,16 +31,16 @@
 		mui.init();
 		mui.plusReady(function() {
 			var eqid = plus.webview.currentWebview().eqId;
-			console.log(eqid)
+			console.log(eqid);
 			appData.servingList({
 				eqid: eqid
 			}, function(response) {
-				console.log(JSON.stringify(response))
+				console.log(JSON.stringify(response));
 				console.log(response.object.viewList.length);
-				var serObj = response.object.viewList[0]
+				var serObj = response.object.viewList[0];
 				mui("#ueditor-text").innerHTML = serObj.content;
 			}, function(response) {
-				console.log(JSON.stringify(response))
+				console.log(JSON.stringify(response));
 			})
 		});
 	</script>
