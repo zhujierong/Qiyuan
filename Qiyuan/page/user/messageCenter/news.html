@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>消息中心</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">消息中心</h1>
+		</header>
+		<div class="mui-content message-center">
+			<div class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a href="#item1" class="mui-control-item mui-active">评论</a>
+						<a href="#item2" class="mui-control-item">通知</a>
+					</div>
+				</div>
+				<div class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div class="mui-slider-item mui-control-content mui-active" id="item1">
+
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll circle-discuss">
+								<ul class="mui-table-view circle-list">
+
+									<li class="circle-item">
+										<a href="javascript:void(0)" class="mui-control-item">
+											<div class="top">
+												<div class="l">
+													<img class="tx" src="../../../imgs/temp/1.jpg" alt="">
+													<span>小泽777</span>
+												</div>
+												<div class="r">
+													<span>2017-5-6</span>
+												</div>
+											</div>
+											<div class="cont">
+												<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融</p>
+											</div>
+										</a>
+										<div class="reply">
+											<strong>隐形的人：</strong>
+											<p>是的，这是一部两人演的很不自然，浮夸</p>
+											<a class="view-all">查看全部回复</a>
+										</div>
+									</li>
+									<li class="circle-item">
+										<a href="javascript:void(0)" class="mui-control-item">
+											<div class="top">
+												<div class="l">
+													<img class="tx" src="../../../imgs/temp/1.jpg" alt="">
+													<span>小泽777</span>
+												</div>
+												<div class="r">
+													<span>2017-5-6</span>
+												</div>
+											</div>
+											<div class="cont">
+												<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融</p>
+											</div>
+										</a>
+										<div class="reply">
+											<strong>姓名：</strong>
+											<p>回复内容</p>
+										</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div class="mui-slider-item mui-control-content" id="item2">
+
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="platform-list">
+									<li>
+										<div class="cont">
+											<!--<span class="time">5-12 11:23</span>-->
+											<div class="t">
+												<strong>恭喜注册成功！</strong><span class="time mui-pull-right">2017-5-12 16:07:24</span>
+											</div>
+											<p>你于2017-5-12 15:40:58 成功注册琦媛服务平台，获得 500 积分。</p>
+											<a class="mui-navigate-right">查看详情</a>
+										</div>
+									</li>
+									<li>
+										<div class="cont">
+											<!--<span class="time">5-12 11:23</span>-->
+											<div class="t">
+												<strong>恭喜注册成功！</strong><span class="time mui-pull-right">2017-5-12 16:07:24</span>
+											</div>
+											<p>你于2017-5-12 15:40:58 成功注册琦媛服务平台，获得 500 积分。</p>
+											<a class="mui-navigate-right">查看详情</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script>
+			mui.init();
+			mui.ready(function() {
+				mui.each(document.querySelectorAll(".mui-slider-group .mui-scroll"),
+					function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							down: {
+								auto: true,
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+							up: {
+								auto: true,
+								contentrefresh: "正在加载...",
+								contentnomore: "没有更多数据了",
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+						})
+					});
+			});
+		</script>
+	</body>
+
+</html>

@@ -831,6 +831,24 @@ input[type='submit'].mui-active:enabled,
         .circle-list .circle-item .cont .text p {
           font-size: 0.14rem;
           color: #333333; }
+    .circle-list .circle-item .reply {
+      margin: 0 0.1rem;
+      background-color: #F8F8F8;
+      padding: 0.1rem; }
+      .circle-list .circle-item .reply strong {
+        font-size: 0.12rem;
+        color: #3379ba;
+        font-weight: normal;
+        line-height: initial; }
+      .circle-list .circle-item .reply p {
+        color: #333333;
+        font-size: 0.12rem;
+        margin: 0;
+        line-height: initial; }
+      .circle-list .circle-item .reply a.view-all {
+        display: block;
+        color: #999;
+        padding-top: 0.05rem; }
   .circle-list .footer {
     border-top: 1px solid #f0f0f0; }
     .circle-list .footer span {
@@ -916,20 +934,6 @@ input[type='submit'].mui-active:enabled,
     .circle-discuss .circle-item .cont p {
       color: #333333;
       font-size: 0.14rem; }
-    .circle-discuss .circle-item .reply {
-      margin: 0 0.1rem;
-      background-color: #F8F8F8;
-      padding: 0.1rem; }
-      .circle-discuss .circle-item .reply strong {
-        font-size: 0.12rem;
-        color: #3379ba;
-        font-weight: normal;
-        line-height: initial; }
-      .circle-discuss .circle-item .reply p {
-        color: #333333;
-        font-size: 0.12rem;
-        margin: 0;
-        line-height: initial; }
   .circle-discuss .current-all-info {
     text-align: center;
     font-size: 0.12rem;
@@ -1219,5 +1223,36 @@ input[type='submit'].mui-active:enabled,
 .keep-diary .btns-wrap {
   margin-top: 0.25rem;
   padding: 0 0.15rem; }
+
+.message-center .circle-list li {
+  margin-bottom: .05rem; }
+.message-center .platform-list {
+  padding: 0;
+  margin: 0px; }
+  .message-center .platform-list li div.cont {
+    text-align: left;
+    background-color: #FFFFFF;
+    margin: 0.1rem;
+    padding: 0.18rem 0.15rem;
+    border: 1px solid #EEEEEE; }
+    .message-center .platform-list li div.cont div.t {
+      padding-bottom: 0.07rem; }
+      .message-center .platform-list li div.cont div.t strong {
+        font-size: .16rem;
+        padding-bottom: 0.07rem; }
+      .message-center .platform-list li div.cont div.t span.time {
+        font-size: .12rem;
+        color: #aaa; }
+    .message-center .platform-list li div.cont p {
+      color: #666666;
+      font-size: .14rem;
+      line-height: .20rem;
+      padding-bottom: .1rem;
+      border-bottom: 1px solid #f9f9f9;
+      margin-bottom: .12rem; }
+    .message-center .platform-list li div.cont a.mui-navigate-right {
+      position: relative;
+      display: block;
+      color: #333333; }
 
 /*# sourceMappingURL=style.css.map */

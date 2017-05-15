@@ -436,7 +436,10 @@
 					"css/style.css",
 					"js/zepto_1.1.3.js",
 					"js/common.js",
-					"js/JRZH.js"
+					"js/JRZH.js",
+					"imgs/temp/1.jpg",
+					"imgs/temp/5.jpg",
+					"imgs/temp/3.jpg"
 				],
 				"refer": [
 					"page/store/info.html"
@@ -729,7 +732,8 @@
 					"css/fonts/iconfont.woff"
 				],
 				"refer": [
-					"page/community/circle/info.html"
+					"page/community/circle/info.html",
+					"page/community/circle/homepage.html"
 				],
 				"priority": 0
 			},
