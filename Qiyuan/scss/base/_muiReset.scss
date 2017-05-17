@@ -1,6 +1,9 @@
 //mui - reset
 $mui_bar_nav_height: 44px;
 $mui_bar_tab_height: 0.44rem;
+.mui-content {
+    background-color: #f8f8f8;
+}
 .mui-bar-nav {
     height: $mui_bar_nav_height;
     background-color: $bar_nav_bg;
@@ -185,7 +188,8 @@ input[type='submit'].mui-active:enabled,
 .mui-bar .mui-btn-link {
     color: #FFFFFF;
 }
-.mui-input-row label {
-    font-size: 0.14rem;
-    line-height: 1.5em;
-}
+//login resg 
+//.mui-input-row label {
+//  font-size: 0.14rem;
+//  line-height: 1.5em;
+//}

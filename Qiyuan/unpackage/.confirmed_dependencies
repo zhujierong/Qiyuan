@@ -349,7 +349,8 @@
 			"js/JRZH.js",
 			"css/fonts/mui.ttf",
 			"js/mui.enterfocus.js",
-			"js/app.js"
+			"js/app.js",
+			"page/login/css/style.css"
 		],
 		"refer": [
 			"page/login/main.html",
@@ -383,7 +384,8 @@
 			"imgs/temp/video/2.jpg",
 			"imgs/temp/video/3.jpg",
 			"imgs/temp/video/4.jpg",
-			"js/appdata.js"
+			"js/appdata.js",
+			"js/angular.js"
 		],
 		"refer": [
 			"temp/activity.html",
@@ -433,7 +435,11 @@
 			"css/libs/mui.min.css",
 			"css/style.css",
 			"js/JRZH.js",
-			"css/fonts/mui.ttf"
+			"css/fonts/mui.ttf",
+			"js/angular.js",
+			"css/fonts/iconfont.css",
+			"imgs/temp/wxtx.jpg",
+			"css/fonts/iconfont.ttf"
 		],
 		"refer": [
 			"page/more/setting.html"

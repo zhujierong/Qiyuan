@@ -7,40 +7,77 @@
 	/**
 	 * 用户登录
 	 **/
-	owner.login = function(loginInfo, callback) {
-		callback = callback || $.noop;
-		loginInfo = loginInfo || {};
-		loginInfo.account = loginInfo.account || '';
-		loginInfo.password = loginInfo.password || '';
-		if(loginInfo.account.length < 5) {
-			return callback('账号最短为 5 个字符');
-		}
-		if(loginInfo.password.length < 6) {
-			return callback('密码最短为 6 个字符');
-		}
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		var authed = users.some(function(user) {
-			return loginInfo.account == user.account && loginInfo.password == user.password;
+	owner.login = function(loginInfo, successcallback, errorcallback) {
+		//验证登录
+		mui.ajax(JRZH.BASE_URL + 'user/userLogin.json', {
+			data: loginInfo,
+			dataType: 'json', //服务器返回json格式数据
+			type: 'post', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			success: function(data) {
+
+				if(data.status == 1) {
+					var users = data.object;
+					localStorage.setItem('$users', JSON.stringify(users));
+					owner.createState(users);
+					successcallback(users);
+				} else {
+					errorcallback(data);
+				}
+
+			},
+			error: function(xhr, type, errorThrown) {
+				JRZH.xhrError()
+			}
 		});
-		if(authed) {
-			return owner.createState(loginInfo.account, callback);
-		} else {
-			return callback('用户名或密码错误');
-		}
 	};
 
-	//	owner.isLogin(function(){
-	//		
-	//	})
-
-	owner.createState = function(name, callback) {
+	owner.createState = function(data, callback) {
+		callback = callback || $.noop;
 		var state = owner.getState();
-		state.account = name;
+		state.userId = data.userId;
+		state.userName = data.userName;;
+		state.type = data.type;;
+		state.mobile = data.mobile;;
 		state.token = "token123456789";
 		owner.setState(state);
 		return callback();
 	};
 
+	/**
+	 * 设置当前状态
+	 **/
+	owner.setState = function(state) {
+		state = state || {};
+		//储存登录信息
+		localStorage.setItem('$state', JSON.stringify(state));
+		//var settings = owner.getSettings();
+		//settings.gestures = '';
+		//owner.setSettings(settings);
+	};
+	/**
+	 * 获取当前状态
+	 **/
+	owner.getState = function() {
+		var stateText = localStorage.getItem('$state') || "{}";
+		return JSON.parse(stateText);
+	};
+	/**
+	 * 获取应用本地配置
+	 * 搁置
+	 **/
+	owner.setSettings = function(settings) {
+		settings = settings || {};
+		localStorage.setItem('$settings', JSON.stringify(settings));
+	};
+	/**
+	 * 设置应用本地配置
+	 * 搁置
+	 **/
+	owner.getSettings = function() {
+		var settingsText = localStorage.getItem('$settings') || "{}";
+		return JSON.parse(settingsText);
+	};
 	/**
 	 * 新用户注册
 	 **/
@@ -71,25 +108,6 @@
 
 	};
 
-	/**
-	 * 获取当前状态
-	 **/
-	owner.getState = function() {
-		var stateText = localStorage.getItem('$state') || "{}";
-		return JSON.parse(stateText);
-	};
-
-	/**
-	 * 设置当前状态
-	 **/
-	owner.setState = function(state) {
-		state = state || {};
-		localStorage.setItem('$state', JSON.stringify(state));
-		//var settings = owner.getSettings();
-		//settings.gestures = '';
-		//owner.setSettings(settings);
-	};
-
 	var checkEmail = function(email) {
 		email = email || '';
 		return(email.length > 3 && email.indexOf('@') > -1);
@@ -107,23 +125,8 @@
 	};
 
 	/**
-	 * 获取应用本地配置
+	 * 获取本地是否安装客户端
 	 **/
-	owner.setSettings = function(settings) {
-		settings = settings || {};
-		localStorage.setItem('$settings', JSON.stringify(settings));
-	}
-
-	/**
-	 * 设置应用本地配置
-	 **/
-	owner.getSettings = function() {
-			var settingsText = localStorage.getItem('$settings') || "{}";
-			return JSON.parse(settingsText);
-		}
-		/**
-		 * 获取本地是否安装客户端
-		 **/
 	owner.isInstalled = function(id) {
 			if(id === 'qihoo' && mui.os.plus) {
 				return true;

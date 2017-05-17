@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -71,101 +71,115 @@
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
-			mui.init();
-			(function($) {
-				//阻尼系数
-				var deceleration = mui.os.ios ? 0.003 : 0.0009;
-				$('.mui-scroll-wrapper').scroll({
-					bounce: false,
-					indicators: true, //是否显示滚动条
-					deceleration: deceleration
-				});
-				mui(".mui-slider-group").on("tap", ".mui-table-view li", function() {
-					console.log(2134)
-					goNewsInfo();
-				});
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
 
-				function goNewsInfo() {
-					var _webView = mui.openWindow({
-						url: "info.html",
-						id: "activity-info",
-						styles: {},
-						createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-						subpages: [{
-							url: "../../../temp/activity.html",
-							id: "activity-info-sub",
-							styles: {
-								top: JRZH.styles.headerHeight,
-								bottom: 0,
-							}
-						}],
-						show: {
-							autoShow: true, //页面loaded事件发生后自动显示，默认为true
-							event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
-							extras: {} //窗口动画是否使用图片加速
-						},
-						waiting: {
-							autoShow: false, //自动显示等待框，默认为true
-						}
+					$scope.circleList = [];
+
+					mui.init();
+					//阻尼系数
+					var deceleration = mui.os.ios ? 0.003 : 0.0009;
+					mui('.mui-scroll-wrapper').scroll({
+						bounce: false,
+						indicators: true, //是否显示滚动条
+						deceleration: deceleration
 					});
-					_webView.show("slide-in-right");
-				}
-				$.ready(function() {
-					//循环初始化所有下拉刷新，上拉加载。
-					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-						$(pullRefreshEl).pullToRefresh({
-							//							down: {
-							//								callback: function() {
-							//									var self = this;
-							//									setTimeout(function() {
-							//										var ul = self.element.querySelector('.mui-table-view');
-							//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
-							//										self.endPullDownToRefresh();
-							//									}, 1000);
-							//								}
-							//							}
-							//							,
-							up: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
-										self.endPullUpToRefresh();
-									}, 1000);
+					mui(".mui-slider-group").on("tap", ".mui-table-view li", function() {
+						goNewsInfo();
+					});
+
+					function goNewsInfo() {
+						var _webView = mui.openWindow({
+							url: "info.html",
+							id: "activity-info",
+							styles: {},
+							createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+							subpages: [{
+								url: "../../../temp/activity.html",
+								id: "activity-info-sub",
+								styles: {
+									top: JRZH.styles.headerHeight,
+									bottom: 0,
 								}
+							}],
+							show: {
+								autoShow: true, //页面loaded事件发生后自动显示，默认为true
+								event: 'titleUpdate', //页面显示时机，默认为titleUpdate事件时显示
+								extras: {} //窗口动画是否使用图片加速
+							},
+							waiting: {
+								autoShow: false, //自动显示等待框，默认为true
 							}
 						});
-					});
-					var createFragment = function(ul, index, count, reverse) {
-						var length = ul.querySelectorAll('li').length;
-						var fragment = document.createDocumentFragment();
-						var li;
-						for(var i = 0; i < count; i++) {
-							li = document.createElement('li');
-							li.innerHTML = '<li>' +
-								'<a href="javascript:void(0)">' +
-								'<div class="item-wrap">' +
-								'<img src="../../../imgs/temp/banner/1.jpg" alt="" />' +
-								'<div class="text">' +
-								'<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>' +
-								'<p><span>2017年3月16日</span> <span>广州</span></p>' +
-								'</div>' +
-								'</div>' +
-								'</a>' +
-								'</li>';
+						_webView.show("slide-in-right");
+					}
+					mui.ready(function() {
+						//循环初始化所有下拉刷新，上拉加载。
+						mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+							mui(pullRefreshEl).pullToRefresh({
+								//							down: {
+								//								callback: function() {
+								//									var self = this;
+								//									setTimeout(function() {
+								//										var ul = self.element.querySelector('.mui-table-view');
+								//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+								//										self.endPullDownToRefresh();
+								//									}, 1000);
+								//								}
+								//							}
+								//							,
+								up: {
+									callback: function() {
+										var self = this;
+										setTimeout(function() {
+											var ul = self.element.querySelector('.mui-table-view');
+											ul.appendChild(loadMoreFragment(ul, index, 5));
+											self.endPullUpToRefresh();
+										}, 1000);
+									}
+								}
+							});
+						});
+						var loadMoreFragment = function(ul, index, count, reverse) {
 
-							fragment.appendChild(li);
-						}
-						return fragment;
-					};
+							appData.circleList({
+								page: 1,
+								rows: 10
+							}, function(response) {
+								$scope.circleList = response.object;
+							}, function(err) {
+								plus.nativeUI.toast(err.message);
+							});
+
+							var length = ul.querySelectorAll('li').length;
+							var fragment = document.createDocumentFragment();
+							var li;
+							for(var i = 0; i < count; i++) {
+								li = document.createElement('li');
+								li.innerHTML = '<li>' +
+									'<a href="javascript:void(0)">' +
+									'<div class="item-wrap">' +
+									'<img src="../../../imgs/temp/banner/1.jpg" alt="" />' +
+									'<div class="text">' +
+									'<strong>感动美业铸就辉煌-瀛金国际十三载美丽巨献答谢会</strong>' +
+									'<p><span>2017年3月16日</span> <span>广州</span></p>' +
+									'</div>' +
+									'</div>' +
+									'</a>' +
+									'</li>';
+
+								fragment.appendChild(li);
+							}
+							return fragment;
+						};
+					});
 				});
-			})(mui);
 		</script>
 	</body>
 

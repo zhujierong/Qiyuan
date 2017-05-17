@@ -10,6 +10,7 @@
 	</head>
 
 	<body>
+		<!--手势密码-->
 		<div class="mui-locker-wrap">
 			<div class="tx-warp">
 				<img src="imgs/temp/exp/tx.jpg" /><br />
@@ -62,34 +63,36 @@
 				}
 			}],
 			preloadPages: [{ //服务
-				url: "page/server/list_main.html",
-				id: "server-webview",
-				styles: {
-					top: 0,
-					bottom: JRZH.styles.menuHeight
+					url: "page/server/list_main.html",
+					id: "server-webview",
+					styles: {
+						top: 0,
+						bottom: JRZH.styles.menuHeight
+					}
+				}, { //商城
+					url: "page/store/list_main.html",
+					id: "store-webview",
+					styles: {
+						top: 0,
+						bottom: JRZH.styles.menuHeight
+					}
+				}, { //社区
+					url: "page/community/list_main.html",
+					id: "community-webview",
+					styles: {
+						top: 0,
+						bottom: JRZH.styles.menuHeight
+					}
 				}
-			}, { //商城
-				url: "page/store/list_main.html",
-				id: "store-webview",
-				styles: {
-					top: 0,
-					bottom: JRZH.styles.menuHeight
-				}
-			}, { //社区
-				url: "page/community/list_main.html",
-				id: "community-webview",
-				styles: {
-					top: 0,
-					bottom: JRZH.styles.menuHeight
-				}
-			}, { //账户
-				url: "page/account/home.html",
-				id: "account-webview",
-				styles: {
-					top: 0,
-					bottom: JRZH.styles.menuHeight
-				}
-			}]
+				//			, { //账户
+				//				url: "page/account/home.html",
+				//				id: "account-webview",
+				//				styles: {
+				//					top: 0,
+				//					bottom: JRZH.styles.menuHeight
+				//				}
+				//			}
+			]
 		}
 		mui.init({
 			//			subpages: menu_view.subpages,
@@ -122,32 +125,35 @@
 				if(preloadViews.length == 0) {
 					preloadViews = preloadViewsInit();
 				}
+				var vewId = this.getAttribute("id");
 
-				var future_page = plus.webview.getWebviewById(this.getAttribute("id"));
 				//需要登陆的页面
-				if(future_page.id == "account-webview") {
+				if(vewId == "account-webview") {
 					//登陆状态
 					var state = app.getState();
 					console.log("state:" + JSON.stringify(state));
-					var settings = app.getSettings();
-					console.log("settings:" + JSON.stringify(settings));
 					if(state.token) {
 						//异步判断登陆是否过期
-						//已登录
-						mui.openWindow({
-								url: "page/login/login.html",
-								id: "page-login",
-								show: {
-									aniShow: "slide-in-right"
-								},
-								waiting: {
-									autoShow: false
-								}
-							})
-							//						future_page.show();
+						//已登录 - 打开用户账户页面
+						var _webView = mui.openWindow({
+							url: "page/account/home.html",
+							id: "account-webview",
+							styles: {
+								top: 0,
+								bottom: JRZH.styles.menuHeight
+							},
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							},
+							extras: state
+						});
+						_webView.show("slide-in-right");
 					} else {
 						//未登录
-						mui.openWindow({
+						var _webView = mui.openWindow({
 							url: "page/login/login.html",
 							id: "page-login",
 							show: {
@@ -156,10 +162,13 @@
 							waiting: {
 								autoShow: false
 							}
-						})
+						});
+						_webView.show("slide-in-right");
 						return;
 					}
 				} else {
+					//不需要登录
+					var future_page = plus.webview.getWebviewById(vewId);
 					future_page.show();
 				}
 				mui(preloadViews).each(function(index, obj) {
