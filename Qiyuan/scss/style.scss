@@ -578,8 +578,10 @@ $home_pd: 0.035rem;
 }
 .circle-cont {
     margin-top: 0.1rem;
-    background-color: #FFFFFF;
-    padding: 0.2rem 0.1rem 0.15rem;
+    background-color: #FFFFFF; //  padding: 0.2rem 0.1rem 0.15rem;
+    padding: 0 0.1rem 0.15rem;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
     p {
         font-size: 0.14rem;
         color: #333333;
@@ -1013,6 +1015,9 @@ $home_pd: 0.035rem;
                 color: #333;
                 font-weight: normal;
             }
+            .icon-dingdan2 {
+                color: #66c518;
+            }
             .icon-jiarugouwuche {
                 font-size: 0.36rem;
                 color: #0084e0;
@@ -1116,5 +1121,228 @@ $home_pd: 0.035rem;
                 }
             }
         }
+    }
+}
+.contact-service {
+    position: fixed;
+    bottom: 0.15rem;
+    right: 0.15rem;
+    height: 0.45rem;
+    width: 0.45rem;
+    text-align: center;
+    border-radius: 3px;
+    line-height: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    color: #FFFFFF;
+    font-size: 0.28rem;
+}
+.add-diary-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: $main_cl;
+    z-index: 99;
+    color: #FFFFFF;
+    span {
+        padding-right: 3px;
+    }
+}
+.account-diary-list {
+    .mui-media-body {
+        font-size: 0.14rem;
+    }
+    .iconfont {
+        margin-right: 10px;
+        line-height: 42px;
+        width: 42px;
+        height: 42px;
+        float: left;
+        text-align: center;
+        font-size: 0.24rem;
+        background: rgba(195, 195, 195, 0.2);
+        color: #999;
+    }
+    .mui-ellipsis {
+        font-size: 0.12rem;
+    }
+}
+.diary-date {
+    font-size: 12px;
+    background-color: #F3CD61;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-left: -.1rem;
+    display: inline-block;
+    padding: 0 8px;
+    margin-top: 0.2rem;
+    color: #ffffff;
+    position: relative;
+    margin-bottom: 15px;
+}
+.diary-date:before {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 0;
+    border-left: 10px solid $main_cl;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+}
+.order-form-item {
+    margin-top: 0.1rem;
+    .top-date {
+        font-size: 0.12rem;
+        color: #666;
+    }
+    .order-form-bottom {
+        padding: 0 0.15rem;
+        height: 0.4rem;
+        line-height: 0.4rem;
+        background-color: #FFFFFF;
+        font-size: 0.14rem;
+        color: #333333;
+        .je {}
+    }
+}
+.order-form-info {
+    .mui-table-view {
+        margin-top: 0.1rem;
+    }
+    .order-form-bottom {
+        padding: 0 0.15rem;
+        height: 0.4rem;
+        line-height: 0.4rem;
+        background-color: #FFFFFF;
+        font-size: 0.14rem;
+        color: #333333;
+        .je {
+            color: $main_red;
+        }
+    }
+}
+//.debt-table-wrap {
+//  padding: 0.1rem;
+//  background: #FFFFFF;
+//  .debt-table {
+//      width: 100%;
+//      background-color: #FFFFFF;
+//      text-align: center;
+//      thead {
+//          tr {
+//              th {
+//                  font-weight: normal;
+//                  height: 34px;
+//              }
+//          }
+//      }
+//      tbody {
+//          td {
+//              font-size: 0.12rem;
+//              height: 30px;
+//          }
+//      }
+//  }
+//}
+.table-view-debt {
+    .mui-media-body {
+        padding-right: 125px;
+        position: relative;
+        label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            line-height: 42px;
+            font-size: 0.12rem;
+            color: #666666;
+        }
+    }
+}
+.debt-bottom-count {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 0.12rem;
+    padding: 0 15px;
+    background-color: #FFFFFF;
+    color: #666666;
+    border-top: 1px solid #DDDDDD;
+    span {
+        font-size: 0.14rem;
+    }
+}
+.debt-info-content {
+    .debt-view-list {
+        .mui-media-body {
+            padding-right: 125px;
+            position: relative;
+            label {
+                position: absolute;
+                top: 0;
+                right: 0;
+                line-height: 42px;
+                font-size: 0.12rem;
+                color: #666666;
+            }
+        }
+    }
+    .debt-info-top {
+        padding: 0.1rem 0;
+        background-color: #FFFFFF;
+        .mui-col-item {
+            padding-left: 0.15rem;
+        }
+        strong {
+            display: block;
+            font-size: 0.14rem;
+            font-weight: normal;
+        }
+        span {
+            display: block;
+            font-size: 0.12rem;
+            color: $cl_red;
+        }
+    }
+    .mui-table-view {
+        margin-top: 0.1rem;
+    }
+    .table-view-debt {
+        .mui-media-body {
+            label {
+                color: #333333;
+            }
+            label.end {
+                color: #AAAAAA;
+            }
+        }
+    }
+}
+.propose-content {
+    .propose-cont {
+        padding: 0.1rem;
+        background-color: #fff;
+        textarea {
+            width: 100%;
+            border-width: 0;
+            margin: 0;
+            background: #f8f8f8;
+            border: 1px solid #f1f1f1;
+            height: 110px;
+            font-size: 0.14rem;
+            padding: 0.1rem;
+        }
+    }
+    .propose-btn {
+        margin-top: 0.15rem,;
+        padding: 0.1rem;
     }
 }

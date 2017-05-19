@@ -30,11 +30,11 @@
 					<div class="b">
 						<div class="mui-pull-left">
 							<strong>积分</strong>
-							<span>15000</span>
+							<span>{{accountData.integral}}</span>
 						</div>
 						<div class="mui-pull-right">
 							<strong>分享人数</strong>
-							<span>15/人</span>
+							<span>{{accountData.shareNum}}/人</span>
 						</div>
 						<div class="clear"></div>
 					</div>
@@ -44,24 +44,26 @@
 			<div class="personal-content">
 				<div class="pson-wrap pson-qz mui-row">
 					<div class="pson-item mui-col-xs-3">
-						<span>4</span>
-						<strong>日记</strong>
+						<a id="acountdiary">
+							<span ng-bind="accountData.diaryNum">0</span>
+							<strong>日记</strong>
+						</a>
 					</div>
 					<div class="pson-item mui-col-xs-3">
-						<span>4</span>
+						<span ng-bind="accountData.fansNum">0</span>
 						<strong>粉丝</strong>
 					</div>
 					<div class="pson-item mui-col-xs-3">
-						<span>4</span>
+						<span ng-bind="accountData.focusNum">0</span>
 						<strong>关注</strong>
 					</div>
 					<div class="pson-item mui-col-xs-3">
-						<span>4</span>
+						<span>0</span>
 						<strong>消息</strong>
 					</div>
 				</div>
 
-				<div class="pson-wrap pson-bill mui-row">
+				<div class="pson-wrap pson-bill mui-row" style="display: none;">
 					<div class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-daifukuan"></span>
 						<strong>待付款</strong>
@@ -81,6 +83,10 @@
 				</div>
 
 				<div class="pson-wrap pson-box mui-row">
+					<a id="account-orderForm-index" class="pson-item mui-col-xs-3">
+						<span class="iconfont icon-dingdan2 fsize38"></span>
+						<strong>我的订单</strong>
+					</a>
 					<a class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-jiarugouwuche fsize38"></span>
 						<strong>购物车</strong>
@@ -131,11 +137,77 @@
 	<script src="../../js/angular.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		//启用双击监听
 		angular.module("jrzhApp", [])
 			.controller("jrzhCtrl", function($scope) {
-				mui.init();
+				$scope.accountData = {};
+				var preloadpages = [{
+					url: "circle/diary.html", //日记
+					id: "account-circle-diary"
+				}, {
+					url: "orderForm/index.html", //我的订单
+					id: "account-orderForm-index"
+				}, {
+					url: "archives/health.html", //健康档案
+					id: "account-archives-health"
+				}, {
+					url: "archives/beautiful.html", //美丽档案
+					id: "account-archives-beautiful"
+				}, {
+					url: "debt/index.html", // 我的分期
+					id: "account-debt-index"
+				}, {
+					url: "archives/beautiful.html", // 
+					id: "account-archives-beautiful"
+				}, {
+					url: "archives/beautiful.html", // 
+					id: "account-archives-beautiful"
+				}, {
+					url: "archives/beautiful.html", // 
+					id: "account-archives-beautiful"
+				}];
+				var pagesKeyValue = {};
+				mui(preloadpages).each(function() {
+					pagesKeyValue[this.id] = this.url;
+				});
+				mui.init({
+					preloadPages: preloadpages,
+				});
+				mui.ready(function() {
+					//获取用户基础数据
+					var state = app.getState("$state");
+					appData.personalInfo({
+						userId: state.userId
+					}, function(response) {
+						$scope.accountData = response.object;
+						$scope.$apply();
+					}, function(err) {
+						console.log(err);
+					});
+					//绑定功能页面按钮 - 九宫格
+					mui(".pson-box").on("tap", ".pson-item", function() {
+
+						var pageId = this.getAttribute("id");
+						if(pageId.length <= 0) return;
+
+						mui.openWindow({
+							url: pagesKeyValue[pageId],
+							id: pageId
+						});
+
+					});
+
+					mui(".pson-qz").on("tap", "#acountdiary", function() {
+						mui.openWindow({
+							url: "circle/diary.html",
+							id: "account-circle-diary"
+						});
+					});
+
+				});
 			});
 	</script>
 

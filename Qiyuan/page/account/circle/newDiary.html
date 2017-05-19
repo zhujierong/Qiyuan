@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>日记</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/feedback-page.css" />
+		<style type="text/css">
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #efeff4;
+			}
+			
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: '';
+			}
+			
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			
+			.mui-page {
+				display: none;
+			}
+			
+			.mui-pages .mui-page {
+				display: block;
+			}
+			/*
+			 * 表单
+			 */
+			
+			.mui-table-view,
+			.mui-input-group:first-child {
+				margin-top: .1rem;
+			}
+			
+			.mui-table-view-gk {
+				margin: 0;
+			}
+			
+			.mui-table-view-gk label {
+				font-size: .14rem;
+			}
+			
+			.mui-page-content {
+				padding-top: 44px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--页面主结构开始-->
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-navbar"></div>
+				<div class="mui-pages"></div>
+			</div>
+		</div>
+		<!--单页结构-->
+		<div class="mui-page" id="page-main">
+			<!--单页面的Header-->
+			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<a href="javascript:void(0);" class="mui-icon mui-icon-back mui-action-back"></a>
+				<h1 class="mui-title">创建日记</h1>
+			</div>
+			<!--单页内容-->
+			<div class="mui-page-content mui-content">
+
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label for=""><span class="mui-text-danger">*</span>日记名称</label>
+						<input type="text" name="" id="" value="" placeholder="输入日记名称" />
+					</div>
+				</form>
+				<ul class="mui-table-view mui-table-view-gk">
+					<li class="mui-table-view-cell">
+						<a href="#sheet1" class="mui-navigate-right" id="isPublicBtn">
+							<label><span class="mui-text-danger">*</span>公开日记</label>
+							<span class="mui-pull-right">公开</span>
+						</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#page-order-form" class="mui-navigate-right"><span class="mui-text-danger">*</span>关联服务</a>
+					</li>
+					<li class="mui-table-view-cell interfix">
+						<a href="javascript:;" class="view-item serving-info-page">
+							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+							<div class="mui-media-body">
+								健康管理中心
+								<p class="min-text mui-ellipsis">
+									健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
+								</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		<div class="mui-page" id="page-order-form">
+			<header class="mui-navbar-inner mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title">关联订单</h1>
+			</header>
+			<div class="mui-page-content">
+				订单列表
+			</div>
+		</div>
+
+		</div>
+		<!--弹出面板 actionsheet-->
+		<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+			<!-- 可选择菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="PubilcDiaryOn" href="#">公开</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="PubilcDiaryOff" href="#">不公开</a>
+				</li>
+			</ul>
+			<!-- 取消菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#sheet1"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.view.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+
+		<script>
+			mui.init();
+			//初始化单页
+			var viewApi = mui('#app').view({
+				defaultPage: '#page-main'
+			});
+
+			var PubilcDiaryOn = document.querySelectorAll("#PubilcDiaryOn")[0];
+			var PubilcDiaryOff = document.querySelectorAll("#PubilcDiaryOff")[0];
+			var isPublicBtn = document.querySelectorAll("#isPublicBtn")[0];
+			PubilcDiaryOn.addEventListener("tap", function() {
+				isPublicDiary(true);
+			});
+			PubilcDiaryOff.addEventListener("tap", function() {
+				isPublicDiary(false);
+			});
+
+			function isPublicDiary(ispublic) {
+				mui('#sheet1').popover('toggle');
+				var spanElem = isPublicBtn.getElementsByClassName("mui-pull-right")[0];
+				console.log(spanElem)
+				spanElem.innerHTML = ispublic ? "公开" : "不公开";
+			}
+			mui.ready(function() {
+
+			});
+		</script>
+	</body>
+
+</html>

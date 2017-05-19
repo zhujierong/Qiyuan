@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
+
+	<head>
+		<meta charset="utf-8">
+		<title>圈子 - 详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">日记详情</h1>
+			<button id="newDiary" class="mui-btn mui-btn-blue mui-pull-right">写日记</button>
+		</header>
+		<div class="mui-content circle-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell interfix">
+					<p class="text-title">相关服务</p>
+					<a href="javascript:;" class="mui-navigate-right view-item serving-info-page">
+						<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+						<div class="mui-media-body">
+							健康管理中心
+							<p class="min-text">
+								健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
+							</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="circle-cont">
+
+			<div class="diarys-page-item">
+				<div class="diary-date">2017-5-19</div>
+				<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融合光谱共振分析、量子共振分析、音频共振分析的光波共振细胞能量比对健康评量系统，此系统是以诺贝尔奖“核磁共振”的理论为基础所研发出来的。太空诊断仪器将提供您非侵入</p>
+				<img src="../../../imgs/temp/exp/tx.jpg" />
+				<img src="../../../imgs/temp/exp/tx.jpg" />
+				<img src="../../../imgs/temp/exp/tx.jpg" />
+				<img src="../../../imgs/temp/exp/tx.jpg" />
+				<!--<div class="circle-footer">
+					<div class="footer-icon mui-pull-left">
+						<span><i class="iconfont icon-browse"></i>3572</span>
+						<span><i class="iconfont icon-good"></i>3572</span>
+					</div>
+					<div class="footer-icon mui-pull-right">
+						<p class="time">发布日期：2017-5-6</p>
+					</div>
+					<div class="clear"></div>
+				</div>-->
+			</div>
+
+		</div>
+		<div class="circle-discuss">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">全部评论</li>
+			</ul>
+			<ul class="mui-table-view circle-list">
+
+				<li class="circle-item">
+					<a href="javascript:void(0)" class="mui-control-item">
+						<div class="top" class=" go-pson-home-page">
+							<div class="l">
+								<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+								<span>小泽777</span>
+							</div>
+							<div class="r">
+								<span>2017-5-6</span>
+							</div>
+						</div>
+						<div class="cont">
+							<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融</p>
+						</div>
+					</a>
+					<div class="reply">
+						<strong>姓名：</strong>
+						<p>回复内容</p>
+					</div>
+				</li>
+				<li class="circle-item">
+					<a href="javascript:void(0)" class="mui-control-item">
+						<div class="top" class=" go-pson-home-page">
+							<div class="l">
+								<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+								<span>小泽777</span>
+							</div>
+							<div class="r">
+								<span>2017-5-6</span>
+							</div>
+						</div>
+						<div class="cont">
+							<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融</p>
+						</div>
+					</a>
+					<div class="reply">
+						<strong>姓名：</strong>
+						<p>回复内容</p>
+					</div>
+				</li>
+
+			</ul>
+			<p class="current-all-info">已显示全部内容</p>
+			<br />
+			<br />
+			<br />
+		</div>
+
+		<div class="reply-footer">
+			<div class="mui-row">
+				<div id="plbtn" class="f-cont mui-col-xs-9">
+					<span class="pl">发表评论</span>
+				</div>
+				<div class="f-cont mui-col-xs-3">
+					<span class="dz"><i class="iconfont icon-good"></i>234</span>
+				</div>
+			</div>
+			<div id="reply-wrap" class="reply-wrap">
+				<textarea id="textarea" rows="2" placeholder="多行文本框"></textarea>
+				<div class="btns">
+					<button class="mui-btn mui-btn-blue mui-pull-right">发表</button>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script>
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
+
+					mui.init();
+
+					mui.plusReady(function() {
+
+						var state = app.getState();
+						var diaryId = plus.webview.currentWebview()["diaryId"];
+						//预加载写日记页
+						mui.preload({
+							url: "keepDiary.html",
+							id: "account-keepDiary",
+							extras: {
+								diaryId: diaryId
+							}
+						});
+						//添加日记
+						var newDiaryButton = document.querySelectorAll("#newDiary");
+						newDiaryButton.addEventListener("tap", function() {
+							mui.openWindow({
+								url: "keepDiary.html",
+								id: "account-keepDiary",
+							})
+						});
+
+					})
+					var mask = mui.createMask(maskCallBack); //callback为用户点击蒙版时自动执行的回调；
+					function maskCallBack() {
+						document.getElementById("plbtn").parentNode.style.display = "block";
+						document.getElementById("reply-wrap").style.display = "none";
+					}
+					mui(".reply-footer").on("tap", "#plbtn", function() {
+						mask.show(); //显示遮罩
+						this.parentNode.style.display = "none";
+						var replyElem = document.getElementById("reply-wrap");
+						replyElem.style.display = "block";
+						replyElem.getElementsByTagName("textarea")[0].focus();
+					})
+					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
+						openPsonMore();
+					});
+					mui(".mui-content").on("tap", ".serving-info-page", function() {
+						openServing();
+					});
+
+					function openPsonMore() {
+						mui.openWindow({
+							url: "homepage.html",
+							id: "ccircle-homepage",
+							styles: {},
+							extras: {
+								csid: "1234"
+							}
+						})
+					}
+
+					function openServing() {
+						mui.openWindow({
+							url: "../../server/serving/info.html",
+							id: "serving-info",
+							styles: {},
+							extras: {
+								csid: "1234"
+							}
+						})
+					}
+					mui.plusReady(function() {
+						var currWebView = plus.webview.currentWebview();
+						console.log(currWebView.csid);
+					});
+				});
+		</script>
+	</body>
+
+</html>

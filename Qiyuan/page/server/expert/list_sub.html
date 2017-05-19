@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css"/>
 		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
 	</head>
 
@@ -36,7 +37,9 @@
 					</div>
 				</div>
 			</div>
+			<div class="contact-service iconfont icon-tel-bling" id="contact-service" tel="4006961368"></div>
 		</div>
+
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -159,7 +162,8 @@
 						'<strong>' + viewList[i].name + '<span>' + viewList[i].hospital + ' </span></strong>' +
 						'<p>' + viewList[i].synopsis + '</p>' +
 						'<div class="foot">';
-					var labels = viewList[i].labelIdStr.split(",");
+					viewList[i].informationIdsStr = viewList[i].informationIdsStr || "";
+					var labels = viewList[i].informationIdsStr.split(",");
 					for(var j = 0; j < labels.length; j++) {
 						htmlstr += '<span class="tag">' + labels[j] + '</span>'
 					}

@@ -7,6 +7,7 @@
 		<title>琦媛国际</title>
 		<link href="css/libs/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/fonts/iconfont.css" />
 	</head>
 
 	<body>
@@ -26,23 +27,23 @@
 		<!--导航-->
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item mui-active" id="home-webview">
-				<span class="mui-icon mui-icon-home"></span>
+				<span class="iconfont icon-mian_shouye1" linkClass="icon-xian_shouye1" activeClass="icon-mian_shouye1"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
 			<a class="mui-tab-item" id="server-webview">
-				<span class="mui-icon mui-icon-phone"></span>
+				<span class="iconfont icon-xian_huangguan" linkClass="icon-xian_huangguan" activeClass="icon-mian_huangguan"></span>
 				<span class="mui-tab-label">服务</span>
 			</a>
-			<a class="mui-tab-item" id="store-webview">
-				<span class="mui-icon mui-icon-email"></span>
+			<!--<a class="mui-tab-item" id="store-webview">
+				<span class="iconfont icon-xian_shangcheng1" linkClass="icon-xian_shangcheng1" activeClass="icon-mian_shangcheng1"></span>
 				<span class="mui-tab-label">商城</span>
-			</a>
+			</a>-->
 			<a class="mui-tab-item" id="community-webview">
-				<span class="mui-icon mui-icon-email"></span>
+				<span class="iconfont icon-xianshequ" linkClass="icon-xianshequ" activeClass="icon-mianshequ"></span>
 				<span class="mui-tab-label">社区</span>
 			</a>
 			<a class="mui-tab-item" id="account-webview">
-				<span class="mui-icon mui-icon mui-icon-person"></span>
+				<span class="iconfont icon-xian_zhanghu" linkClass="icon-xian_zhanghu" activeClass="icon-mian_zhanghu"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
@@ -122,6 +123,12 @@
 
 			var preloadViews = [];
 			mui(".mui-bar-tab").on("tap", ".mui-tab-item", function() {
+
+				navgationStyle(this);
+				mui(".mui-bar-tab .mui-tab-item").each(function() {
+					this.classList.remove("mui-active");
+				});
+				this.classList.add("mui-active");
 				if(preloadViews.length == 0) {
 					preloadViews = preloadViewsInit();
 				}
@@ -178,9 +185,23 @@
 						preloadViews[index].hide();
 					}
 				});
-
+				return false;
 			});
 		});
+
+		function navgationStyle(athis) {
+			var _iconspan = athis.getElementsByClassName("iconfont")[0];
+			var activeClass = _iconspan.getAttribute("activeClass");
+			var linkClass = _iconspan.getAttribute("linkClass");
+			mui(".mui-bar-tab .mui-tab-item .iconfont").each(function(index) {
+				var activeClass = this.getAttribute("activeClass");
+				var linkClass = this.getAttribute("linkClass");
+				this.classList.add(linkClass);
+				this.classList.remove(activeClass);
+			});
+			_iconspan.classList.remove(linkClass);
+			_iconspan.classList.add(activeClass);
+		}
 
 		function preloadViewsInit() {
 			var preloadViews = [];

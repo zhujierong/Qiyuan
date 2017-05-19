@@ -2,7 +2,7 @@ html {
   font-size: 120px; }
 
 body {
-  background-color: #F5F5F5; }
+  background-color: #f8f8f8; }
 
 ul {
   list-style: none; }
@@ -55,6 +55,9 @@ ul {
   height: 100%;
   width: 1px;
   background-color: #FFFFFF; }
+
+.mui-text-danger {
+  color: #dd524d; }
 
 .mui-content {
   background-color: #f8f8f8; }
@@ -223,6 +226,36 @@ input[type='submit'].mui-active:enabled,
 
 .mui-bar .mui-btn-link {
   color: #FFFFFF; }
+
+.mui-bar-tab .mui-tab-item .iconfont {
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+  z-index: 20;
+  font-family: Muiicons;
+  font-size: 24px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased; }
+
+.mui-bar-tab .mui-tab-item .iconfont ~ .mui-tab-label {
+  font-size: 11px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.mui-bar-tab {
+  background-color: #FFFFFF; }
+
+.mui-navigate-right .mui-pull-right {
+  margin-right: 20px;
+  color: #007aff; }
 
 .panel-wrap {
   background-color: #FFFFFF; }
@@ -900,7 +933,9 @@ input[type='submit'].mui-active:enabled,
 .circle-cont {
   margin-top: 0.1rem;
   background-color: #FFFFFF;
-  padding: 0.2rem 0.1rem 0.15rem; }
+  padding: 0 0.1rem 0.15rem;
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD; }
   .circle-cont p {
     font-size: 0.14rem;
     color: #333333; }
@@ -1230,6 +1265,8 @@ input[type='submit'].mui-active:enabled,
     display: block;
     color: #333;
     font-weight: normal; }
+  .personal-content .pson-box .pson-item .icon-dingdan2 {
+    color: #66c518; }
   .personal-content .pson-box .pson-item .icon-jiarugouwuche {
     font-size: 0.36rem;
     color: #0084e0; }
@@ -1293,5 +1330,169 @@ input[type='submit'].mui-active:enabled,
       position: relative;
       display: block;
       color: #333333; }
+
+.contact-service {
+  position: fixed;
+  bottom: 0.15rem;
+  right: 0.15rem;
+  height: 0.45rem;
+  width: 0.45rem;
+  text-align: center;
+  border-radius: 3px;
+  line-height: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  color: #FFFFFF;
+  font-size: 0.28rem; }
+
+.add-diary-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background-color: #F3CD61;
+  z-index: 99;
+  color: #FFFFFF; }
+  .add-diary-wrap span {
+    padding-right: 3px; }
+
+.account-diary-list .mui-media-body {
+  font-size: 0.14rem; }
+.account-diary-list .iconfont {
+  margin-right: 10px;
+  line-height: 42px;
+  width: 42px;
+  height: 42px;
+  float: left;
+  text-align: center;
+  font-size: 0.24rem;
+  background: rgba(195, 195, 195, 0.2);
+  color: #999; }
+.account-diary-list .mui-ellipsis {
+  font-size: 0.12rem; }
+
+.diary-date {
+  font-size: 12px;
+  background-color: #F3CD61;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin-left: -.1rem;
+  display: inline-block;
+  padding: 0 8px;
+  margin-top: 0.2rem;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 15px; }
+
+.diary-date:before {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  border-left: 10px solid #F3CD61;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent; }
+
+.order-form-item {
+  margin-top: 0.1rem; }
+  .order-form-item .top-date {
+    font-size: 0.12rem;
+    color: #666; }
+  .order-form-item .order-form-bottom {
+    padding: 0 0.15rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    background-color: #FFFFFF;
+    font-size: 0.14rem;
+    color: #333333; }
+
+.order-form-info .mui-table-view {
+  margin-top: 0.1rem; }
+.order-form-info .order-form-bottom {
+  padding: 0 0.15rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  background-color: #FFFFFF;
+  font-size: 0.14rem;
+  color: #333333; }
+  .order-form-info .order-form-bottom .je {
+    color: #f23030; }
+
+.table-view-debt .mui-media-body {
+  padding-right: 125px;
+  position: relative; }
+  .table-view-debt .mui-media-body label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 42px;
+    font-size: 0.12rem;
+    color: #666666; }
+
+.debt-bottom-count {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 0.12rem;
+  padding: 0 15px;
+  background-color: #FFFFFF;
+  color: #666666;
+  border-top: 1px solid #DDDDDD; }
+  .debt-bottom-count span {
+    font-size: 0.14rem; }
+
+.debt-info-content .debt-view-list .mui-media-body {
+  padding-right: 125px;
+  position: relative; }
+  .debt-info-content .debt-view-list .mui-media-body label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 42px;
+    font-size: 0.12rem;
+    color: #666666; }
+.debt-info-content .debt-info-top {
+  padding: 0.1rem 0;
+  background-color: #FFFFFF; }
+  .debt-info-content .debt-info-top .mui-col-item {
+    padding-left: 0.15rem; }
+  .debt-info-content .debt-info-top strong {
+    display: block;
+    font-size: 0.14rem;
+    font-weight: normal; }
+  .debt-info-content .debt-info-top span {
+    display: block;
+    font-size: 0.12rem;
+    color: #F10214; }
+.debt-info-content .mui-table-view {
+  margin-top: 0.1rem; }
+.debt-info-content .table-view-debt .mui-media-body label {
+  color: #333333; }
+.debt-info-content .table-view-debt .mui-media-body label.end {
+  color: #AAAAAA; }
+
+.propose-content .propose-cont {
+  padding: 0.1rem;
+  background-color: #fff; }
+  .propose-content .propose-cont textarea {
+    width: 100%;
+    border-width: 0;
+    margin: 0;
+    background: #f8f8f8;
+    border: 1px solid #f1f1f1;
+    height: 110px;
+    font-size: 0.14rem;
+    padding: 0.1rem; }
+.propose-content .propose-btn {
+  margin-top: 0.15rem;
+  padding: 0.1rem; }
 
 /*# sourceMappingURL=style.css.map */

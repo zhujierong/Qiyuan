@@ -21,7 +21,9 @@
 			"js/zepto_1.1.3.js",
 			"js/app.js",
 			"js/mui.locker.js",
-			"imgs/temp/exp/tx.jpg"
+			"imgs/temp/exp/tx.jpg",
+			"css/fonts/iconfont.css",
+			"css/fonts/iconfont.ttf"
 		],
 		"refer": [
 			"page/login/reg.html",
@@ -257,7 +259,9 @@
 			"js/mui.min.js",
 			"js/angular.js",
 			"js/appdata.js",
-			"imgs/temp/3.jpg"
+			"imgs/temp/3.jpg",
+			"css/fonts/iconfont.css",
+			"css/fonts/iconfont.ttf"
 		],
 		"refer": [
 			"page/server/serving/info.html"
@@ -274,7 +278,9 @@
 			"js/mui.min.js",
 			"css/style.css",
 			"js/JRZH.js",
-			"js/appdata.js"
+			"js/appdata.js",
+			"css/fonts/iconfont.css",
+			"css/fonts/iconfont.ttf"
 		]
 	},
 	"page/server/serving/info.html": {
@@ -439,10 +445,13 @@
 			"js/angular.js",
 			"css/fonts/iconfont.css",
 			"imgs/temp/wxtx.jpg",
-			"css/fonts/iconfont.ttf"
+			"css/fonts/iconfont.ttf",
+			"js/app.js",
+			"js/appdata.js"
 		],
 		"refer": [
-			"page/more/setting.html"
+			"page/more/setting.html",
+			"page/account/circle/diary.html"
 		]
 	},
 	"page/more/setting.html": {
@@ -474,7 +483,9 @@
 			"js/JRZH.js",
 			"imgs/temp/3.jpg",
 			"imgs/temp/2.jpg",
-			"css/fonts/iconfont.woff"
+			"css/fonts/iconfont.woff",
+			"js/angular.js",
+			"js/appdata.js"
 		],
 		"refer": [
 			"page/community/circle/info.html",
@@ -587,6 +598,26 @@
 			"js/JRZH.js",
 			"css/fonts/mui.ttf",
 			"temp/activity.html"
+		]
+	},
+	"page/account/circle/diary.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"imgs/temp/3.jpg",
+			"js/mui.min.js",
+			"imgs/temp/1.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"imgs/temp/server/list.jpg",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js",
+			"css/fonts/iconfont.ttf",
+			"js/common.js",
+			"js/angular.js",
+			"js/appdata.js",
+			"css/fonts/iconfont.css",
+			"imgs/temp/2.jpg",
+			"css/fonts/mui.ttf"
 		]
 	}
 }

@@ -1,6 +1,6 @@
 var JRZH = {
 	port: "http://192.168.1.167:8080",
-	BASE_URL: this.port + "/qiy/mobile/",
+	BASE_URL: "http://192.168.1.167:8080/qiy/mobile/",
 	xhrError: function(text) {
 		var msg = '哎呀,网络连接出错啦!';
 		if(text) {

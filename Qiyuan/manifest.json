@@ -259,7 +259,9 @@
 					"js/zepto_1.1.3.js",
 					"js/app.js",
 					"js/mui.locker.js",
-					"imgs/temp/exp/tx.jpg"
+					"imgs/temp/exp/tx.jpg",
+					"css/fonts/iconfont.css",
+					"css/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"page/login/reg.html",
@@ -504,7 +506,9 @@
 					"js/angular.js",
 					"js/appdata.js",
 					null,
-					"imgs/temp/3.jpg"
+					"imgs/temp/3.jpg",
+					"css/fonts/iconfont.css",
+					"css/fonts/iconfont.ttf"
 				],
 				"refer": [
 					"page/server/serving/info.html"
@@ -522,7 +526,9 @@
 					"js/mui.min.js",
 					"css/style.css",
 					"js/JRZH.js",
-					"js/appdata.js"
+					"js/appdata.js",
+					"css/fonts/iconfont.css",
+					"css/fonts/iconfont.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -697,10 +703,13 @@
 					"js/angular.js",
 					"css/fonts/iconfont.css",
 					"imgs/temp/wxtx.jpg",
-					"css/fonts/iconfont.ttf"
+					"css/fonts/iconfont.ttf",
+					"js/app.js",
+					"js/appdata.js"
 				],
 				"refer": [
-					"page/more/setting.html"
+					"page/more/setting.html",
+					"page/account/circle/diary.html"
 				],
 				"priority": 0
 			},
@@ -735,7 +744,9 @@
 					"js/JRZH.js",
 					"imgs/temp/3.jpg",
 					"imgs/temp/2.jpg",
-					"css/fonts/iconfont.woff"
+					"css/fonts/iconfont.woff",
+					"js/angular.js",
+					"js/appdata.js"
 				],
 				"refer": [
 					"page/community/circle/info.html",
@@ -863,6 +874,28 @@
 					"js/JRZH.js",
 					"css/fonts/mui.ttf",
 					"temp/activity.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/account/circle/diary.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"imgs/temp/3.jpg",
+					"js/mui.min.js",
+					"imgs/temp/1.jpg",
+					"js/mui.pullToRefresh.material.js",
+					"imgs/temp/server/list.jpg",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js",
+					"css/fonts/iconfont.ttf",
+					"js/common.js",
+					"js/angular.js",
+					"js/appdata.js",
+					"css/fonts/iconfont.css",
+					"imgs/temp/2.jpg",
+					"css/fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0

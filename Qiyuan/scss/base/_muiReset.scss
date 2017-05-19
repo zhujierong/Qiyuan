@@ -1,6 +1,10 @@
 //mui - reset
 $mui_bar_nav_height: 44px;
 $mui_bar_tab_height: 0.44rem;
+//color
+.mui-text-danger {
+    color: #dd524d;
+}
 .mui-content {
     background-color: #f8f8f8;
 }
@@ -193,3 +197,35 @@ input[type='submit'].mui-active:enabled,
 //  font-size: 0.14rem;
 //  line-height: 1.5em;
 //}
+.mui-bar-tab .mui-tab-item .iconfont {
+    top: 3px;
+    width: 24px;
+    height: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+    position: relative;
+    z-index: 20;
+    font-family: Muiicons;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+.mui-bar-tab .mui-tab-item .iconfont~.mui-tab-label {
+    font-size: 11px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mui-bar-tab {
+    background-color: #FFFFFF;
+}
+.mui-navigate-right {
+    .mui-pull-right {
+        margin-right: 20px;
+        color: $main_blue;
+    }
+}
