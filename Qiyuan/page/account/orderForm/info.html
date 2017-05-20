@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -87,7 +87,21 @@
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 
 		<script>
-			mui.init();
+			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
+
+				$scope.dataList = [];
+
+				mui.init();
+				console.log(1234)
+				appData.record({
+
+				}, function(response) {
+					console.log(response)
+				}, function(err) {
+					console.log(err)
+				});
+
+			});
 		</script>
 	</body>
 

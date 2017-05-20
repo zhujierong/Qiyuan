@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -11,6 +11,11 @@
 		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+		<style type="text/css">
+			.mui-scroll-wrapper {
+				padding-top: 44px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -19,32 +24,26 @@
 			<h1 class="mui-title">健康档案</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="" class="mui-navigate-right">
-						<span>健康档案</span>
-						<label class="mui-pull-right">2017-5-19</label>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="" class="mui-navigate-right">
-						<span>健康档案</span>
-						<label class="mui-pull-right">2017-5-19</label>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="" class="mui-navigate-right">
-						<span>健康档案</span>
-						<label class="mui-pull-right">2017-5-19</label>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a href="" class="mui-navigate-right">
-						<span>健康档案</span>
-						<label class="mui-pull-right">2017-5-19</label>
-					</a>
-				</li>
-			</ul>
+			<div class="mui-slider-group">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll" id="healthScroll">
+						<ul class="mui-table-view" page="0" eqRecordType="1">
+							<li class="mui-table-view-cell" ng-repeat="item in dataList">
+								<a fileUrl="item.recordUrl" class="mui-navigate-right">
+									<span ng-bind="item.recordName">健康档案</span>
+									<label class="mui-pull-right" ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-19</label>
+								</a>
+							</li>
+							<!--<li class="mui-table-view-cell">
+							<a href="" class="mui-navigate-right">
+								<span>健康档案</span>
+								<label class="mui-pull-right">2017-5-19</label>
+							</a>
+						</li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
@@ -52,11 +51,85 @@
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 
 		<script>
-			mui.init();
+			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
+
+				$scope.dataList = [];
+				var state = app.getState();
+
+				mui.init();
+				mui.ready(function() {
+
+					var healthScroll = document.querySelectorAll("#healthScroll")[0];
+					/*
+					 * 上拉刷新、下拉加载
+					 */
+					mui(healthScroll).pullToRefresh({
+						up: {
+							auto: true, //可选,默认false.自动上拉加载一次
+							contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+							contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+							callback: function() {
+								var self = this;
+								var ul = self.element.querySelector('.mui-table-view');
+								loadMoreDate(self, ul);
+							}
+						}
+					})
+
+				});
+
+				mui(".mui-table-view").on("tap", ".mui-table-view-cell a", function() {
+					var fileUrl = this.getAttribute("fileUrl");
+					launchApp(fileUrl);
+				});
+
+				function loadMoreDate(self, ul) {
+					var page = ul.getAttribute("page") * 1 + 1;
+					var eqRecordType = ul.getAttribute("eqRecordType");
+					var rows = 10;
+					appData.getMemberFileList({
+						userId: state.userId,
+						eqRecordType: eqRecordType,
+						page: page,
+						rows: rows
+					}, function(response) {
+						mui.each(response.object.fileList, function() {
+							$scope.dataList.push(this);
+						});
+						$scope.$apply();
+						console.log($scope.dataList.length)
+						ul.setAttribute("page", page);
+						self.endPullUpToRefresh();
+					}, function(err) {
+						plus.nativeUI.toast(err.message);
+					});
+				}
+
+				function launchApp(fileUrl) {
+					if(plus.os.name == "Android") {
+						plus.runtime.launchApplication({
+							pname: "com.android.browser",
+							extra: {
+								url: fileUrl
+							}
+						}, function(e) {
+							plus.nativeUI.toast(e.message);
+						});
+					} else if(plus.os.name == "iOS") {
+						plus.runtime.launchApplication({
+							action: fileUrl
+						}, function(e) {
+							plus.nativeUI.toast(e.message);
+						});
+					}
+				}
+
+			});
 		</script>
 	</body>
 

@@ -1495,4 +1495,25 @@ input[type='submit'].mui-active:enabled,
   margin-top: 0.15rem;
   padding: 0.1rem; }
 
+.collect-content .collect-list.mui-active li {
+  padding-left: 60px; }
+.collect-content .collect-view-cell {
+  position: relative;
+  overflow: hidden;
+  padding: 11px 15px;
+  -webkit-touch-callout: none;
+  font-size: 0.14rem; }
+  .collect-content .collect-view-cell p {
+    margin: 0; }
+.collect-content .mui-checkbox {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%); }
+.collect-content .mui-checkbox input[type=checkbox],
+.collect-content .mui-radio input[type=radio] {
+  position: static;
+  left: 0;
+  top: 0; }
+
 /*# sourceMappingURL=style.css.map */

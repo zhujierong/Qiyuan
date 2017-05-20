@@ -709,7 +709,11 @@
 				],
 				"refer": [
 					"page/more/setting.html",
-					"page/account/circle/diary.html"
+					"page/account/circle/diary.html",
+					"page/account/archives/health.html",
+					"page/account/debt/index.html",
+					"page/account/archives/beautiful.html",
+					"page/account/orderForm/index.html"
 				],
 				"priority": 0
 			},
@@ -896,6 +900,80 @@
 					"css/fonts/iconfont.css",
 					"imgs/temp/2.jpg",
 					"css/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/account/orderForm/index.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/app.js",
+					"imgs/temp/1.jpg",
+					"js/mui.pullToRefresh.material.js",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js",
+					"js/common.js",
+					"imgs/temp/3.jpg",
+					"js/angular.js",
+					"js/mui.min.js",
+					"css/fonts/iconfont.css",
+					"js/appdata.js",
+					"css/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/account/archives/health.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/fonts/iconfont.css",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"css/fonts/mui.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/app.js",
+					"js/common.js",
+					"js/angular.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/appdata.js",
+					"js/JRZH.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/account/debt/index.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/fonts/iconfont.css",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"css/fonts/mui.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/app.js",
+					"js/common.js",
+					"js/angular.js",
+					"js/appdata.js",
+					"js/JRZH.js",
+					"js/mui.pullToRefresh.material.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/account/archives/beautiful.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/fonts/iconfont.css",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"css/fonts/mui.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/app.js",
+					"js/common.js",
+					"js/angular.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/appdata.js",
+					"js/JRZH.js"
 				],
 				"refer": [],
 				"priority": 0

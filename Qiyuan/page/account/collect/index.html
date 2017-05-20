@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的收藏</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的收藏</h1>
+		</header>
+		<div class="mui-content collect-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background-color: #FFFFFF;">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active" href="#item1mobile">日记</a>
+						<a class="mui-control-item" href="#item2mobile">服务</a>
+						<a class="mui-control-item" href="#item3mobile">资讯</a>
+					</div>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<!--组-->
+					<div id="item1mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<ul class="mui-table-view collect-list mui-active">
+									<li class="collect-view-cell mui-media">
+										<div class="mui-checkbox mui-left">
+											<input name="checkbox1" value="Item 1" type="checkbox">
+										</div>
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												健康是人最宝贵的财富
+												<p class="mui-ellipsis">琦媛以疾病预测、疾病预防、健康促进和个性化健康 健康促进和服务.，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<!--end-->
+					<!--组-->
+					<div id="item2mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<ul class="mui-table-view collect-list mui-active">
+									<li class="collect-view-cell mui-media">
+										<div class="mui-checkbox mui-left">
+											<input name="checkbox1" value="Item 1" type="checkbox">
+										</div>
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												幸福asdasdasdsad
+												<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<!--end-->
+					<!--组-->
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<ul class="mui-table-view collect-list mui-active">
+									<li class="collect-view-cell mui-media">
+										<div class="mui-checkbox mui-left">
+											<input name="checkbox1" value="Item 1" type="checkbox">
+										</div>
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+											<div class="mui-media-body">
+												健康是人最宝贵的财富
+												<p class="mui-ellipsis">琦媛以疾病预测、疾病预防、健康促进和个性化健康 健康促进和服务.，打呼噜怎么办？</p>
+											</div>
+										</a>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<!--end-->
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script>
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
+
+					$scope.diaryList = [];
+					$scope.intellectualList = [];
+					$scope.informationList = [];
+
+					var state = app.getState();
+
+					mui.init();
+					//阻尼系数
+					var deceleration = mui.os.ios ? 0.003 : 0.0009;
+					mui('.mui-scroll-wrapper').scroll({
+						bounce: false,
+						indicators: true, //是否显示滚动条
+						deceleration: deceleration
+					});
+
+					mui.ready(function() {
+						//循环初始化所有下拉刷新，上拉加载。
+						mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+							mui(pullRefreshEl).pullToRefresh({
+								//							down: {
+								//								callback: function() {
+								//									var self = this;
+								//									setTimeout(function() {
+								//										var ul = self.element.querySelector('.mui-table-view');
+								//										ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+								//										self.endPullDownToRefresh();
+								//									}, 1000);
+								//								}
+								//							}
+								//							,
+								up: {
+									callback: function() {
+										var self = this;
+										var ul = self.element.querySelector('.mui-table-view');
+										self.endPullUpToRefresh();
+									}
+								}
+							});
+						});
+						var loadMoreFragment = function(ul, index, count, reverse) {
+							var userId = state.userId;
+							var page = 1;
+							var rows = 10;
+							var eqCollectionType = ul.getAttribute("eqCollectionType");
+							appData.collectGetList({
+								userId: userId,
+								eqCollectionType: eqCollectionType,
+								page: page,
+								rows: rows
+							}, function(response) {
+
+							}, function(err) {
+
+							});
+						};
+					});
+				});
+		</script>
+	</body>
+
+</html>

@@ -1346,3 +1346,30 @@ $home_pd: 0.035rem;
         padding: 0.1rem;
     }
 }
+.collect-content {
+    .collect-list.mui-active li {
+        padding-left: 60px;
+    }
+    .collect-view-cell {
+        position: relative;
+        overflow: hidden;
+        padding: 11px 15px;
+        -webkit-touch-callout: none;
+        font-size: 0.14rem;
+        p {
+            margin: 0;
+        }
+    }
+    .mui-checkbox {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .mui-checkbox input[type=checkbox],
+    .mui-radio input[type=radio] {
+        position: static;
+        left: 0;
+        top: 0;
+    }
+}

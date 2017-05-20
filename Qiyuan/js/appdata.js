@@ -7,6 +7,12 @@ appData.ajaxRTS = function(url, parameters, successcallback, errorcallback) {
 	successcallback = successcallback || $.noop;
 	errorcallback = errorcallback || $.noop;
 
+	//// 指定允许其他域名访问  
+	//header('Access-Control-Allow-Origin:*');  
+	//// 响应类型  
+	//header('Access-Control-Allow-Methods:POST');  
+	//// 响应头设置  
+	//header('Access-Control-Allow-Headers:x-requested-with,content-type');  
 	mui.ajax(JRZH.BASE_URL + url, {
 		data: parameters,
 		dataType: appData.dataType,
@@ -79,4 +85,22 @@ appData.cancelDiaryPraise = function(parameters, successcallback, errorcallback,
  */
 appData.personalInfo = function(parameters, successcallback, errorcallback, xhrerrorback) {
 	appData.ajaxRTS('bbs/personalInfo.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 健康档案
+ */
+appData.getMemberFileList = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('memberFile/getList.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 我的订单
+ */
+appData.record = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('memberRecord/record.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 我的收藏
+ */
+appData.collectGetList = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('collect/getList.json', parameters, successcallback, errorcallback)
 };

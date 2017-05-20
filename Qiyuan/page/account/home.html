@@ -44,22 +44,28 @@
 			<div class="personal-content">
 				<div class="pson-wrap pson-qz mui-row">
 					<div class="pson-item mui-col-xs-3">
-						<a id="acountdiary">
+						<a pageId="account-circle-diary">
 							<span ng-bind="accountData.diaryNum">0</span>
 							<strong>日记</strong>
 						</a>
 					</div>
 					<div class="pson-item mui-col-xs-3">
-						<span ng-bind="accountData.fansNum">0</span>
-						<strong>粉丝</strong>
+						<a pageId="account-circle-follow">
+							<span ng-bind="accountData.fansNum">0</span>
+							<strong>粉丝</strong>
+						</a>
 					</div>
 					<div class="pson-item mui-col-xs-3">
-						<span ng-bind="accountData.focusNum">0</span>
-						<strong>关注</strong>
+						<a pageId="account-circle-follower">
+							<span ng-bind="accountData.focusNum">0</span>
+							<strong>关注</strong>
+						</a>
 					</div>
 					<div class="pson-item mui-col-xs-3">
-						<span>0</span>
-						<strong>消息</strong>
+						<a pageId="account-messageCenter-news">
+							<span>0</span>
+							<strong>消息</strong>
+						</a>
 					</div>
 				</div>
 
@@ -83,50 +89,50 @@
 				</div>
 
 				<div class="pson-wrap pson-box mui-row">
-					<a id="account-orderForm-index" class="pson-item mui-col-xs-3">
+					<a pageId="account-orderForm-index" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-dingdan2 fsize38"></span>
 						<strong>我的订单</strong>
 					</a>
-					<a class="pson-item mui-col-xs-3">
+					<a pageId="" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-jiarugouwuche fsize38"></span>
 						<strong>购物车</strong>
 					</a>
-					<a class="pson-item mui-col-xs-3">
+					<a pageId="account-archives-health" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-jiankang"></span>
 						<strong>健康档案</strong>
 					</a>
-					<div class="pson-item mui-col-xs-3">
+					<a pageId="account-archives-beautiful" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-home2"></span>
 						<strong>美丽档案</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-debt-index" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-fenqi"></span>
 						<strong>我的分期</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-generalize-member" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-yaoqing"></span>
 						<strong>我的分享</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-generalize-channel" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-wodekehu"></span>
 						<strong>我的客户</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-generalize-commision" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-yongjin"></span>
 						<strong>佣金</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-generalize-QRCode" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-yaoqinghaoyou"></span>
 						<strong>邀请好友</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-collect-index" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-shoucang"></span>
 						<strong>收藏</strong>
-					</div>
-					<div class="pson-item mui-col-xs-3">
+					</a>
+					<a pageId="account-more-propose" class="pson-item mui-col-xs-3">
 						<span class="iconfont icon-jianyi"></span>
 						<strong>意见反馈</strong>
-					</div>
+					</a>
 				</div>
 
 			</div>
@@ -160,15 +166,68 @@
 					url: "debt/index.html", // 我的分期
 					id: "account-debt-index"
 				}, {
-					url: "archives/beautiful.html", // 
-					id: "account-archives-beautiful"
+					url: "generalize/member.html", //我的分享
+					id: "account-generalize-member"
 				}, {
-					url: "archives/beautiful.html", // 
-					id: "account-archives-beautiful"
+					url: "generalize/channel.html", //我的客户
+					id: "account-generalize-channel"
 				}, {
-					url: "archives/beautiful.html", // 
-					id: "account-archives-beautiful"
+					url: "generalize/commision.html", //佣金
+					id: "account-generalize-commision"
+				}, {
+					url: "collect/index.html", //收藏
+					id: "account-collect-index"
 				}];
+				/*
+				 * 粉丝
+				 */
+				function openFollow() {
+					var _view = mui.openWindow({
+						url: "circle/follow.html",
+						id: "account-circle-follow"
+					});
+					_view.show("slide-in-right");
+				};
+				/*
+				 * 关注
+				 */
+				function openFollower() {
+					var _view = mui.openWindow({
+						url: "circle/follower.html",
+						id: "account-circle-follower"
+					});
+					_view.show("slide-in-right");
+				};
+				/*
+				 * 消息
+				 */
+				function openNews() {
+					var _view = mui.openWindow({
+						url: "messageCenter/news.html",
+						id: "account-messageCenter-news"
+					});
+					_view.show("slide-in-right");
+				};
+				/*
+				 * 邀请好友
+				 */
+				function openQRCode() {
+					var _view = mui.openWindow({
+						url: "generalize/QRCode.html",
+						id: "account-generalize-QRCode"
+					});
+					_view.show("slide-in-right");
+				};
+				/*
+				 * 意见反馈
+				 */
+				function openPropose() {
+					var _view = mui.openWindow({
+						url: "../more/propose.html",
+						id: "account-more-propose"
+					});
+					_view.show("slide-in-right");
+				};
 				var pagesKeyValue = {};
 				mui(preloadpages).each(function() {
 					pagesKeyValue[this.id] = this.url;
@@ -190,7 +249,7 @@
 					//绑定功能页面按钮 - 九宫格
 					mui(".pson-box").on("tap", ".pson-item", function() {
 
-						var pageId = this.getAttribute("id");
+						var pageId = this.getAttribute("pageId");
 						if(pageId.length <= 0) return;
 
 						mui.openWindow({
