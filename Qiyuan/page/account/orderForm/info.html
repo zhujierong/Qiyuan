@@ -24,21 +24,12 @@
 					<li class="mui-table-view-cell">
 						<label for="">服务项目</label>
 					</li>
-					<li class="mui-table-view-cell mui-media">
+					<li class="mui-table-view-cell mui-media" ng-repeat="item in orderInfo.informationList">
 						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+							<img class="mui-media-object mui-pull-left" ng-src="item.imageUrl">
 							<div class="mui-media-body">
-								幸福
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/3.jpg">
-							<div class="mui-media-body">
-								幸福
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+								<span ng-bind="item.title"></span>
+								<p class="mui-ellipsis" ng-bind="item.synopsis"></p>
 							</div>
 						</a>
 					</li>
@@ -47,32 +38,33 @@
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
 						订单编号
-						<label class="mui-pull-right" for="">512382385</label>
+						<label class="mui-pull-right" ng-bind="item.orderNumber"></label>
 					</li>
 					<li class="mui-table-view-cell">
 						下单时间
-						<label class="mui-pull-right" for="">2017-5-19 15:52:39</label>
+						<label class="mui-pull-right" ng-bind="item.updateTime | date:'yyyy-MM-dd'"></label>
 					</li>
 					<li class="mui-table-view-cell">
 						支付方式
-						<label class="mui-pull-right" for="">线下支付</label>
+						<label class="mui-pull-right" ng-if="item.type == 0">{{typeStr}}</label>
+						<label class="mui-pull-right" ng-if="item.type == 1">分期付款</label>
 					</li>
 				</ul>
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
 						商品总额
-						<label class="mui-pull-right" for="">￥123123</label>
+						<label class="mui-pull-right" for="">￥{{item.original}}</label>
 					</li>
 					<li class="mui-table-view-cell">
 						商品优惠
-						<label class="mui-pull-right" for="">￥23123</label>
+						<label class="mui-pull-right" for="">￥{{item.amount}}</label>
 					</li>
 				</ul>
 				<div class="order-form-bottom">
 					<div class="mui-pull-right">
 						共 1 件商品
 						<span class="sf">实付款：</span>
-						<span class="je">￥560000</span>
+						<span class="je">￥{{item.practicalMoney}}</span>
 					</div>
 				</div>
 			</div>
@@ -89,17 +81,53 @@
 		<script>
 			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
 
-				$scope.dataList = [];
-
+				$scope.orderInfo = {};
+				var state = app.getState();
+				
 				mui.init();
-				console.log(1234)
-				appData.record({
+				(function() { //循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							up: {
+								height: 50, //可选.默认50.触发上拉加载拖动距离
+								auto: true, //可选,默认false.自动上拉加载一次
+								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+								callback: function() {
+									var self = this;
+									var listElem = self.element.querySelector('.order-view-list');
+									loadMoreData(self, listElem);
+								}
+							}
+						});
+					});
 
-				}, function(response) {
-					console.log(response)
-				}, function(err) {
-					console.log(err)
-				});
+					function loadMoreData(self, wrapElem) {
+						var page = wrapElem.getAttribute("page") * 1 + 1;
+						var rows = 10;
+						//数据加载
+						appData.record({
+							userId: state.userId,
+							memberRecordId: memberRecordId
+						}, function(response) {
+							var viewlist = response.object.viewList || [];
+							if(viewlist.length <= 0) { //已经没有更多数据
+								self.endPullUpToRefresh(true);
+								return;
+							}
+							$scope.orderInfo = response.object.viewList[0];
+							$scope.$apply(); //数据更新view
+							if(response.object.viewList.length < rows) {
+								self.endPullUpToRefresh(true); //没有更多数据了
+							} else {
+								self.endPullUpToRefresh(); //加载结束
+							}
+							wrapElem.setAttribute("page", page);
+						}, function(err) {
+							mui.toast(err.message);
+						});
+					}
+				})();
 
 			});
 		</script>

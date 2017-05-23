@@ -32,6 +32,41 @@ appData.ajaxRTS = function(url, parameters, successcallback, errorcallback) {
 		}
 	});
 };
+appData.ajaxSYS = function(url, parameters, successcallback, errorcallback) {
+	successcallback = successcallback || $.noop;
+	errorcallback = errorcallback || $.noop;
+
+	//// 指定允许其他域名访问  
+	//header('Access-Control-Allow-Origin:*');  
+	//// 响应类型  
+	//header('Access-Control-Allow-Methods:POST');  
+	//// 响应头设置  
+	//header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+	mui.ajax(JRZH.port + url, {
+		data: parameters,
+		dataType: appData.dataType,
+		type: appData.type,
+		timeout: appData.timeout,
+		success: function(data) {
+
+			if(data.status == 1) {
+				successcallback(data);
+			} else {
+				errorcallback(data);
+			}
+
+		},
+		error: function(xhr, type, errorThrown) {
+			JRZH.xhrError()
+		}
+	});
+};
+/*
+ * 上传文件
+ */
+appData.upload = function(parameters, successcallback, errorcallback) {
+	appData.ajaxSYS('/sys/ajax/file/upload.json', parameters, successcallback, errorcallback)
+};
 /*
  * 服务类型
  */
@@ -63,11 +98,18 @@ appData.intellectual = function(parameters, successcallback, errorcallback, xhre
 	appData.ajaxRTS('intellectual/intellectual.json', parameters, successcallback, errorcallback)
 };
 /*
- * 圈子列表 - 最新
+ * 圈子列表
  */
 appData.getDiary = function(parameters, successcallback, errorcallback, xhrerrorback) {
 	appData.ajaxRTS('bbs/getDiary.json', parameters, successcallback, errorcallback)
 };
+/*
+ * 日记详情
+ */
+appData.getDetails = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/getDetails.json', parameters, successcallback, errorcallback)
+};
+
 /*
  * 圈子 - 点赞 
  */
@@ -85,6 +127,18 @@ appData.cancelDiaryPraise = function(parameters, successcallback, errorcallback,
  */
 appData.personalInfo = function(parameters, successcallback, errorcallback, xhrerrorback) {
 	appData.ajaxRTS('bbs/personalInfo.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 个人 - 日记本
+ */
+appData.getPersonalDiary = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 个人 - 创建日记本
+ */
+appData.diaryIssue = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/diaryIssue.json', parameters, successcallback, errorcallback)
 };
 /*
  * 健康档案

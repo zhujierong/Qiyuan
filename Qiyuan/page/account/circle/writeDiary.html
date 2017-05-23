@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
 		<link rel="stylesheet" href="../../../css/feedback.css" />
-		<link rel="stylesheet" type="text/css" href="../../../css/feedback-page.css" />
+		<!--<link rel="stylesheet" type="text/css" href="../../../css/feedback-page.css" />-->
 		<style type="text/css">
 			.common-list .mui-table-view-cell a.mui-navigate-right {
 				padding-right: 35px;
@@ -59,7 +59,7 @@
 					<div id="image-list" class="row image-list">
 					</div>
 					<div class="btns-wrap">
-						<button class="mui-btn mui-btn-block mui-btn-blue">保存</button>
+						<button id="submit" class="mui-btn mui-btn-block mui-btn-blue">保存</button>
 					</div>
 				</div>
 			</div>
@@ -67,10 +67,31 @@
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/JRZH_upImg.js" type="text/javascript" charset="utf-8"></script>
 		<!--<script src="../../../js/feedback.js" type="text/javascript" charset="utf-8"></script>-->
-		<script src="../../../js/feedback-page.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../../js/feedback-page.js" type="text/javascript" charset="utf-8"></script>-->
 		<script>
 			mui.init();
+
+			var state = app.getState();
+			//创建 loadInit 事件
+			window.addEventListener("loadInit", function(event) {
+				var diaryId = event.detail.diaryId
+				loadInit(diaryId);
+			});
+
+			function loadInit(diaryId) {
+				appData.getDetails({
+					diaryId: diaryId,
+					userId: state.userId
+				}, function(response) {
+
+				}, function(err) {
+
+				});
+			}
 		</script>
 	</body>
 

@@ -43,26 +43,26 @@
 
 			<div class="personal-content">
 				<div class="pson-wrap pson-qz mui-row">
-					<div class="pson-item mui-col-xs-3">
-						<a pageId="account-circle-diary">
+					<div class="pson-item mui-col-xs-3" pageId="account-circle-diary">
+						<a>
 							<span ng-bind="accountData.diaryNum">0</span>
 							<strong>日记</strong>
 						</a>
 					</div>
-					<div class="pson-item mui-col-xs-3">
-						<a pageId="account-circle-follow">
+					<div class="pson-item mui-col-xs-3" pageId="account-circle-follow">
+						<a>
 							<span ng-bind="accountData.fansNum">0</span>
 							<strong>粉丝</strong>
 						</a>
 					</div>
-					<div class="pson-item mui-col-xs-3">
-						<a pageId="account-circle-follower">
+					<div class="pson-item mui-col-xs-3" pageId="account-circle-follower">
+						<a>
 							<span ng-bind="accountData.focusNum">0</span>
 							<strong>关注</strong>
 						</a>
 					</div>
-					<div class="pson-item mui-col-xs-3">
-						<a pageId="account-messageCenter-news">
+					<div class="pson-item mui-col-xs-3" pageId="account-messageCenter-news">
+						<a>
 							<span>0</span>
 							<strong>消息</strong>
 						</a>
@@ -177,6 +177,21 @@
 				}, {
 					url: "collect/index.html", //收藏
 					id: "account-collect-index"
+				}, {
+					url: "circle/follow.html", //粉丝
+					id: "account-circle-follow"
+				}, {
+					url: "circle/follower.html", //关注
+					id: "account-circle-follower"
+				}, {
+					url: "messageCenter/news.html", //消息
+					id: "account-messageCenter-news"
+				}, {
+					url: "generalize/QRCode.html", //邀请好友
+					id: "account-generalize-QRCode"
+				}, {
+					url: "../more/propose.html", //意见反馈
+					id: "account-more-propose"
 				}];
 				/*
 				 * 粉丝
@@ -195,36 +210,6 @@
 					var _view = mui.openWindow({
 						url: "circle/follower.html",
 						id: "account-circle-follower"
-					});
-					_view.show("slide-in-right");
-				};
-				/*
-				 * 消息
-				 */
-				function openNews() {
-					var _view = mui.openWindow({
-						url: "messageCenter/news.html",
-						id: "account-messageCenter-news"
-					});
-					_view.show("slide-in-right");
-				};
-				/*
-				 * 邀请好友
-				 */
-				function openQRCode() {
-					var _view = mui.openWindow({
-						url: "generalize/QRCode.html",
-						id: "account-generalize-QRCode"
-					});
-					_view.show("slide-in-right");
-				};
-				/*
-				 * 意见反馈
-				 */
-				function openPropose() {
-					var _view = mui.openWindow({
-						url: "../more/propose.html",
-						id: "account-more-propose"
 					});
 					_view.show("slide-in-right");
 				};
@@ -247,9 +232,9 @@
 						console.log(err);
 					});
 					//绑定功能页面按钮 - 九宫格
-					mui(".pson-box").on("tap", ".pson-item", function() {
+					mui(".personal-content").on("tap", ".pson-item", function() {
 
-						var pageId = this.getAttribute("pageId");
+						var pageId = this.getAttribute("pageId") || "";
 						if(pageId.length <= 0) return;
 
 						mui.openWindow({
@@ -263,10 +248,42 @@
 						mui.openWindow({
 							url: "circle/diary.html",
 							id: "account-circle-diary"
-						});
+						}); 
 					});
 
 				});
+
+				//				/*
+				//				 * 消息
+				//				 */
+				//				function openNews() {
+				//					var _view = mui.openWindow({
+				//						url: "messageCenter/news.html",
+				//						id: "account-messageCenter-news"
+				//					});
+				//					_view.show("slide-in-right");
+				//				};
+				//				/*
+				//				 * 邀请好友
+				//				 */
+				//				function openQRCode() {
+				//					var _view = mui.openWindow({
+				//						url: "generalize/QRCode.html",
+				//						id: "account-generalize-QRCode"
+				//					});
+				//					_view.show("slide-in-right");
+				//				};
+				//				/*
+				//				 * 意见反馈
+				//				 */
+				//				function openPropose() {
+				//					var _view = mui.openWindow({
+				//						url: "../more/propose.html",
+				//						id: "account-more-propose"
+				//					});
+				//					_view.show("slide-in-right");
+				//				};
+
 			});
 	</script>
 

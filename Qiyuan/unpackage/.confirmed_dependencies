@@ -23,7 +23,8 @@
 			"js/mui.locker.js",
 			"imgs/temp/exp/tx.jpg",
 			"css/fonts/iconfont.css",
-			"css/fonts/iconfont.ttf"
+			"css/fonts/iconfont.ttf",
+			"css/fonts/iconfont.woff"
 		],
 		"refer": [
 			"page/login/reg.html",
@@ -361,7 +362,8 @@
 		"refer": [
 			"page/login/main.html",
 			"page/login/reg.html",
-			"page/login/unlock.html"
+			"page/login/unlock.html",
+			"page/account/home.html"
 		]
 	},
 	"page/community/activity/list_main.html": {
@@ -455,7 +457,12 @@
 			"page/account/archives/health.html",
 			"page/account/debt/index.html",
 			"page/account/archives/beautiful.html",
-			"page/account/orderForm/index.html"
+			"page/account/orderForm/index.html",
+			"page/account/collect/index.html",
+			"page/account/messageCenter/news.html",
+			"page/account/circle/follow.html",
+			"page/more/propose.html",
+			"page/account/circle/follower.html"
 		]
 	},
 	"page/more/setting.html": {
@@ -489,7 +496,8 @@
 			"imgs/temp/2.jpg",
 			"css/fonts/iconfont.woff",
 			"js/angular.js",
-			"js/appdata.js"
+			"js/appdata.js",
+			"js/app.js"
 		],
 		"refer": [
 			"page/community/circle/info.html",
@@ -510,7 +518,10 @@
 			"css/libs/mui.min.css",
 			"css/style.css",
 			"css/fonts/mui.ttf",
-			"css/fonts/iconfont.ttf"
+			"css/fonts/iconfont.ttf",
+			"js/app.js",
+			"js/angular.js",
+			"js/appdata.js"
 		],
 		"refer": [
 			"page/community/circle/homepage.html",
@@ -602,6 +613,9 @@
 			"js/JRZH.js",
 			"css/fonts/mui.ttf",
 			"temp/activity.html"
+		],
+		"refer": [
+			"temp/activity.html"
 		]
 	},
 	"page/account/circle/diary.html": {
@@ -621,7 +635,12 @@
 			"js/appdata.js",
 			"css/fonts/iconfont.css",
 			"imgs/temp/2.jpg",
-			"css/fonts/mui.ttf"
+			"css/fonts/mui.ttf",
+			"js/app.js"
+		],
+		"refer": [
+			"page/account/circle/newDiary.html",
+			"page/account/circle/diaryInfo.html"
 		]
 	},
 	"page/account/orderForm/index.html": {
@@ -640,6 +659,10 @@
 			"css/fonts/iconfont.css",
 			"js/appdata.js",
 			"css/fonts/mui.ttf"
+		],
+		"refer": [
+			"page/server/serving/info.html",
+			"page/account/orderForm/info.html"
 		]
 	},
 	"page/account/archives/health.html": {
@@ -688,6 +711,135 @@
 			"js/mui.pullToRefresh.material.js",
 			"js/appdata.js",
 			"js/JRZH.js"
+		]
+	},
+	"page/account/collect/index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"css/fonts/mui.ttf"
+		]
+	},
+	"page/account/orderForm/info.html": {
+		"resources": [
+			"js/mui.pullToRefresh.js",
+			"js/app.js",
+			"js/common.js",
+			"js/angular.js",
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.material.js",
+			"js/appdata.js",
+			"js/JRZH.js",
+			"imgs/temp/1.jpg",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"imgs/temp/3.jpg",
+			"css/fonts/iconfont.css",
+			"css/fonts/mui.ttf"
+		]
+	},
+	"page/account/circle/newDiary.html": {
+		"resources": [
+			"css/feedback.css",
+			"js/mui.min.js",
+			"css/feedback-page.css",
+			"js/mui.view.js",
+			"js/angular.js",
+			"js/mui.pullToRefresh.js",
+			"js/app.js",
+			"imgs/temp/1.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js",
+			"js/common.js",
+			"css/fonts/iconfont.css",
+			"js/appdata.js",
+			"css/fonts/mui.ttf",
+			"imgs/temp/3.jpg"
+		],
+		"refer": [
+			"page/account/circle/writeDiary.html"
+		]
+	},
+	"page/account/circle/keepDiary.html": {
+		"resources": [
+			"css/feedback.css",
+			"js/mui.min.js",
+			"imgs/iconfont-tianjia.png",
+			"css/feedback-page.css",
+			"js/feedback-page.js"
+		]
+	},
+	"page/account/circle/diaryInfo.html": {
+		"resources": [
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.js",
+			"js/app.js",
+			"imgs/temp/1.jpg",
+			"imgs/temp/exp/tx.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js",
+			"css/fonts/iconfont.ttf",
+			"js/common.js",
+			"js/angular.js",
+			"css/fonts/iconfont.css",
+			"js/appdata.js",
+			"css/fonts/mui.ttf"
+		],
+		"refer": [
+			"page/account/circle/keepDiary.html",
+			"page/account/circle/writeDiary.html"
+		]
+	},
+	"page/more/propose.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"css/fonts/mui.ttf"
+		]
+	},
+	"page/account/circle/writeDiary.html": {
+		"resources": [
+			"js/mui.min.js",
+			"imgs/iconfont-tianjia.png",
+			"js/feedback-page.js",
+			"css/feedback.css",
+			"js/common.js",
+			"imgs/temp/1.jpg",
+			"css/fonts/iconfont.css",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js",
+			"css/fonts/mui.ttf",
+			"css/feedback-page.css",
+			"js/app.js",
+			"js/angular.js",
+			"js/appdata.js",
+			"js/feedback.js",
+			"js/JRZH_upImg.js"
+		]
+	},
+	"page/account/circle/follower.html": {
+		"resources": [
+			"css/fonts/iconfont.woff",
+			"imgs/temp/exp/tx.jpg",
+			"imgs/temp/1.jpg",
+			"imgs/temp/server/list.jpg",
+			"css/fonts/mui.ttf"
+		]
+	},
+	"page/account/circle/follow.html": {
+		"resources": [
+			"css/fonts/iconfont.woff",
+			"imgs/temp/exp/tx.jpg",
+			"imgs/temp/1.jpg",
+			"imgs/temp/server/list.jpg",
+			"css/fonts/mui.ttf"
 		]
 	}
 }

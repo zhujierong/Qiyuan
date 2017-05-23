@@ -28,7 +28,7 @@
 							<div class="mui-scroll">
 								<ul class="mui-table-view common-list information-list">
 
-<!--									
+									<!--									
 									<li class="mui-table-view-cell">
 										<a href="javascript:;">
 											<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
@@ -242,6 +242,8 @@
 				}, function(response) {
 					ul.setAttribute("page", page);
 					var listStr = "";
+					console.log(JSON.stringify(response))
+					return;
 					var viewList = response.object.viewList;
 					if(viewList.length <= 0) {
 						self.endPullUpToRefresh(true);

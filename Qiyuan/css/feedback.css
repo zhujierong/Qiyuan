@@ -9,22 +9,28 @@
 .feedback body {
 	background-color: #EFEFF4;
 }
+
 .feedback input,
 .feedback textarea {
 	border: none !important;
 }
+
 .feedback textarea {
 	height: 100px;
 	margin-bottom: 0 !important;
 	padding-bottom: 0 !important;
 }
+
 .feedback .row {
 	width: 100%;
 	background-color: #fff;
 }
+
 .feedback p {
 	padding: 10px 15px 0;
 }
+
+
 /*.feedback button#submit { 
 	width: 90%;
 	height: 46px;
@@ -32,13 +38,15 @@
 	-webkit-transform: translate(-50%);
 }*/
 
-input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
 	font-size: 14px;
 }
 
 .feedback .hidden {
 	display: none;
 }
+
 .feedback .image-list {
 	width: 100%;
 	height: 85px;
@@ -46,6 +54,7 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 	padding: 10px 10px;
 	overflow: hidden;
 }
+
 .feedback .image-item {
 	width: 65px;
 	height: 65px;
@@ -59,6 +68,7 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 	border: solid 1px #e8e8e8;
 	vertical-align: top;
 }
+
 .feedback .image-item .file {
 	position: absolute;
 	left: 0px;
@@ -69,9 +79,11 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 	cursor: pointer;
 	z-index: 0;
 }
+
 .feedback .image-item.space {
 	border: none;
 }
+
 .feedback .image-item .image-close {
 	position: absolute;
 	display: inline-block;
@@ -89,43 +101,67 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
 	font-weight: 200;
 	z-index: 1;
 }
-.feedback .image-item .image-up{
+
+.feedback .image-item .image-up {
 	height: 65px;
 	width: 65px;
 	border-radius: 10px;
 	line-height: 65px;
 	border: 1px solid #ccc;
-	color: #ccc; 
+	color: #ccc;
 	display: inline-block;
 	text-align: center;
 }
-.feedback .image-item .image-up:after{
+
+.feedback .image-item .image-up:after {
 	font-family: "微软雅黑";
 	content: '+';
 	font-size: 60px;
 }
+
 .feedback .image-item.space .image-close {
 	display: none;
 }
-.feedback .mui-inline{
+
+.feedback .mui-inline {
 	vertical-align: bottom;
 	font-size: 14px;
 	color: #8f8f94;
 }
-.mui-icon-star{
+
+.mui-icon-star {
 	color: #B5B5B5;
 	font-size: 22px;
 }
-.mui-icon-star-filled{
+
+.mui-icon-star-filled {
 	color: #FFB400;
 	font-size: 22px;
-} 
+}
+
 .mui-popover {
 	height: 180px;
 }
-.stream{
+
+.stream {
 	display: none;
 }
-.mui-plus-stream .stream{
+
+.mui-plus-stream .stream {
 	display: block;
+}
+
+
+/*
+ * JRZH 2017年5月23日 
+ */
+
+.feedback .image-item .image-up {
+	background: url(../imgs/iconfont-tianjia.png) center;
+	background-size: contain;
+	border-width: 0;
+}
+
+.feedback .image-item .image-up:after {
+	display: none;
 }

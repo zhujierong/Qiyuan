@@ -19,85 +19,81 @@
 			<h1 class="mui-title">我的订单</h1>
 		</header>
 		<div class="mui-content">
+			<div class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
 
-			<div class="order-form-item" ng-repeat="item in dataList">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-						<label>订单：<span ng-bind="item.id">039472014768928</span></label>
-						<span class="top-date mui-pull-right" ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-19</span>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
-							<div class="mui-media-body">
-								幸福
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+							<div class="order-view-list" id="order-view-list" page="0">
+								<div class="order-form-item" ng-repeat="item in dataList track by $index">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell order-view-cell" memberRecordId="{{item.id}}">
+											<label>订单：<span ng-bind="item.orderNumber">039472014768928</span></label>
+											<span class="top-date mui-pull-right" ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-19</span>
+										</li>
+										<li class="mui-table-view-cell mui-media server-view-cell" ng-repeat="item_informating in item.informationList" eqId="{{item_informating.id}}">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+												<div class="mui-media-body">
+													<span ng-bind="item_informating.title">-</span>
+													<p class="mui-ellipsis" ng-bind="item_informating.synopsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+												</div>
+											</a>
+										</li>
+									</ul>
+									<div class="order-form-bottom">
+										<div class="mui-pull-right" ng-if="item.type == 0">
+											共 1 件商品
+											<span class="sf">付款方式：</span>
+											<span class="je">分期付款</span>
+										</div>
+										<div class="mui-pull-right" ng-if="item.type == 2">
+											共 1 件商品
+											<span class="sf">实付款：</span>
+											<span class="je">￥{{item.practicalMoney}}</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="order-form-item">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">
+											<label for="">订单：039472014768928</label>
+											<span class="top-date mui-pull-right">2017-5-19</span>
+										</li>
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+												<div class="mui-media-body">
+													幸福
+													<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/3.jpg">
+												<div class="mui-media-body">
+													幸福
+													<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+												</div>
+											</a>
+										</li>
+									</ul>
+									<div class="order-form-bottom">
+										<div class="mui-pull-right">
+											共 1 件商品
+											<span class="sf">实付款：</span>
+											<span class="je">￥560000</span>
+										</div>
+									</div>
+								</div>
 							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/3.jpg">
-							<div class="mui-media-body">
-								幸福
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							</div>
-						</a>
-					</li>
-				</ul>
-				<div class="order-form-bottom">
-					<div class="mui-pull-right" ng-if="item.type == 0">
-						共 1 件商品
-						<span class="sf">实付款：</span>
-						<span class="je" ng-bind="item.practicalMoney">￥560000</span>
-					</div>
-					<!--<div class="mui-pull-right" ng-if="item.type == 1">
-						共 1 件商品
-						<span class="sf">实付款：</span>
-						<span class="je">￥560000</span>
-					</div>-->
-					<div class="mui-pull-right" ng-if="item.type == 2">
-						共 1 件商品
-						<span class="sf">付款方式：</span>
-						<span class="je" ng-bind="item.typeStr"></span>
+
+						</div>
 					</div>
 				</div>
 			</div>
-
-			<!--<div class="order-form-item">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-						<label for="">订单：039472014768928</label>
-						<span class="top-date mui-pull-right">2017-5-19</span>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
-							<div class="mui-media-body">
-								幸福
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/3.jpg">
-							<div class="mui-media-body">
-								幸福
-								<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-							</div>
-						</a>
-					</li>
-				</ul>
-				<div class="order-form-bottom">
-					<div class="mui-pull-right">
-						共 1 件商品
-						<span class="sf">实付款：</span>
-						<span class="je">￥560000</span>
-					</div>
-				</div>
-			</div>-->
-
 		</div>
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
@@ -112,21 +108,84 @@
 			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
 
 				$scope.dataList = [];
+				var state = app.getState();
 
 				mui.init();
+
+				(function() { //循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							up: {
+								height: 50, //可选.默认50.触发上拉加载拖动距离
+								auto: true, //可选,默认false.自动上拉加载一次
+								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+								callback: function() {
+									var self = this;
+									var listElem = self.element.querySelector('.order-view-list');
+									loadMoreData(self, listElem);
+								}
+							}
+						});
+					});
+
+					function loadMoreData(self, wrapElem) {
+						var page = wrapElem.getAttribute("page") * 1 + 1;
+						var rows = 10;
+						//数据加载
+						appData.record({
+							userId: state.userId,
+							page: page,
+							rows: rows
+						}, function(response) {
+							var viewlist = response.object.viewList || [];
+							if(viewlist.length <= 0) { //已经没有更多数据
+								self.endPullUpToRefresh(true);
+								return;
+							}
+							$scope.dataList = response.object.viewList;
+							mui(response.object.viewList).each(function() {
+								$scope.dataList.push(this);
+							});
+							$scope.$apply(); //数据更新view
+							if(response.object.viewList.length < rows) {
+								self.endPullUpToRefresh(true); //没有更多数据了
+							} else {
+								self.endPullUpToRefresh(); //加载结束
+							}
+							wrapElem.setAttribute("page", page);
+						}, function(err) {
+							mui.toast(err.message);
+						});
+					}
+				})();
+				//打开订单详情
+				mui("#order-view-list").on("tap", ".order-view-cell", function() {
+					var memberRecordId = this.getAttribute("memberRecordId");
+					var _viewPage = mui.openWindow({
+						url: "info.html",
+						id: "account-orderForm-info",
+						extras: {
+							memberRecordId: memberRecordId
+						}
+					});
+					_viewPage.show("slide-in-right");
+				});
+				//打开服务详情
+				mui("#order-view-list").on("tap", ".server-view-cell", function() {
+					var eqId = this.getAttribute("eqId");
+					var _viewPage = mui.openWindow({
+						url: "../../server/serving/info.html",
+						id: "serving-info",
+						extras: {
+							eqId: eqId
+						}
+					});
+					_viewPage.show("slide-in-right");
+				});
+
 				mui.plusReady(function() {
 
-					appData.record({
-						userId: "402882e95bae4915015bae5ddc150002",
-						page: 1,
-						rows: 10
-					}, function(response) {
-						console.log(response);
-						$scope.dataList = response.object.viewList;
-						$scope.$apply();
-					}, function(err) {
-						plus.nativeUI.toast(err.message);
-					});
 				});
 
 			});

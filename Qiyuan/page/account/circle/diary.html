@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
-		<title>日记</title>
+		<title>日记本列表</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -21,25 +21,38 @@
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
-					<div id="item1mobile" class="mui-slider-item mui-control-content">
+					<div class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 
-								<ul class="mui-table-view account-diary-list" page="0">
-									<li class="mui-table-view-cell mui-media">
+								<ul id="doary-view-list" class="mui-table-view account-diary-list" page="0">
+
+									<li class="mui-table-view-cell mui-media" ng-repeat="item in dataList track by $index" diaryId="{{item.id}}">
 										<a href="javascript:;" class="mui-navigate-right">
 											<!--<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">-->
+											<i class="iconfont icon-office"></i>
+											<div class="mui-media-body">
+												<span ng-bind="item.title">1234</span>
+												<p class="mui-ellipsis" ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017年5月18日</p>
+											</div>
+										</a>
+									</li>
+
+									<!--<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;" class="mui-navigate-right">
+											<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
 											<i class="iconfont icon-office"></i>
 											<div class="mui-media-body">
 												日记本名称
 												<p class="mui-ellipsis">2017年5月18日</p>
 											</div>
 										</a>
-									</li>
+									</li>-->
+
 								</ul>
 
 							</div>
-							<div class="add-diary-wrap">
+							<div class="add-diary-wrap" id="news-diary">
 								<span class="iconfont icon-edit"></span> 新的日记本
 							</div>
 						</div>
@@ -53,130 +66,107 @@
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
+			mui.init({
+				preloadPages: [{
+					url: "diaryInfo.html",
+					id: "account-circle-diaryInfo"
+				}, {
+					url: "newDiary.html",
+					id: "account-circle-newDiary"
+				}]
+			});
 			angular.module("jrzhApp", [])
 				.controller("jrzhCtrl", function($scope) {
-					mui.init();
-					$scope.newViewList = [];
-					$scope.hotViewList = [];
-					mui.plusReady(function() {
-						//循环初始化所有下拉刷新，上拉加载。
+
+					$scope.dataList = [];
+					var state = app.getState();
+
+					(function() { //循环初始化所有下拉刷新，上拉加载。
 						mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
 							mui(pullRefreshEl).pullToRefresh({
 								up: {
+									height: 50, //可选.默认50.触发上拉加载拖动距离
 									auto: true, //可选,默认false.自动上拉加载一次
+									contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+									contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
 									callback: function() {
 										var self = this;
-										var ul = self.element.querySelector('.mui-table-view');
-										ul.appendChild(createFragment(ul, index, 5));
-										self.endPullUpToRefresh();
+										var listElem = self.element.querySelector('.mui-table-view');
+										loadMoreData(self, listElem);
 									}
 								}
 							});
 						});
 
-						function createFragment(ul, index, count, reverse) {
-
-							var page = ul.getAttribute("page") * 1 + 1;
-							appData.getDiary({
+						function loadMoreData(self, wrapElem) {
+							var page = wrapElem.getAttribute("page") * 1 + 1;
+							var rows = 10;
+							//数据加载
+							appData.getPersonalDiary({
+								userId: state.userId,
 								page: page,
-								rows: 10
+								rows: rows
 							}, function(response) {
-								$scope.newViewList.push(response.object.viewList)
-								$scope.$apply();
+								var viewlist = response.object.viewList || [];
+								if(viewlist.length <= 0) { //已经没有更多数据
+									self.endPullUpToRefresh(true);
+									return;
+								}
+								$scope.dataList = response.object.viewList;
+								mui(response.object.viewList).each(function() {
+									$scope.dataList.push(this);
+								});
+								$scope.$apply(); //数据更新view
+								if(response.object.viewList.length < rows) {
+									self.endPullUpToRefresh(true); //没有更多数据了
+								} else {
+									self.endPullUpToRefresh(); //加载结束
+								}
+								wrapElem.setAttribute("page", page);
 							}, function(err) {
-								plus.nativeUI.toast(err.message);
+								mui.toast(err.message);
+							});
+						}
+					})();
+
+					mui.plusReady(function() {
+
+						//打开日记详情
+						mui("#doary-view-list").on("tap", ".mui-table-view-cell", function() {
+							var diaryId = this.getAttribute("diaryId");
+							var _viewPage = plus.webview.getWebviewById("account-circle-diaryInfo");
+
+							//获取相应日记本数据
+							var diaryInfo = {};
+							mui.each($scope.dataList, function() {
+								var view = this;
+								if(view.id == diaryId) {
+									diaryInfo = view;
+								}
 							});
 
-							//							var length = ul.querySelectorAll('li').length;
-							//							var fragment = document.createDocumentFragment();
-							//							var li;
-							//							for(var i = 0; i < count; i++) {
-							//								li = document.createElement('li');
-							//								li.className = "circle-item";
-							//								li.innerHTML = '<a href="javascript:void(0)" class="mui-control-item">' +
-							//									'<div class="top">' +
-							//									'<div class="l">' +
-							//									'<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />' +
-							//									'<span>小泽777</span>' +
-							//									'</div>' +
-							//									'<div class="r">' +
-							//									'<span>2017-5-6</span>' +
-							//									'</div>' +
-							//									'</div>' +
-							//									'<div class="cont">' +
-							//									'<div class="text-title">' +
-							//									'<span>健康监测</span>' +
-							//									'</div>' +
-							//									'<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>' +
-							//									'<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>' +
-							//									'<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>' +
-							//									'<div class="clear"></div>' +
-							//									'<div class="text">' +
-							//									'<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>' +
-							//									'</div>' +
-							//									'</div>' +
-							//									'</a>' +
-							//									'<div class="footer">' +
-							//									'<span><i class="iconfont icon-browse"></i>3572</span>' +
-							//									'<span><i class="iconfont icon-comments"></i>3572</span>' +
-							//									'<span><i class="iconfont icon-good"></i>3572</span>' +
-							//									'<div class="clear"></div>' +
-							//									'</div>';
-							//
-							//								fragment.appendChild(li);
-							//							}
-							//							return fragment;
-						};
-
-					});
-
-					//阻尼系数
-					var deceleration = mui.os.ios ? 0.003 : 0.0009;
-					mui('.mui-scroll-wrapper').scroll({
-						bounce: false,
-						indicators: true, //是否显示滚动条
-						deceleration: deceleration
-					});
-					mui(".circle-list").on("tap", ".cont", function() {
-						var _webView = mui.openWindow({
-							url: "../../community/circle/info.html",
-							id: "ccircle-info",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
-						})
-						_webView.show("slide-in-right");
-					});
-					mui(".serving-list").on("tap", ".cont", function() {
-						var _webView = mui.openWindow({
-							url: "../../community/circle/info.html",
-							id: "ccircle-info",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
-						})
-						_webView.show("slide-in-right");
-					});
-					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
-						openPsonMore();
-					});
-
-					function openPsonMore() {
-						var _webView = mui.openWindow({
-							url: "homepage.html",
-							id: "ccircle-homepage",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
+							//触发详情页面的 getDiaryInfo 事件  
+							mui.fire(_viewPage, 'getDiaryInfo', {
+								diaryInfo: diaryInfo
+							});
+							//打开详情页面            
+							mui.openWindow({
+								id: 'account-circle-diaryInfo'
+							});
 						});
-						_webView.show("slide-in-right");
-					}
+
+						//创建日记本
+						mui("#news-diary")[0].addEventListener("tap", function() {
+							var _viewPage = mui.openWindow({
+								id: "account-circle-newDiary"
+							});
+						});
+
+					});
 
 				});
 		</script>

@@ -21,6 +21,18 @@
 		</header>
 		<div class="mui-content circle-content">
 			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="">
+						日记名称
+						<span class="mui-pull-right" ng-bind="diaryInfo.title">1234</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="">
+						创建日期
+						<span class="mui-pull-right" ng-bind="diaryInfo.updateTime | date:'yyyy-MM-dd'">1234</span>
+					</a>
+				</li>
 				<li class="mui-table-view-cell interfix">
 					<p class="text-title">相关服务</p>
 					<a href="javascript:;" class="mui-navigate-right view-item serving-info-page">
@@ -31,6 +43,14 @@
 								健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
 							</p>
 						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-gk">
+				<li class="mui-table-view-cell">
+					<a href="#sheet1" class="mui-navigate-right" id="isPublicBtn">
+						<label>是否公开日记</label>
+						<span class="mui-pull-right">公开</span>
 					</a>
 				</li>
 			</ul>
@@ -111,21 +131,23 @@
 			<br />
 		</div>
 
-		<div class="reply-footer">
-			<div class="mui-row">
-				<div id="plbtn" class="f-cont mui-col-xs-9">
-					<span class="pl">发表评论</span>
-				</div>
-				<div class="f-cont mui-col-xs-3">
-					<span class="dz"><i class="iconfont icon-good"></i>234</span>
-				</div>
-			</div>
-			<div id="reply-wrap" class="reply-wrap">
-				<textarea id="textarea" rows="2" placeholder="多行文本框"></textarea>
-				<div class="btns">
-					<button class="mui-btn mui-btn-blue mui-pull-right">发表</button>
-				</div>
-			</div>
+		<!--弹出面板 actionsheet-->
+		<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+			<!-- 可选择菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="PubilcDiaryOn" href="#">公开</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="PubilcDiaryOff" href="#">不公开</a>
+				</li>
+			</ul>
+			<!-- 取消菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#sheet1"><b>取消</b></a>
+				</li>
+			</ul>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
@@ -136,77 +158,85 @@
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
+			mui.init();
 			angular.module("jrzhApp", [])
 				.controller("jrzhCtrl", function($scope) {
 
-					mui.init();
+					$scope.member = {};
+					$scope.replyList = {}; //评论
+					$scope.memberRecord = {}; //相关订单
+					$scope.isFans = {}; //是否关注
+					$scope.viewList = {}; //日记内容
+					$scope.diaryInfo = {}; //日记本
+					$scope.totalInfo = {}; //评论、点赞、关注统计
 
-					mui.plusReady(function() {
-
-						var state = app.getState();
-						var diaryId = plus.webview.currentWebview()["diaryId"];
-						//预加载写日记页
-						mui.preload({
-							url: "keepDiary.html",
-							id: "account-keepDiary",
-							extras: {
-								diaryId: diaryId
-							}
-						});
-						//添加日记
-						var newDiaryButton = document.querySelectorAll("#newDiary");
-						newDiaryButton.addEventListener("tap", function() {
-							mui.openWindow({
-								url: "keepDiary.html",
-								id: "account-keepDiary",
-							})
-						});
-
-					})
-					var mask = mui.createMask(maskCallBack); //callback为用户点击蒙版时自动执行的回调；
-					function maskCallBack() {
-						document.getElementById("plbtn").parentNode.style.display = "block";
-						document.getElementById("reply-wrap").style.display = "none";
-					}
-					mui(".reply-footer").on("tap", "#plbtn", function() {
-						mask.show(); //显示遮罩
-						this.parentNode.style.display = "none";
-						var replyElem = document.getElementById("reply-wrap");
-						replyElem.style.display = "block";
-						replyElem.getElementsByTagName("textarea")[0].focus();
-					})
-					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
-						openPsonMore();
-					});
-					mui(".mui-content").on("tap", ".serving-info-page", function() {
-						openServing();
+					var state = app.getState();
+					//预加载写日记页
+					mui.preload({
+						url: "writeDiary.html",
+						id: "account-circle-writeDiary",
+						//						extras: {
+						//							diaryId: diaryId
+						//						}
 					});
 
-					function openPsonMore() {
-						mui.openWindow({
-							url: "homepage.html",
-							id: "ccircle-homepage",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
-						})
-					}
+					//添加diaryInfo自定义事件监听  
+					window.addEventListener('getDiaryInfo', function(event) {
+						//获得事件参数  
+						var diaryInfo = event.detail.diaryInfo;
+						//初始化页面数据
+						infoInit(diaryInfo.id, diaryInfo);
+					});
 
-					function openServing() {
+					function infoInit(diaryId, diaryInfo) {
+						$scope.diaryInfo = diaryInfo;
+						//数据加载
+						appData.getDetails({
+							userId: state.userId,
+							diaryId: diaryId
+						}, function(response) {
+							var viewlist = response.object.viewList || [];
+							$scope.member = response.object.member; //个人信息
+							$scope.replyList = response.object.replyList; //评论
+							$scope.memberRecord = response.object.memberRecord; //服务
+							$scope.isFans = response.object.isFans; //是否关注
+							$scope.viewList = response.object.viewList; //日记内容
+
+							$scope.$apply(); //数据更新view
+						}, function(err) {
+							mui.toast(err.message);
+						});
+					};
+
+					//添加日记
+					var newDiaryButton = document.querySelectorAll("#newDiary")[0];
+					newDiaryButton.addEventListener("tap", function() {
 						mui.openWindow({
-							url: "../../server/serving/info.html",
-							id: "serving-info",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
+							url: "writeDiary.html",
+							id: "account-circle-writeDiary",
 						})
-					}
+					});
+
 					mui.plusReady(function() {
 						var currWebView = plus.webview.currentWebview();
-						console.log(currWebView.csid);
 					});
+
+					var PubilcDiaryOn = document.querySelectorAll("#PubilcDiaryOn")[0];
+					var PubilcDiaryOff = document.querySelectorAll("#PubilcDiaryOff")[0];
+					var isPublicBtn = document.querySelectorAll("#isPublicBtn")[0];
+					PubilcDiaryOn.addEventListener("tap", function() {
+						isPublicDiary(true);
+					});
+					PubilcDiaryOff.addEventListener("tap", function() {
+						isPublicDiary(false);
+					});
+
+					function isPublicDiary(ispublic) {
+						mui('#sheet1').popover('toggle');
+						var spanElem = isPublicBtn.getElementsByClassName("mui-pull-right")[0];
+						spanElem.innerHTML = ispublic ? "公开" : "不公开";
+					}
+
 				});
 		</script>
 	</body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -151,56 +151,79 @@
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../../js/mui.pullToRefresh.js"></script>
-		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script>
-			mui.init();
-			var mask = mui.createMask(maskCallBack); //callback为用户点击蒙版时自动执行的回调；
-			function maskCallBack() {
-				document.getElementById("plbtn").parentNode.style.display = "block";
-				document.getElementById("reply-wrap").style.display = "none";
-			}
-			mui(".reply-footer").on("tap", "#plbtn", function() {
-				mask.show(); //显示遮罩
-				this.parentNode.style.display = "none";
-				var replyElem = document.getElementById("reply-wrap");
-				replyElem.style.display = "block";
-				replyElem.getElementsByTagName("textarea")[0].focus();
-			})
-			mui(".mui-content").on("tap", ".go-pson-home-page", function() {
-				openPsonMore();
-			});
-			mui(".mui-content").on("tap", ".serving-info-page", function() {
-				openServing();
-			});
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
+					mui.init();
 
-			function openPsonMore() {
-				mui.openWindow({
-					url: "homepage.html",
-					id: "ccircle-homepage",
-					styles: {},
-					extras: {
-						csid: "1234"
-					}
-				})
-			}
+					$scope.member = {};
+					$scope.replyList = [];
+					$scope.infomation = {};
+					$scope.isFans = {};
+					$scope.viewList = [];
+					var state = app.getState();
 
-			function openServing() {
-				mui.openWindow({
-					url: "../../server/serving/info.html",
-					id: "serving-info",
-					styles: {},
-					extras: {
-						csid: "1234"
+					mui.plusReady(function() {
+						var currWebView = plus.webview.currentWebview();
+						var diaryId = currWebView.diaryId || "";
+						appData.getDetails({
+							userId: state.userId,
+							diaryId: diaryId
+						}, function(response) {
+							console.log(JSON.stringify(response))
+						}, function(err) {
+							plus.nativeUI.toast(err.message);
+						});
+
+					});
+
+					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
+						openPsonMore();
+					});
+					mui(".mui-content").on("tap", ".serving-info-page", function() {
+						openServing();
+					});
+
+					function openPsonMore() { //打开个人主页
+						mui.openWindow({
+							url: "homepage.html",
+							id: "ccircle-homepage",
+							styles: {},
+							extras: {
+								csid: "1234"
+							}
+						})
 					}
-				})
-			}
-			mui.plusReady(function() {
-				var currWebView = plus.webview.currentWebview();
-				console.log(currWebView.csid);
-			});
+
+					function openServing() { //打开相应服务
+						mui.openWindow({
+							url: "../../server/serving/info.html",
+							id: "serving-info",
+							styles: {},
+							extras: {
+								csid: "1234"
+							}
+						});
+					}
+
+					var mask = mui.createMask(maskCallBack); //callback为用户点击蒙版时自动执行的回调；
+					function maskCallBack() {
+						document.getElementById("plbtn").parentNode.style.display = "block";
+						document.getElementById("reply-wrap").style.display = "none";
+					}
+					mui(".reply-footer").on("tap", "#plbtn", function() {
+						mask.show(); //显示遮罩
+						this.parentNode.style.display = "none";
+						var replyElem = document.getElementById("reply-wrap");
+						replyElem.style.display = "block";
+						replyElem.getElementsByTagName("textarea")[0].focus();
+					});
+				});
 		</script>
 	</body>
 

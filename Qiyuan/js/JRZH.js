@@ -6,7 +6,7 @@ var JRZH = {
 		if(text) {
 			msg = text;
 		}
-		plus.nativeUI.toast(msg);
+		mui.toast(msg);
 	},
 	styles: {
 		headerHeight: '44px',

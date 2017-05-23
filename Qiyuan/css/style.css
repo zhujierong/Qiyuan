@@ -1516,4 +1516,8 @@ input[type='submit'].mui-active:enabled,
   left: 0;
   top: 0; }
 
+.new-diary-btns {
+  margin-top: 0.3rem;
+  padding: 0 0.15rem; }
+
 /*# sourceMappingURL=style.css.map */

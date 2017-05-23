@@ -31,7 +31,7 @@
 
 									<li class="circle-item" ng-repeat="item in newViewList" ng-cloak>
 										<a href="javascript:void(0)" class="mui-control-item">
-											<div class="top go-pson-home-page">
+											<div class="top go-pson-home-page" memberId="{{item.memberId}}">
 												<div class="l">
 													<img class="tx" ng-src="item.memberInfo.imageUrl" alt="" />
 													<span ng-bind="item.memberInfo.nickName"></span>
@@ -40,7 +40,7 @@
 													<span ng-bind="item.updateTime | date:'yyyy-MM-dd'"></span>
 												</div>
 											</div>
-											<div class="cont">
+											<div class="cont" diaryId="{{item.id}}">
 												<div class="text-title">
 													<span ng-bind="item.lastDetails.title"></span>
 												</div>
@@ -115,6 +115,7 @@
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
@@ -123,6 +124,7 @@
 					mui.init();
 					$scope.newViewList = [];
 					$scope.hotViewList = [];
+					var state = app.getState();
 					mui.plusReady(function() {
 						//循环初始化所有下拉刷新，上拉加载。
 						mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
@@ -135,27 +137,37 @@
 									callback: function() {
 										var self = this;
 										var ul = self.element.querySelector('.mui-table-view');
-										createFragment(ul, index, 5);
-										self.endPullUpToRefresh();
+										loadMoreList(self, ul);
 									}
 								}
 							});
 						});
 
-						function createFragment(ul, index, count, reverse) {
+						function loadMoreList(self, ul) {
 							var page = ul.getAttribute("page") * 1 + 1;
+							var rows = 10;
 							var dataName = ul.getAttribute("dataName");
-							var isHot = dataName == "hotViewList";
+							var isHot = (dataName == "hotViewList");
 							appData.getDiary({
 								page: page,
-								rows: 10,
-								isHot: isHot
+								rows: rows,
+								isHot: isHot,
+								userId: state.userId
 							}, function(response) {
+								var viewlist = response.object.viewList || [];
+								if(viewlist.length <= 0) {
+									self.endPullUpToRefresh(true);
+									return;
+								}
 								mui(response.object.viewList).each(function() {
 									$scope[dataName].push(this);
 								});
 								$scope.$apply();
-								console.log("日记数量：" + $scope[dataName].length);
+								if(response.object.viewList.length < rows) {
+									self.endPullUpToRefresh(true);
+								} else {
+									self.endPullUpToRefresh();
+								}
 								ul.setAttribute("page", page);
 							}, function(err) {
 								plus.nativeUI.toast(err.message);
@@ -186,31 +198,29 @@
 						deceleration: deceleration
 					});
 					mui(".circle-list").on("tap", ".cont", function() {
+						var diaryId = this.getAttribute("diaryId");
 						var _webView = mui.openWindow({
 							url: "info.html",
 							id: "ccircle-info",
 							styles: {},
 							extras: {
-								csid: "1234"
+								diaryId: diaryId
 							}
-						})
+						});
 						_webView.show("slide-in-right");
 					});
 					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
-						openPsonMore();
-					});
-
-					function openPsonMore() {
+						var memberId = this.getAttribute("memberId");
 						var _webView = mui.openWindow({
 							url: "homepage.html",
 							id: "ccircle-homepage",
 							styles: {},
 							extras: {
-								csid: "1234"
+								memberId: memberId
 							}
 						});
 						_webView.show("slide-in-right");
-					}
+					});
 				});
 		</script>
 	</body>

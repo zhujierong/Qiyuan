@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -104,12 +104,17 @@
 			.mui-page-content {
 				padding-top: 44px;
 			}
+			/*2017年5月22日*/
+			
+			.mui-scroll-wrapper {
+				padding-top: 44px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<!--页面主结构开始-->
-		<div id="app" class="mui-views">
+		<div id="muiApp" class="mui-views">
 			<div class="mui-view">
 				<div class="mui-navbar"></div>
 				<div class="mui-pages"></div>
@@ -128,14 +133,14 @@
 				<form class="mui-input-group">
 					<div class="mui-input-row">
 						<label for=""><span class="mui-text-danger">*</span>日记名称</label>
-						<input type="text" name="" id="" value="" placeholder="输入日记名称" />
+						<input type="text" placeholder="输入日记名称" ng-model="parameter.title" />
 					</div>
 				</form>
 				<ul class="mui-table-view mui-table-view-gk">
 					<li class="mui-table-view-cell">
 						<a href="#sheet1" class="mui-navigate-right" id="isPublicBtn">
 							<label><span class="mui-text-danger">*</span>公开日记</label>
-							<span class="mui-pull-right">公开</span>
+							<span class="mui-pull-right" ispublic="true">公开</span>
 						</a>
 					</li>
 				</ul>
@@ -143,18 +148,20 @@
 					<li class="mui-table-view-cell">
 						<a href="#page-order-form" class="mui-navigate-right"><span class="mui-text-danger">*</span>关联服务</a>
 					</li>
-					<li class="mui-table-view-cell interfix">
+					<li class="mui-table-view-cell interfix" ng-repeat="item in joinOrder.informationList">
 						<a href="javascript:;" class="view-item serving-info-page">
 							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
 							<div class="mui-media-body">
-								健康管理中心
-								<p class="min-text mui-ellipsis">
-									健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
-								</p>
+								<span ng-bind="item.title"></span>
+								<p class="min-text mui-ellipsis" ng-bind="item.synopsis"></p>
 							</div>
 						</a>
 					</li>
 				</ul>
+
+				<div class="new-diary-btns">
+					<button class="mui-btn mui-btn-block mui-btn-blue" id="nextBtn">下一步</button>
+				</div>
 
 			</div>
 		</div>
@@ -163,8 +170,50 @@
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 				<h1 class="mui-title">关联订单</h1>
 			</header>
-			<div class="mui-page-content">
-				订单列表
+			<div class="mui-content mui-page-content">
+				<div class="mui-slider mui-fullscreen">
+					<div class="mui-slider-group">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<div class="order-view-list" id="order-view-list" page="0">
+
+									<div class="order-form-item" ng-repeat="item in dataList track by $index" orderId="{{item.id}}">
+										<ul class="mui-table-view">
+											<li class="mui-table-view-cell order-view-cell" memberRecordId="{{item.id}}">
+												<label>订单：<span ng-bind="item.orderNumber">039472014768928</span></label>
+												<span class="top-date mui-pull-right" ng-bind="item.expenseTime | date:'yyyy-MM-dd'">2017-5-19</span>
+											</li>
+											<li class="mui-table-view-cell mui-media server-view-cell" ng-repeat="item_informating in item.informationList" eqId="{{item_informating.id}}">
+												<a href="javascript:;">
+													<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+													<div class="mui-media-body">
+														<span ng-bind="item_informating.title">-</span>
+														<p class="mui-ellipsis" ng-bind="item_informating.synopsis"></p>
+													</div>
+												</a>
+											</li>
+										</ul>
+										<!--<div class="order-form-bottom">
+											<div class="mui-pull-right" ng-if="item.type == 0">
+												共 1 件商品
+												<span class="sf">付款方式：</span>
+												<span class="je">分期付款</span>
+											</div>
+											<div class="mui-pull-right" ng-if="item.type == 2">
+												共 1 件商品
+												<span class="sf">实付款：</span>
+												<span class="je">￥{{item.practicalMoney}}</span>
+											</div>
+										</div>-->
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -198,29 +247,157 @@
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 
 		<script>
-			mui.init();
+			mui.init({
+				preloadPages: [{
+					url: "writeDiary.html",
+					id: "account-circle-writeDiary"
+				}]
+			});
+			var state = app.getState();
+
 			//初始化单页
-			var viewApi = mui('#app').view({
+			var viewApi = mui('#muiApp').view({
 				defaultPage: '#page-main'
 			});
 
-			var PubilcDiaryOn = document.querySelectorAll("#PubilcDiaryOn")[0];
-			var PubilcDiaryOff = document.querySelectorAll("#PubilcDiaryOff")[0];
-			var isPublicBtn = document.querySelectorAll("#isPublicBtn")[0];
-			PubilcDiaryOn.addEventListener("tap", function() {
-				isPublicDiary(true);
-			});
-			PubilcDiaryOff.addEventListener("tap", function() {
-				isPublicDiary(false);
+			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
+
+				$scope.dataList = [];
+				$scope.joinOrder = {};
+				$scope.parameter = {
+					title: ""
+				};
+
+				(function() { //循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							up: {
+								height: 50, //可选.默认50.触发上拉加载拖动距离
+								auto: true, //可选,默认false.自动上拉加载一次
+								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+								callback: function() {
+									var self = this;
+									var listElem = self.element.querySelector('.order-view-list');
+									loadMoreData(self, listElem);
+								}
+							}
+						});
+					});
+
+					function loadMoreData(self, wrapElem) {
+						var page = wrapElem.getAttribute("page") * 1 + 1;
+						var rows = 10;
+						//数据加载
+						appData.record({
+							userId: state.userId,
+							page: page,
+							rows: rows
+						}, function(response) {
+							var viewlist = response.object.viewList || [];
+							if(viewlist.length <= 0) { //已经没有更多数据
+								self.endPullUpToRefresh(true);
+								return;
+							}
+							mui(response.object.viewList).each(function(index, obj) {
+								$scope.dataList.push(obj);
+							});
+							$scope.$apply(); //数据更新view
+							if(response.object.viewList.length < rows) {
+								self.endPullUpToRefresh(true); //没有更多数据了
+							} else {
+								self.endPullUpToRefresh(); //加载结束
+							}
+							wrapElem.setAttribute("page", page);
+						}, function(err) {
+							mui.toast(err.message);
+						});
+					}
+					//选择关联服务
+					mui("#order-view-list").on("tap", ".order-form-item", function() {
+
+						var orderId = this.getAttribute("orderId");
+						mui.each($scope.dataList, function() {
+							var orderItem = this;
+							if(orderId == orderItem.id) {
+								$scope.joinOrder = orderItem;
+								$scope.$apply();
+								viewApi.back();
+							}
+						});
+					});
+
+				})();
+
+				var PubilcDiaryOn = document.querySelectorAll("#PubilcDiaryOn")[0];
+				var PubilcDiaryOff = document.querySelectorAll("#PubilcDiaryOff")[0];
+				var isPublicBtn = document.querySelectorAll("#isPublicBtn")[0];
+				var spanElem = isPublicBtn.getElementsByClassName("mui-pull-right")[0];
+				PubilcDiaryOn.addEventListener("tap", function() {
+					isPublicDiary(true);
+				});
+				PubilcDiaryOff.addEventListener("tap", function() {
+					isPublicDiary(false);
+				});
+
+				function isPublicDiary(ispublic) {
+					mui('#sheet1').popover('toggle');
+					spanElem.innerHTML = ispublic ? "公开" : "不公开";
+					spanElem.setAttribute("ispublic", ispublic ? "true" : "false");
+				}
+
+				//下一步
+				mui("#nextBtn")[0].addEventListener("tap", function() {
+					//验证数据
+					var msg = "";
+					if($scope.parameter.title.trim().length <= 0) {
+						msg = "请输入日记名称";
+					} else if($scope.joinOrder) {
+						msg = "请选择关联的订单";
+						for(var a in $scope.joinOrder) {
+							msg = "";
+						}
+					}
+					if(msg.length > 0) {
+						mui.toast(msg);
+						return;
+					}
+					//获取数据
+					var parameter = {};
+					parameter["userId"] = state.userId;
+					parameter["MemberRecordId"] = $scope.joinOrder.id;
+					parameter["title"] = $scope.parameter.title;
+					parameter["isPublic"] = spanElem.getAttribute("ispublic") == "true";
+					//提交数据
+					var waiting = plus.nativeUI.showWaiting();
+					appData.diaryIssue(parameter, function(response) {
+						console.log(JSON.stringify(response));
+						waiting.close();
+						var _viewPage = plus.webview.getWebviewById("account-circle-writeDiary");
+						mui.fire(_viewPage, "loadInit", {
+							diaryId: response.object.diaryId
+						});
+						mui.openWindow({
+							id: "account-circle-writeDiary"
+						})
+					}, function(err) {
+						waiting.close();
+						mui.toast(err.message);
+					});
+
+				});
 			});
 
-			function isPublicDiary(ispublic) {
-				mui('#sheet1').popover('toggle');
-				var spanElem = isPublicBtn.getElementsByClassName("mui-pull-right")[0];
-				console.log(spanElem)
-				spanElem.innerHTML = ispublic ? "公开" : "不公开";
-			}
-			mui.ready(function() {
+			//处理view的后退与webview后退
+			var oldBack = mui.back;
+			mui.back = function() {
+				if(viewApi.canBack()) { //如果view可以后退，则执行view的后退
+					viewApi.back();
+				} else { //执行webview后退
+					oldBack();
+				}
+			};
+			mui.plusReady(function() {
 
 			});
 		</script>
