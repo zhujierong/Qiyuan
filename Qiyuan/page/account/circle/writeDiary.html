@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -31,15 +31,21 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-slider-group">
-				<ul class="mui-table-view common-list serving-list circle-content" page="0" nomore="false">
+				<!--<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="" ng-bind="dafaInfo.title">
+							日记名称
+							<span class="mui-pull-right" >日记标题</span>
+						</a>
+					</li>
+				</ul>-->
+				<!--<ul class="mui-table-view common-list serving-list circle-content" page="0" nomore="false">
 					<li class="mui-table-view-cell interfix">
 						<a href="javascript:;" class="mui-navigate-right view-item serving-info-page">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+							<img class="mui-media-object mui-pull-left">
 							<div class="mui-media-body">
-								健康管理中心
-								<p class="min-text">
-									健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
-								</p>
+								<span ng-bind="item.title"></span>
+								<p class="min-text" ng-bind="item.synopsis"></p>
 							</div>
 						</a>
 					</li>
@@ -50,6 +56,18 @@
 								<div class="mui-switch-handle"></div>
 							</div>
 						</div>
+					</li>
+				</ul>-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">相关服务</li>
+					<li class="mui-table-view-cell mui-media" ng-repeat="item in memberRecord.informationList">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" ng-src="item.imageUrl">
+							<div class="mui-media-body">
+								<span ng-bind="item.title"></span>
+								<p class="mui-ellipsis" ng-bind="item.synopsis"></p>
+							</div>
+						</a>
 					</li>
 				</ul>
 				<div class="keep-diary pabel-wrap feedback ">
@@ -66,32 +84,261 @@
 		</div>
 		<script src="../../../js/mui.min.js"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../../js/JRZH_upImg.js" type="text/javascript" charset="utf-8"></script>
-		<!--<script src="../../../js/feedback.js" type="text/javascript" charset="utf-8"></script>-->
-		<!--<script src="../../../js/feedback-page.js" type="text/javascript" charset="utf-8"></script>-->
 		<script>
 			mui.init();
 
-			var state = app.getState();
-			//创建 loadInit 事件
-			window.addEventListener("loadInit", function(event) {
-				var diaryId = event.detail.diaryId
-				loadInit(diaryId);
-			});
+			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
 
-			function loadInit(diaryId) {
-				appData.getDetails({
-					diaryId: diaryId,
-					userId: state.userId
-				}, function(response) {
+				$scope.dafaInfo = {};
 
-				}, function(err) {
+				var state = app.getState();
+				var contentElem = document.querySelectorAll("#textarea")[0];
+				//创建 loadInit 事件
+				window.addEventListener("loadInit", function(event) {
+
+					var diaryId = event.detail.diaryId;
+					var memberRecord = event.detail.memberRecord;
+					var memberRecordId = memberRecord.id;
+					$scope.dafaInfo.title = event.detail.title;
+					$scope.memberRecord = memberRecord;
+					console.log("-----------------write-------------------");
+					console.log(diaryId);
+					console.log(JSON.stringify(memberRecord.informationList));
+					console.log(memberRecordId);
+					console.log($scope.dafaInfo.title);
+					$scope.$apply();
+					loadInit(diaryId, memberRecordId);
 
 				});
-			}
+
+				function loadInit(diaryId, memberRecordId) {
+
+					var index = 1;
+					var size = null;
+					var imageIndexIdNum = 0;
+					var starIndex = 0;
+					var userId = state.userId;
+					var feedback = {
+						imageList: document.getElementById('image-list'), //上传的图片
+						submitBtn: document.getElementById('submit') //提交的按钮
+					};
+					feedback.files = [];
+					feedback.allfiles = [];
+					feedback.uploader = null;
+					feedback.upfiles = null;
+					feedback.deviceInfo = null;
+					mui.plusReady(function() {
+						//重新绑定back事件
+						mui.back = function() {
+							var _view = plus.webview.currentWebview();
+							_view.close("slide-out-left");
+						};
+						//设备信息，无需修改
+						feedback.deviceInfo = {
+							appid: plus.runtime.appid,
+							imei: plus.device.imei, //设备标识
+							images: feedback.files, //图片文件
+							p: mui.os.android ? 'a' : 'i', //平台类型，i表示iOS平台，a表示Android平台。
+							md: plus.device.model, //设备型号
+							app_version: plus.runtime.version,
+							plus_version: plus.runtime.innerVersion, //基座版本号
+							os: mui.os.version,
+							net: '' + plus.networkinfo.getCurrentType()
+						}
+					});
+					feedback.getFileInputArray = function() {
+						return [].slice.call(feedback.imageList.querySelectorAll('.file'));
+					};
+					feedback.addFile = function(path, obj) {
+						var imgInfo = Object.assign({
+							name: "images" + index,
+							path: path
+						}, obj);
+						feedback.files.push(imgInfo);
+						index++;
+					};
+					/**
+					 * 初始化图片域占位
+					 */
+					feedback.newPlaceholder = function() {
+						var fileInputArray = feedback.getFileInputArray();
+						if(fileInputArray &&
+							fileInputArray.length > 0 &&
+							fileInputArray[fileInputArray.length - 1].parentNode.classList.contains('space')) {
+							return;
+						};
+						imageIndexIdNum++;
+						var placeholder = document.createElement('div');
+						placeholder.setAttribute('class', 'image-item space');
+						var up = document.createElement("div");
+						up.setAttribute('class', 'image-up');
+						//删除图片
+						var closeButton = document.createElement('div');
+						closeButton.setAttribute('class', 'image-close');
+						closeButton.innerHTML = 'X';
+						//小X的点击事件
+						closeButton.addEventListener('tap', function(event) {
+
+							setTimeout(function() {
+								feedback.imageList.removeChild(placeholder);
+							}, 0);
+							setTimeout(function() {
+								console.log("-----删除按钮后 files 的变化-------");
+								console.log(JSON.stringify(feedback.files));
+							}, 2000);
+
+							return false;
+						}, false);
+
+						//
+						var fileInput = document.createElement('div');
+						fileInput.setAttribute('class', 'file');
+						fileInput.setAttribute('id', 'image-' + imageIndexIdNum);
+						/*
+						 * 添加图片 - 上传到服务器
+						 */
+						fileInput.addEventListener('tap', function(event) {
+							var self = this;
+							var index = (this.id).substr(-1);
+
+							plus.gallery.pick(function(e) {
+								var name = e.substr(e.lastIndexOf('/') + 1);
+								//图片压缩
+								plus.zip.compressImage({
+									src: e,
+									dst: '_doc/' + name,
+									overwrite: true,
+									quality: 50
+								}, function(zip) {
+									size += zip.size;
+									//console.log("filesize:" + zip.size + ",totalsize:" + size);
+									if(size > (10 * 1024 * 1024)) {
+										return mui.toast('文件超大,请重新选择~');
+									}
+									if(!self.parentNode.classList.contains('space')) { //已有图片
+										feedback.files.splice(index - 1, 1, {
+											name: "images" + index,
+											path: e
+										});
+									} else {
+										placeholder.classList.remove('space');
+										feedback.upload(zip.target, name);
+										feedback.newPlaceholder();
+									}
+									up.classList.remove('image-up');
+									placeholder.style.backgroundImage = 'url(' + zip.target + ')';
+								}, function(zipe) {
+									mui.toast('压缩失败！')
+								});
+							}, function(e) {
+								mui.toast(e.message);
+							}, {});
+						}, false);
+
+						feedback.upload = function(path, name) {
+							var url = JRZH.port + "/sys/ajax/file/upload.json";
+							feedback.upfiles = plus.uploader.createUpload(url, {
+								method: 'POST'
+							}, function(upload, status) {
+
+								if(status == 200) {
+									var data = JSON.parse(upload.responseText);
+									console.log("上传到服务器的文件:" + upload.responseText);
+									feedback.addFile(path, {
+										fileName: data.fileName,
+										fileType: data.fileType,
+										fileUrl: data.relativeFilePath
+									});
+									console.log("-------查看文件内容-------");
+									console.log(JSON.stringify(feedback.files));
+
+								} else {
+									JRZH.ajaxError();
+								}
+
+							});
+							//添加上传文件 - 添加要上传的文件
+							feedback.upfiles.addData("model", "app/circle");
+							feedback.upfiles.addFile(path, {
+								key: name
+							});
+							//开始上传任务
+							feedback.upfiles.start();
+						};
+
+						placeholder.appendChild(closeButton);
+						placeholder.appendChild(up);
+						placeholder.appendChild(fileInput);
+						feedback.imageList.appendChild(placeholder);
+
+					}; //newPlaceholder
+					feedback.newPlaceholder();
+					feedback.submitBtn.addEventListener('tap', function(event) {
+						//判断网络连接
+						if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+							return mui.toast("连接网络失败，请稍后再试");
+						}
+						feedback.send();
+					}, false);
+
+					feedback.send = function() {
+						var contentText = contentElem.value;
+						if(contentText.length <= 0) {
+							mui.toast("日记内容不能为空");
+							return;
+						}
+						var parameter = {};
+						parameter.userId = userId;
+						parameter.diaryId = diaryId;
+						parameter.fileName = "";
+						parameter.fileUrl = "";
+						parameter.fileType = "";
+						parameter.content = contentText;
+						parameter.memberRecordId = memberRecordId;
+
+						mui(feedback.files, function(index) {
+							console.log(index);
+							parameter.fileName += this.fileName + ",";
+							parameter.fileUrl += this.fileUrl + ",";
+							parameter.fileType += this.fileType + ",";
+						});
+
+						parameter.fileName += parameter.fileName.substring(0, parameter.fileName.length - 1);
+						parameter.fileUrl = parameter.fileUrl.substring(0, parameter.fileUrl.length - 1);
+						parameter.fileType += parameter.fileType.substring(0, parameter.fileType.length - 1);
+
+						console.log("--------files.lengt-------:" + feedback.files.length);
+						console.log(JSON.stringify(parameter));
+
+						appData.newsDiary({
+							userId: parameter.userId,
+							diaryId: parameter.diaryId,
+							fileName: parameter.fileName,
+							fileUrl: parameter.fileUrl,
+							fileType: parameter.fileType,
+							content: parameter.content,
+							memberRecordId: parameter.memberRecordId
+						}, function(response) {
+							console.log("---------提交成功~！---------")
+							console.log(JSON.stringify(response));
+						}, function(err) {
+							console.log(JSON.stringify(err));
+							mui.toast(err.message);
+						}, function(xhr, type, errorThrown) {
+							console.log(JSON.stringify(xhr));
+							console.log(JSON.stringify(type));
+							console.log(JSON.stringify(errorThrown));
+						});
+
+					}; //send
+
+				}; //loadInit
+
+			}); //controller
 		</script>
 	</body>
 

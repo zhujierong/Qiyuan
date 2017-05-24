@@ -371,11 +371,11 @@
 					//提交数据
 					var waiting = plus.nativeUI.showWaiting();
 					appData.diaryIssue(parameter, function(response) {
-						console.log(JSON.stringify(response));
 						waiting.close();
 						var _viewPage = plus.webview.getWebviewById("account-circle-writeDiary");
 						mui.fire(_viewPage, "loadInit", {
-							diaryId: response.object.diaryId
+							diaryId: response.object.diaryId,
+							joinOrder: $scope.joinOrder
 						});
 						mui.openWindow({
 							id: "account-circle-writeDiary"

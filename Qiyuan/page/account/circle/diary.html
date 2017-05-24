@@ -149,10 +149,11 @@
 								}
 							});
 
-							//触发详情页面的 getDiaryInfo 事件  
-							mui.fire(_viewPage, 'getDiaryInfo', {
-								diaryInfo: diaryInfo
+							//触发详情页面的 loadInit 事件  
+							mui.fire(_viewPage, 'loadInit', {
+								diaryView: diaryInfo
 							});
+
 							//打开详情页面            
 							mui.openWindow({
 								id: 'account-circle-diaryInfo'

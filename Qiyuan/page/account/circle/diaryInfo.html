@@ -158,7 +158,12 @@
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
-			mui.init();
+			mui.init({
+				preloadPages: [{
+					url: "writeDiary.html",
+					id: "account-circle-writeDiary",
+				}]
+			});
 			angular.module("jrzhApp", [])
 				.controller("jrzhCtrl", function($scope) {
 
@@ -171,30 +176,28 @@
 					$scope.totalInfo = {}; //评论、点赞、关注统计
 
 					var state = app.getState();
-					//预加载写日记页
-					mui.preload({
-						url: "writeDiary.html",
-						id: "account-circle-writeDiary",
-						//						extras: {
-						//							diaryId: diaryId
-						//						}
-					});
 
-					//添加diaryInfo自定义事件监听  
-					window.addEventListener('getDiaryInfo', function(event) {
+					//添加 loadInit 自定义事件监听  
+					window.addEventListener('loadInit', function(event) {
 						//获得事件参数  
-						var diaryInfo = event.detail.diaryInfo;
+						var diaryView = event.detail.diaryView;
+						$scope.diaryView = diaryView;
+						console.log("----------diaryInfo.html--loadInit---------");
+						console.log(JSON.stringify(diaryView));
+						$scope.$apply();
 						//初始化页面数据
-						infoInit(diaryInfo.id, diaryInfo);
+						infoInit(diaryView);
 					});
 
-					function infoInit(diaryId, diaryInfo) {
-						$scope.diaryInfo = diaryInfo;
+					function infoInit(diaryView) {
+						var diaryId = diaryView.id;
+						console.log("输出ID:" + diaryId);
 						//数据加载
 						appData.getDetails({
 							userId: state.userId,
 							diaryId: diaryId
 						}, function(response) {
+							$scope.diaryInfo = response.object; //整个日记的所有信息
 							var viewlist = response.object.viewList || [];
 							$scope.member = response.object.member; //个人信息
 							$scope.replyList = response.object.replyList; //评论
@@ -203,19 +206,28 @@
 							$scope.viewList = response.object.viewList; //日记内容
 
 							$scope.$apply(); //数据更新view
+							console.log("开始绑定事件");
+							//绑定 - 添加日记
+							var newDiaryButton = document.querySelectorAll("#newDiary")[0];
+							newDiaryButton.addEventListener("tap", function() {
+
+								var _viewPage = plus.webview.getWebviewById("account-circle-writeDiary");
+								mui.fire(_viewPage, "loadInit", {
+									diaryId: diaryId,
+									memberRecord: $scope.memberRecord,
+									title: diaryView.title
+								});
+
+								mui.openWindow({
+									id: "account-circle-writeDiary",
+								})
+							});
+
 						}, function(err) {
+							console.log(JSON.stringify(err));
 							mui.toast(err.message);
 						});
 					};
-
-					//添加日记
-					var newDiaryButton = document.querySelectorAll("#newDiary")[0];
-					newDiaryButton.addEventListener("tap", function() {
-						mui.openWindow({
-							url: "writeDiary.html",
-							id: "account-circle-writeDiary",
-						})
-					});
 
 					mui.plusReady(function() {
 						var currWebView = plus.webview.currentWebview();

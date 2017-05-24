@@ -3,16 +3,8 @@ appData.dataType = 'json';
 appData.type = 'post';
 appData.timeout = 10000;
 
-appData.ajaxRTS = function(url, parameters, successcallback, errorcallback) {
+appData.ajaxRTS = function(url, parameters, successcallback, errorcallback, xhrerrorback) {
 	successcallback = successcallback || $.noop;
-	errorcallback = errorcallback || $.noop;
-
-	//// 指定允许其他域名访问  
-	//header('Access-Control-Allow-Origin:*');  
-	//// 响应类型  
-	//header('Access-Control-Allow-Methods:POST');  
-	//// 响应头设置  
-	//header('Access-Control-Allow-Headers:x-requested-with,content-type');  
 	mui.ajax(JRZH.BASE_URL + url, {
 		data: parameters,
 		dataType: appData.dataType,
@@ -28,20 +20,17 @@ appData.ajaxRTS = function(url, parameters, successcallback, errorcallback) {
 
 		},
 		error: function(xhr, type, errorThrown) {
-			JRZH.xhrError()
+			if(typeof xhrerrorback == "function") {
+				xhrerrorback(xhr, type, errorThrown);
+			} else {
+				JRZH.xhrError()
+			}
 		}
 	});
 };
-appData.ajaxSYS = function(url, parameters, successcallback, errorcallback) {
+appData.ajaxSYS = function(url, parameters, successcallback, errorcallback, xhrerrorback) {
 	successcallback = successcallback || $.noop;
-	errorcallback = errorcallback || $.noop;
 
-	//// 指定允许其他域名访问  
-	//header('Access-Control-Allow-Origin:*');  
-	//// 响应类型  
-	//header('Access-Control-Allow-Methods:POST');  
-	//// 响应头设置  
-	//header('Access-Control-Allow-Headers:x-requested-with,content-type');  
 	mui.ajax(JRZH.port + url, {
 		data: parameters,
 		dataType: appData.dataType,
@@ -57,7 +46,11 @@ appData.ajaxSYS = function(url, parameters, successcallback, errorcallback) {
 
 		},
 		error: function(xhr, type, errorThrown) {
-			JRZH.xhrError()
+			if(typeof xhrerrorback == "function") {
+				xhrerrorback(xhr, type, errorThrown);
+			} else {
+				JRZH.xhrError()
+			}
 		}
 	});
 };
@@ -129,7 +122,7 @@ appData.personalInfo = function(parameters, successcallback, errorcallback, xhre
 	appData.ajaxRTS('bbs/personalInfo.json', parameters, successcallback, errorcallback)
 };
 /*
- * 个人 - 日记本
+ * 个人 - 日记本列表
  */
 appData.getPersonalDiary = function(parameters, successcallback, errorcallback, xhrerrorback) {
 	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
@@ -139,6 +132,12 @@ appData.getPersonalDiary = function(parameters, successcallback, errorcallback, 
  */
 appData.diaryIssue = function(parameters, successcallback, errorcallback, xhrerrorback) {
 	appData.ajaxRTS('bbs/diaryIssue.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 个人 - 创建日记
+ */
+appData.newsDiary = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/diary.json', parameters, successcallback, errorcallback, xhrerrorback)
 };
 /*
  * 健康档案

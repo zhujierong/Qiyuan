@@ -62,12 +62,11 @@
 	feedback.getFileInputArray = function() {
 		return [].slice.call(feedback.imageList.querySelectorAll('.file'));
 	};
-	feedback.addFile = function(path, obj) {
-		var imgInfo = Object.assign({
+	feedback.addFile = function(path) {
+		feedback.files.push({
 			name: "images" + index,
 			path: path
-		}, obj);
-		feedback.files.push(imgInfo);
+		});
 		index++;
 	};
 	/**
@@ -84,22 +83,16 @@
 		var placeholder = document.createElement('div');
 		placeholder.setAttribute('class', 'image-item space');
 		var up = document.createElement("div");
-		up.setAttribute('class', 'image-up');
-		//删除图片
+		up.setAttribute('class', 'image-up')
+			//删除图片
 		var closeButton = document.createElement('div');
 		closeButton.setAttribute('class', 'image-close');
 		closeButton.innerHTML = 'X';
 		//小X的点击事件
 		closeButton.addEventListener('tap', function(event) {
-
 			setTimeout(function() {
 				feedback.imageList.removeChild(placeholder);
 			}, 0);
-			setTimeout(function() {
-				console.log("-----删除按钮后 files 的变化-------");
-				console.log(JSON.stringify(feedback.files));
-			}, 2000);
-
 			return false;
 		}, false);
 
@@ -115,7 +108,8 @@
 			var index = (this.id).substr(-1);
 
 			plus.gallery.pick(function(e) {
-				var name = e.substr(e.lastIndexOf('/') + 1);
+
+				var name = pickfiles[i].substr(e.lastIndexOf('/') + 1);
 				//图片压缩
 				plus.zip.compressImage({
 					src: e,
@@ -135,7 +129,11 @@
 						});
 					} else {
 						placeholder.classList.remove('space');
-						feedback.upload(zip.target, name);
+						//开始上传服务器
+						console.log("开始上传服务器");
+						feedback.upload(zip.target);
+						//console.log("addFile 修改为先上传到服务器再调整页面显示");
+						//feedback.addFile(zip.target);
 						feedback.newPlaceholder();
 					}
 					up.classList.remove('image-up');
@@ -146,43 +144,8 @@
 			}, function(e) {
 				mui.toast(e.message);
 			}, {});
+
 		}, false);
-
-		feedback.upload = function(path, name) {
-			var url = JRZH.port + "/sys/ajax/file/upload.json";
-			feedback.upfiles = plus.uploader.createUpload(url, {
-				method: 'POST'
-			}, function(upload, status) {
-
-				if(status == 200) {
-					var data = JSON.parse(upload.responseText);
-					console.log("上传到服务器的文件:" + upload.responseText);
-					feedback.addFile(path, {
-						fileName: data.fileName,
-						fileType: data.fileType,
-						fileUrl: data.relativeFilePath
-					});
-					console.log("-------查看文件内容-------");
-					console.log(JSON.stringify(feedback.files));
-
-				} else {
-					console.log("upload fail");
-				}
-
-			});
-			//添加上传文件 - 添加要上传的文件
-			feedback.upfiles.addData("model", "app/circle");
-			feedback.upfiles.addFile(path, {
-				key: name
-			});
-			//开始上传任务
-			feedback.upfiles.start();
-		};
-
-		placeholder.appendChild(closeButton);
-		placeholder.appendChild(up);
-		placeholder.appendChild(fileInput);
-		feedback.imageList.appendChild(placeholder);
 
 	};
 	feedback.newPlaceholder();
@@ -205,18 +168,8 @@
 			images: feedback.files,
 			score: '' + starIndex
 		}))
-	}, false);
-
+	}, false)
 	feedback.send = function(content) {
-		var userId = userId;
-		appData.newsDiary({
-			
-		}, function(response) {
-			console.log(JSON.stringify(response));
-		}, function(err) {
-			mui.toast(err.message);
-		});
-		//		var url = ""
 		//		feedback.uploader = plus.uploader.createUpload(url, {
 		//			method: 'POST'
 		//		}, function(upload, status) {
@@ -235,14 +188,78 @@
 		//			}
 		//
 		//		});
-		//		添加上传数据
-		//		feedback.uploader.addData(index, element);
-		//		feedback.uploader.addData(index, element);
-		//		feedback.uploader.addData(index, element);
-		//			//添加上传文件 - 添加要上传的文件
-		//		feedback.uploader.addFile(files, feedback.files);
-		//		//开始上传任务
-		//		feedback.uploader.start();
+		//添加上传数据
+		mui.each(content, function(index, element) {
+			if(index !== 'images') {
+				console.log("addData:" + index + "," + element);
+				//				console.log(index);
+				feedback.uploader.addData(index, element)
+			}
+		});
+		//添加上传文件 - 添加要上传的文件
+		mui.each(feedback.files, function(index, element) {
+			var f = feedback.files[index];
+			console.log("addFile:" + JSON.stringify(f));
+			feedback.uploader.addFile(f.path, {
+				key: f.name
+			});
+		});
+		//开始上传任务
+		feedback.uploader.start();
+		mui.alert("感谢反馈，点击确定关闭", "问题反馈", "确定", function() {
+			feedback.clearForm();
+			mui.back();
+		});
+		//		plus.nativeUI.showWaiting();
+	};
+
+	feedback.upload = function(path) {
+		var url = JRZH.port + "/sys/ajax/file/upload.json";
+		feedback.upfiles = plus.uploader.createUpload(url, {
+			method: 'POST'
+		}, function(upload, status) {
+			console.log("upload cb:" + upload.responseText);
+			if(status == 200) {
+				var data = JSON.parse(upload.responseText);
+
+				//把图片添加到files中
+				feedback.addFile(path, {
+					fileName: data.fileName,
+					fileType: data.fileType,
+					fileUrl: data.relativeFilePath
+				});
+				//更新
+				placeholder.appendChild(closeButton);
+				placeholder.appendChild(up);
+				placeholder.appendChild(fileInput);
+				feedback.imageList.appendChild(placeholder);
+			} else {
+				console.log("upload fail");
+			}
+
+		});
+		//添加上传文件 - 添加要上传的文件
+		console.log("*****************检测文件数量*********************" + feedback.files.length);
+		mui.each(feedback.files, function(index, element) {
+			var f = feedback.files[index];
+			console.log("addFile:" + JSON.stringify(f));
+			console.log("----------------添加要上传的文件");
+			feedback.uploader.addData("model", "app/circle");
+			feedback.upfiles.addFile(f.path, {
+				key: f.name
+			});
+		});
+		//开始上传任务
+		console.log("----------------开始上传任务");
+		feedback.upfiles.start();
 	};
 
 })();
+
+var a = {
+	"status": 200,
+	"fileName": "Screenshot_20170523-152200",
+	"fileType": ".png",
+	"absoluteFilePath": "D:/projects/file/null/2017-05-24/Screenshot_20170523-152200.png-550d516e0f234a44b9193cfa4a07425d.png",
+	"relativeFilePath": "/files/file/null/2017-05-24/Screenshot_20170523-152200.png-550d516e0f234a44b9193cfa4a07425d.png"
+}

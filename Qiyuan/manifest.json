@@ -911,7 +911,8 @@
 					"css/fonts/iconfont.css",
 					"imgs/temp/2.jpg",
 					"css/fonts/mui.ttf",
-					"js/app.js"
+					"js/app.js",
+					"css/fonts/iconfont.woff"
 				],
 				"refer": [
 					"page/account/circle/newDiary.html",
@@ -973,7 +974,8 @@
 					"js/angular.js",
 					"js/appdata.js",
 					"js/JRZH.js",
-					"js/mui.pullToRefresh.material.js"
+					"js/mui.pullToRefresh.material.js",
+					"css/fonts/iconfont.woff"
 				],
 				"refer": [],
 				"priority": 0
@@ -1001,7 +1003,14 @@
 					"js/mui.min.js",
 					"css/libs/mui.min.css",
 					"css/style.css",
-					"css/fonts/mui.ttf"
+					"css/fonts/mui.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/app.js",
+					"js/common.js",
+					"js/angular.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/appdata.js",
+					"js/JRZH.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -1136,7 +1145,22 @@
 					"imgs/temp/exp/tx.jpg",
 					"imgs/temp/1.jpg",
 					"imgs/temp/server/list.jpg",
-					"css/fonts/mui.ttf"
+					"css/fonts/mui.ttf",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/fonts/iconfont.css",
+					"css/libs/mui.min.css",
+					"css/style.css",
+					"js/JRZH.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/account/messageCenter/news.html": {
+				"resources": [
+					"css/fonts/mui.ttf",
+					"css/fonts/iconfont.woff",
+					"imgs/temp/1.jpg"
 				],
 				"refer": [],
 				"priority": 0
