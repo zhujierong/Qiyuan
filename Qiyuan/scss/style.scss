@@ -466,8 +466,16 @@ $home_pd: 0.035rem;
                 width: 33.33%;
                 float: left;
                 padding-right: 0.05rem;
+                //2017-5-25
+                padding-bottom: 33.33%;
+                position: relative;
                 img {
                     width: 100%;
+                    //2017-5-25
+                    //                  position: absolute;
+                    //                  top: 0px;
+                    //                  left: 0;
+                    //                  height: 100%;
                 }
             }
             img {}
@@ -513,11 +521,6 @@ $home_pd: 0.035rem;
     .footer {
         border-top: 1px solid #f0f0f0;
         span {
-            i {
-                font-size: 0.1rem;
-                color: #9d9d9d;
-                padding-right: 5px;
-            }
             float: left;
             width: 33.33%;
             text-align: center;
@@ -525,6 +528,17 @@ $home_pd: 0.035rem;
             border-right: 1px solid #f0f0f0;
             font-size: 0.13rem;
             color: #777777;
+            i {
+                font-size: 0.16rem;
+                color: #9d9d9d;
+                padding-right: 5px;
+            }
+        }
+        span.mui-active {
+            color: $main_cl;
+            i {
+                color: $main_cl;
+            }
         }
     }
 }
@@ -1376,4 +1390,18 @@ $home_pd: 0.035rem;
 .new-diary-btns {
     margin-top: 0.3rem;
     padding: 0 0.15rem;
+}
+.discuss-sofa {
+    padding: 50px;
+    text-align: center;
+    background-color: #FFFFFF;
+    span {
+        font-size: 66px;
+        line-height: 66px;
+        color: #d6d6d6;
+    }
+    p {
+        font-size: 0.12rem;
+        color: #AAAAAA;
+    }
 }

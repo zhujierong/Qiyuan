@@ -62,7 +62,7 @@
 					<li class="mui-table-view-cell">相关服务</li>
 					<li class="mui-table-view-cell mui-media" ng-repeat="item in memberRecord.informationList">
 						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" ng-src="item.imageUrl">
+							<img class="mui-media-object mui-pull-left" src="{{port + item.imageUrl}}">
 							<div class="mui-media-body">
 								<span ng-bind="item.title"></span>
 								<p class="mui-ellipsis" ng-bind="item.synopsis"></p>
@@ -74,8 +74,7 @@
 					<h5>写日记</h5>
 					<textarea id="textarea" rows="5" placeholder="填写日记内容"></textarea>
 					<h5>上传照片</h5>
-					<div id="image-list" class="row image-list">
-					</div>
+					<div id="image-list" class="row image-list"></div>
 					<div class="btns-wrap">
 						<button id="submit" class="mui-btn mui-btn-block mui-btn-blue">保存</button>
 					</div>
@@ -94,6 +93,7 @@
 			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
 
 				$scope.dafaInfo = {};
+				$scope.port = JRZH.port;
 
 				var state = app.getState();
 				var contentElem = document.querySelectorAll("#textarea")[0];
@@ -114,6 +114,18 @@
 					loadInit(diaryId, memberRecordId);
 
 				});
+				var feedback = {
+					imageList: document.getElementById('image-list'), //上传的图片
+					submitBtn: document.getElementById('submit') //提交的按钮
+				};
+
+				feedback.submitBtn.addEventListener('tap', function(event) {
+					//判断网络连接
+					if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+						return mui.toast("连接网络失败，请稍后再试");
+					}
+					feedback.send();
+				}, false);
 
 				function loadInit(diaryId, memberRecordId) {
 
@@ -122,21 +134,12 @@
 					var imageIndexIdNum = 0;
 					var starIndex = 0;
 					var userId = state.userId;
-					var feedback = {
-						imageList: document.getElementById('image-list'), //上传的图片
-						submitBtn: document.getElementById('submit') //提交的按钮
-					};
 					feedback.files = [];
 					feedback.allfiles = [];
 					feedback.uploader = null;
 					feedback.upfiles = null;
 					feedback.deviceInfo = null;
 					mui.plusReady(function() {
-						//重新绑定back事件
-						mui.back = function() {
-							var _view = plus.webview.currentWebview();
-							_view.close("slide-out-left");
-						};
 						//设备信息，无需修改
 						feedback.deviceInfo = {
 							appid: plus.runtime.appid,
@@ -277,13 +280,6 @@
 
 					}; //newPlaceholder
 					feedback.newPlaceholder();
-					feedback.submitBtn.addEventListener('tap', function(event) {
-						//判断网络连接
-						if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-							return mui.toast("连接网络失败，请稍后再试");
-						}
-						feedback.send();
-					}, false);
 
 					feedback.send = function() {
 						var contentText = contentElem.value;
@@ -300,7 +296,10 @@
 						parameter.content = contentText;
 						parameter.memberRecordId = memberRecordId;
 
-						mui(feedback.files, function(index) {
+						console.log("--------files.lengt-------:" + feedback.files.length);
+						console.log(JSON.stringify(feedback.files));
+
+						mui.each(feedback.files, function(index) {
 							console.log(index);
 							parameter.fileName += this.fileName + ",";
 							parameter.fileUrl += this.fileUrl + ",";
@@ -311,7 +310,6 @@
 						parameter.fileUrl = parameter.fileUrl.substring(0, parameter.fileUrl.length - 1);
 						parameter.fileType += parameter.fileType.substring(0, parameter.fileType.length - 1);
 
-						console.log("--------files.lengt-------:" + feedback.files.length);
 						console.log(JSON.stringify(parameter));
 
 						appData.newsDiary({

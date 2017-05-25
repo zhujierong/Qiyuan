@@ -140,6 +140,24 @@ appData.newsDiary = function(parameters, successcallback, errorcallback, xhrerro
 	appData.ajaxRTS('bbs/diary.json', parameters, successcallback, errorcallback, xhrerrorback)
 };
 /*
+ * 个人 - 日记状态更改
+ */
+appData.setDiaryStatus = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/setDiaryStatus.json', parameters, successcallback, errorcallback, xhrerrorback)
+};
+/*
+ * 个人 - 日记点赞
+ */
+appData.diaryPraise = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/diaryPraise.json', parameters, successcallback, errorcallback, xhrerrorback)
+};
+/*
+ * 个人 - 日记取消点赞
+ */
+appData.cancelDiaryPraise = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/cancelDiaryPraise.json', parameters, successcallback, errorcallback, xhrerrorback)
+};
+/*
  * 健康档案
  */
 appData.getMemberFileList = function(parameters, successcallback, errorcallback, xhrerrorback) {

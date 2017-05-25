@@ -849,7 +849,9 @@ input[type='submit'].mui-active:enabled,
       .circle-list .circle-item .cont .img-box {
         width: 33.33%;
         float: left;
-        padding-right: 0.05rem; }
+        padding-right: 0.05rem;
+        padding-bottom: 33.33%;
+        position: relative; }
         .circle-list .circle-item .cont .img-box img {
           width: 100%; }
       .circle-list .circle-item .cont .text-title {
@@ -892,9 +894,13 @@ input[type='submit'].mui-active:enabled,
       font-size: 0.13rem;
       color: #777777; }
       .circle-list .footer span i {
-        font-size: 0.1rem;
+        font-size: 0.16rem;
         color: #9d9d9d;
         padding-right: 5px; }
+    .circle-list .footer span.mui-active {
+      color: #F3CD61; }
+      .circle-list .footer span.mui-active i {
+        color: #F3CD61; }
 
 .circle-content .mui-table-view:first-child {
   margin-top: 0.1rem; }
@@ -1519,5 +1525,17 @@ input[type='submit'].mui-active:enabled,
 .new-diary-btns {
   margin-top: 0.3rem;
   padding: 0 0.15rem; }
+
+.discuss-sofa {
+  padding: 50px;
+  text-align: center;
+  background-color: #FFFFFF; }
+  .discuss-sofa span {
+    font-size: 66px;
+    line-height: 66px;
+    color: #d6d6d6; }
+  .discuss-sofa p {
+    font-size: 0.12rem;
+    color: #AAAAAA; }
 
 /*# sourceMappingURL=style.css.map */

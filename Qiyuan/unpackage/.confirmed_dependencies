@@ -449,7 +449,8 @@
 			"imgs/temp/wxtx.jpg",
 			"css/fonts/iconfont.ttf",
 			"js/app.js",
-			"js/appdata.js"
+			"js/appdata.js",
+			"css/fonts/iconfont.woff"
 		],
 		"refer": [
 			"page/more/setting.html",
@@ -521,7 +522,8 @@
 			"css/fonts/iconfont.ttf",
 			"js/app.js",
 			"js/angular.js",
-			"js/appdata.js"
+			"js/appdata.js",
+			"css/fonts/iconfont.woff"
 		],
 		"refer": [
 			"page/community/circle/homepage.html",
@@ -809,7 +811,9 @@
 			"js/mui.min.js",
 			"css/libs/mui.min.css",
 			"css/style.css",
-			"css/fonts/mui.ttf"
+			"css/fonts/mui.ttf",
+			"js/mui.pullToRefresh.js",
+			"js/mui.pullToRefresh.material.js"
 		]
 	},
 	"page/account/circle/writeDiary.html": {
@@ -839,7 +843,11 @@
 			"imgs/temp/exp/tx.jpg",
 			"imgs/temp/1.jpg",
 			"imgs/temp/server/list.jpg",
-			"css/fonts/mui.ttf"
+			"css/fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/fonts/iconfont.css",
+			"css/libs/mui.min.css",
+			"css/style.css"
 		]
 	},
 	"page/account/circle/follow.html": {
@@ -861,7 +869,11 @@
 		"resources": [
 			"css/fonts/mui.ttf",
 			"css/fonts/iconfont.woff",
-			"imgs/temp/1.jpg"
+			"imgs/temp/1.jpg",
+			"js/mui.min.js",
+			"css/fonts/iconfont.css",
+			"css/libs/mui.min.css",
+			"css/style.css"
 		]
 	}
 }

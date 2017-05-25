@@ -116,7 +116,6 @@
 									self.endPullUpToRefresh(true);
 									return;
 								}
-								$scope.dataList = response.object.viewList;
 								mui(response.object.viewList).each(function() {
 									$scope.dataList.push(this);
 								});

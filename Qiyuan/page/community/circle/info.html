@@ -168,9 +168,12 @@
 					$scope.viewList = [];
 					var state = app.getState();
 
-					mui.plusReady(function() {
-						var currWebView = plus.webview.currentWebview();
-						var diaryId = currWebView.diaryId || "";
+					window.addEventListener("loadInit", function(event) {
+						var diaryId = event.detail.diaryId;
+					});
+
+					function loadInit(diaryId) {
+
 						appData.getDetails({
 							userId: state.userId,
 							diaryId: diaryId
@@ -179,6 +182,10 @@
 						}, function(err) {
 							plus.nativeUI.toast(err.message);
 						});
+
+					}
+
+					mui.plusReady(function() {
 
 					});
 

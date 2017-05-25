@@ -24,56 +24,92 @@
 				<li class="mui-table-view-cell">
 					<a href="">
 						日记名称
-						<span class="mui-pull-right" ng-bind="diaryInfo.title">1234</span>
+						<span class="mui-pull-right" ng-bind="diaryView.title">1234</span>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a href="">
 						创建日期
-						<span class="mui-pull-right" ng-bind="diaryInfo.updateTime | date:'yyyy-MM-dd'">1234</span>
+						<span class="mui-pull-right" ng-bind="diaryView.updateTime | date:'yyyy-MM-dd'">1234</span>
 					</a>
 				</li>
-				<li class="mui-table-view-cell interfix">
+				<li class="mui-table-view-cell" bfclass="interfix">
 					<p class="text-title">相关服务</p>
-					<a href="javascript:;" class="mui-navigate-right view-item serving-info-page">
+					<!--<a ng-repeat="iview in memberRecord.informationList" href="javascript:;" class="mui-navigate-right view-item serving-info-page">
 						<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
 						<div class="mui-media-body">
-							健康管理中心
-							<p class="min-text">
-								健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
-							</p>
+							<span ng-bind="iview.title"></span>
+							<p class="mui-ellipsis" ng-bind="iview.synopsis"></p>
+						</div>
+					</a>-->
+					<a ng-repeat="iview in memberRecord.informationList" href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="{{port + iview.imageUrl}}">
+						<div class="mui-media-body">
+							<span ng-bind="iview.title"></span>
+							<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
 						</div>
 					</a>
 				</li>
 			</ul>
+
+			<!--<ul class="mui-table-view">
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+			            <div class="mui-media-body">
+			                幸福
+			                <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+			            <div class="mui-media-body">
+			                木屋
+			                <p class="mui-ellipsis">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+			            </div>
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="javascript:;">
+			            <img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+			            <div class="mui-media-body">
+			                CBD
+			                <p class="mui-ellipsis">烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+			            </div>
+			        </a>
+			    </li>
+			</ul>-->
+
 			<ul class="mui-table-view mui-table-view-gk">
 				<li class="mui-table-view-cell">
 					<a href="#sheet1" class="mui-navigate-right" id="isPublicBtn">
 						<label>是否公开日记</label>
-						<span class="mui-pull-right">公开</span>
+						<span class="mui-pull-right" ng-if="isFans" ispublic="true">公开</span>
+						<span class="mui-pull-right" ng-if="isFans==false" ispublic="false">不公开</span>
 					</a>
 				</li>
 			</ul>
 		</div>
-		<div class="circle-cont">
+		<div class="circle-cont" ng-if="viewList.length>0">
 
-			<div class="diarys-page-item">
-				<div class="diary-date">2017-5-19</div>
-				<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融合光谱共振分析、量子共振分析、音频共振分析的光波共振细胞能量比对健康评量系统，此系统是以诺贝尔奖“核磁共振”的理论为基础所研发出来的。太空诊断仪器将提供您非侵入</p>
-				<img src="../../../imgs/temp/exp/tx.jpg" />
-				<img src="../../../imgs/temp/exp/tx.jpg" />
-				<img src="../../../imgs/temp/exp/tx.jpg" />
-				<img src="../../../imgs/temp/exp/tx.jpg" />
-				<!--<div class="circle-footer">
-					<div class="footer-icon mui-pull-left">
-						<span><i class="iconfont icon-browse"></i>3572</span>
-						<span><i class="iconfont icon-good"></i>3572</span>
-					</div>
-					<div class="footer-icon mui-pull-right">
-						<p class="time">发布日期：2017-5-6</p>
-					</div>
-					<div class="clear"></div>
+			<div class="diarys-page-item" ng-repeat="view in viewList">
+				<div class="diary-date" ng-bind="view.updateTime | date:'yyyy-MM-dd'">2017-5-19</div>
+				<p ng-bind="view.content"></p>
+				<p ng-repeat="imgView in view.imgUrls">
+					<img src="{{imgView}}" />
+				</p>
+			</div>
+			<div class="circle-footer">
+				<div class="footer-icon mui-pull-left">
+					<span><i class="iconfont icon-browse"></i>3572</span>
+					<span><i class="iconfont icon-good"></i>3572</span>
+				</div>
+				<!--<div class="footer-icon mui-pull-right">
+					<p class="time">发布日期：2017-5-6</p>
 				</div>-->
+				<div class="clear"></div>
 			</div>
 
 		</div>
@@ -83,7 +119,29 @@
 			</ul>
 			<ul class="mui-table-view circle-list">
 
-				<li class="circle-item">
+				<li class="circle-item" ng-repeat="item in replyList">
+					<a href="javascript:void(0)" class="mui-control-item">
+						<div class="top" class=" go-pson-home-page">
+							<div class="l">
+								<img class="tx" src="{{port + item.memberUrl}}" alt="" />
+								<span ng-bind="item.memberName">小泽777</span>
+							</div>
+							<div class="r">
+								<span ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-6</span>
+							</div>
+						</div>
+						<div class="cont">
+							<p ng-bind="item.content"></p>
+						</div>
+					</a>
+					<div class="reply">
+						<div class="reply-list" ng-repeat="ritem in item.commentList">
+							<strong>{{ritem.memberName}}：</strong>
+							<p>{{ritem.content}}</p>
+						</div>
+					</div>
+				</li>
+				<!--<li class="circle-item">
 					<a href="javascript:void(0)" class="mui-control-item">
 						<div class="top" class=" go-pson-home-page">
 							<div class="l">
@@ -102,29 +160,13 @@
 						<strong>姓名：</strong>
 						<p>回复内容</p>
 					</div>
-				</li>
-				<li class="circle-item">
-					<a href="javascript:void(0)" class="mui-control-item">
-						<div class="top" class=" go-pson-home-page">
-							<div class="l">
-								<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
-								<span>小泽777</span>
-							</div>
-							<div class="r">
-								<span>2017-5-6</span>
-							</div>
-						</div>
-						<div class="cont">
-							<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融</p>
-						</div>
-					</a>
-					<div class="reply">
-						<strong>姓名：</strong>
-						<p>回复内容</p>
-					</div>
-				</li>
+				</li>-->
 
 			</ul>
+			<div class="discuss-sofa" ng-if="replyList.length<=0">
+				<span class="iconfont icon-shafa"></span>
+				<p>暂时没有人发表评论</p>
+			</div>
 			<p class="current-all-info">已显示全部内容</p>
 			<br />
 			<br />
@@ -170,10 +212,11 @@
 					$scope.member = {};
 					$scope.replyList = {}; //评论
 					$scope.memberRecord = {}; //相关订单
-					$scope.isFans = {}; //是否关注
+					$scope.isFans = true; //是否关注
 					$scope.viewList = {}; //日记内容
 					$scope.diaryInfo = {}; //日记本
 					$scope.totalInfo = {}; //评论、点赞、关注统计
+					$scope.port = JRZH.port;
 
 					var state = app.getState();
 
@@ -182,16 +225,14 @@
 						//获得事件参数  
 						var diaryView = event.detail.diaryView;
 						$scope.diaryView = diaryView;
-						console.log("----------diaryInfo.html--loadInit---------");
-						console.log(JSON.stringify(diaryView));
 						$scope.$apply();
 						//初始化页面数据
 						infoInit(diaryView);
 					});
+					var diaryId = "";
 
 					function infoInit(diaryView) {
-						var diaryId = diaryView.id;
-						console.log("输出ID:" + diaryId);
+						diaryId = diaryView.id;
 						//数据加载
 						appData.getDetails({
 							userId: state.userId,
@@ -204,9 +245,16 @@
 							$scope.memberRecord = response.object.memberRecord; //服务
 							$scope.isFans = response.object.isFans; //是否关注
 							$scope.viewList = response.object.viewList; //日记内容
+							//图片数组预处理
+							mui.each($scope.viewList, function(index, view) {
+								var arr = view.imgUrl.split(",");
+								mui.each(arr, function(index) {
+									arr[index] = JRZH.port + arr[index];
+								});
+								$scope.viewList[index].imgUrls = arr;
+							});
 
 							$scope.$apply(); //数据更新view
-							console.log("开始绑定事件");
 							//绑定 - 添加日记
 							var newDiaryButton = document.querySelectorAll("#newDiary")[0];
 							newDiaryButton.addEventListener("tap", function() {
@@ -224,7 +272,6 @@
 							});
 
 						}, function(err) {
-							console.log(JSON.stringify(err));
 							mui.toast(err.message);
 						});
 					};
@@ -247,6 +294,17 @@
 						mui('#sheet1').popover('toggle');
 						var spanElem = isPublicBtn.getElementsByClassName("mui-pull-right")[0];
 						spanElem.innerHTML = ispublic ? "公开" : "不公开";
+						$scope.isFans = ispublic;
+						var status = ispublic ? 1 : 0
+						appData.setDiaryStatus({
+							diaryId: diaryId,
+							status: status
+						}, function(response) {
+							mui.toast(response.message);
+						}, function(err) {
+							mui.toast(err.message);
+						});
+						$scope.$apply();
 					}
 
 				});
