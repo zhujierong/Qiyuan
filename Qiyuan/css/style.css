@@ -867,7 +867,7 @@ input[type='submit'].mui-active:enabled,
           color: #333333; }
     .circle-list .circle-item .reply {
       margin: 0 0.1rem;
-      background-color: #F8F8F8;
+      background-color: #f1f1f1;
       padding: 0.1rem; }
       .circle-list .circle-item .reply strong {
         font-size: 0.12rem;
@@ -910,7 +910,7 @@ input[type='submit'].mui-active:enabled,
   .circle-content .mui-table-view-cell a span i {
     padding-right: 0.08rem;
     color: #b8b8b8;
-    font-size: 0.12rem; }
+    font-size: 0.14rem; }
 .circle-content .mui-table-view-cell.interfix .text-title {
   position: relative;
   display: block;
@@ -1007,6 +1007,10 @@ input[type='submit'].mui-active:enabled,
     .reply-footer span.dz i {
       font-size: 0.16rem;
       padding-right: 0.05rem; }
+  .reply-footer span.mui-active {
+    color: #F3CD61; }
+    .reply-footer span.mui-active i {
+      color: #F3CD61; }
   .reply-footer .reply-wrap {
     display: none;
     padding: 0.1rem; }

@@ -11,6 +11,7 @@ var JRZH = {
 	styles: {
 		headerHeight: '44px',
 		menuHeight: '50px',
+		maskBuffer: 300
 	},
 	openWindow: function() {},
 	navgationInit: function() {

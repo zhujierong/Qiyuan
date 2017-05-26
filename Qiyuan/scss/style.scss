@@ -497,7 +497,7 @@ $home_pd: 0.035rem;
         }
         .reply {
             margin: 0 0.1rem;
-            background-color: #F8F8F8;
+            background-color: #f1f1f1;
             padding: 0.1rem;
             strong {
                 font-size: 0.12rem;
@@ -554,7 +554,9 @@ $home_pd: 0.035rem;
                 i {
                     padding-right: 0.08rem;
                     color: #b8b8b8;
-                    font-size: 0.12rem;
+                    //font-size: 0.12rem;
+                    //info.html
+                    font-size: 0.14rem;
                 }
             }
         }
@@ -685,6 +687,12 @@ $home_pd: 0.035rem;
         i {
             font-size: 0.16rem;
             padding-right: 0.05rem;
+        }
+    }
+    span.mui-active {
+        color: $main_cl;
+        i {
+            color: $main_cl;
         }
     }
     .reply-wrap {

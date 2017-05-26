@@ -543,7 +543,8 @@
 			"css/style.css",
 			"js/JRZH.js",
 			"css/fonts/mui.ttf",
-			"css/fonts/iconfont.ttf"
+			"css/fonts/iconfont.ttf",
+			"css/fonts/iconfont.woff"
 		]
 	},
 	"temp/rmationVideo.html": {

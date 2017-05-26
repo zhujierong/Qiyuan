@@ -116,6 +116,18 @@ appData.cancelDiaryPraise = function(parameters, successcallback, errorcallback,
 	appData.ajaxRTS('bbs/cancelDiaryPraise.json', parameters, successcallback, errorcallback)
 };
 /*
+ * 圈子 - 发布评论 
+ */
+appData.diaryReply = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/diaryReply.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 圈子 - 评论回复 
+ */
+appData.diaryComment = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/diaryComment.json', parameters, successcallback, errorcallback)
+};
+/*
  * 个人账户
  */
 appData.personalInfo = function(parameters, successcallback, errorcallback, xhrerrorback) {

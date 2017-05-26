@@ -27,7 +27,7 @@
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view new-view-list circle-list" page="0" dataName="newViewList">
+								<ul class="mui-table-view circle-list" page="0" dataName="newViewList">
 
 									<li class="circle-item" ng-repeat="item in newViewList" ng-cloak>
 										<a href="javascript:void(0)" class="mui-control-item">
@@ -40,7 +40,7 @@
 													<span ng-bind="item.updateTime | date:'yyyy-MM-dd'"></span>
 												</div>
 											</div>
-											<div class="cont" diaryId="{{item.id}}">
+											<div class="cont" diaryId="{{item.id}}" dataName="newViewList">
 												<div class="text-title">
 													<span ng-bind="item.title"></span>
 												</div>
@@ -56,8 +56,8 @@
 										<div class="footer">
 											<span><i class="iconfont icon-browse"></i>{{item.clickNum}}</span>
 											<span><i class="iconfont icon-comments"></i>{{item.commentNum}}</span>
-											<span diaryId="{{item.id}}" class="praise" ng-if="item.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
-											<span diaryId="{{item.id}}" class="praise mui-active" ng-if="item.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
+											<span diaryId="{{item.id}}" dataName="newViewList" class="praise" ng-if="item.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
+											<span diaryId="{{item.id}}" dataName="newViewList" class="praise mui-active" ng-if="item.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
 											<div class="clear"></div>
 										</div>
 									</li>
@@ -113,7 +113,7 @@
 													<span ng-bind="item.updateTime | date:'yyyy-MM-dd'"></span>
 												</div>
 											</div>
-											<div class="cont" diaryId="{{item.id}}">
+											<div class="cont" diaryId="{{item.id}}" dataName="hotViewList">
 												<div class="text-title">
 													<span ng-bind="item.title"></span>
 												</div>
@@ -128,8 +128,9 @@
 										</a>
 										<div class="footer">
 											<span><i class="iconfont icon-browse"></i>{{item.clickNum}}</span>
-											<span diaryId="{{item.id}}" class="praise" ng-if="item.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
-											<span diaryId="{{item.id}}" class="praise mui-active" ng-if="item.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
+											<span><i class="iconfont icon-comments"></i>{{item.commentNum}}</span>
+											<span diaryId="{{item.id}}" dataName="hotViewList" class="praise" ng-if="item.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
+											<span diaryId="{{item.id}}" dataName="hotViewList" class="praise mui-active" ng-if="item.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
 											<div class="clear"></div>
 										</div>
 									</li>
@@ -151,17 +152,14 @@
 		<script src="../../../js/mui.pullToRefresh.js"></script>
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 		<script>
-			mui.init({
-				preloadPages: [{
-					url: "info.html",
-					id: "account-circle-info",
-				}]
-			});
+			mui.init();
 			angular.module("jrzhApp", [])
 				.controller("jrzhCtrl", function($scope) {
+
 					$scope.newViewList = [];
 					$scope.hotViewList = [];
 					$scope.port = JRZH.port;
+
 					var state = app.getState();
 					var userId = state.userId;
 					mui.plusReady(function() {});
@@ -227,37 +225,54 @@
 					/*
 					 * 点赞
 					 */
-					mui(".new-view-list").on("tap", ".praise", function() {
+					mui(".mui-table-view").on("tap", ".praise", function() {
 
 						var praise = this;
 						var iconElem = praise.getElementsByClassName("iconfont")[0];
 						var linkClass = iconElem.getAttribute("linkClass");
 						var activeClass = iconElem.getAttribute("activeClass");
 						var diaryId = praise.getAttribute("diaryId");
+						var dataName = this.getAttribute("dataName");
+
 						var parm = {
 							diaryId: diaryId,
 							userId: userId
 						};
-						if(iconElem.classList.contains("icon-xian_dianzan")) {
-							appData.diaryPraise(parm, function(response) {
+
+						appData.diaryPraise(parm, function(response) {
+							var num = 0;
+							var action = response.object.action;
+							if(action == "点赞") {
 								mui.toast("点赞成功"); //点赞、
 								iconElem.classList.remove(linkClass);
 								iconElem.classList.add(activeClass);
 								praise.classList.add("mui-active");
-							}, function(err) {
-								mui.toast(err.message);
-							})
-						} else {
-							appData.diaryPraise(parm, function(response) {
+								num = 1;
+							} else {
 								mui.toast("取消点赞");
 								//取消赞
 								iconElem.classList.remove(activeClass);
 								iconElem.classList.add(linkClass);
 								praise.classList.remove("mui-active");
-							}, function(err) {
-								mui.toast(err.message);
-							})
-						}
+								num = -1;
+							}
+							mui.each($scope.newViewList, function(index) {
+								var viewList = this;
+								if(viewList.id == diaryId) { 
+									$scope.newViewList[index].praiseNum = viewList.praiseNum * 1 + num;
+									$scope.$apply();
+								}
+							});
+							mui.each($scope.hotViewList, function(index) {
+								var viewList = this;
+								if(viewList.id == diaryId) {
+									$scope.hotViewList[index].praiseNum = viewList.praiseNum * 1 + num;
+								}
+							});
+
+						}, function(err) {
+							mui.toast(err.message);
+						});
 
 					});
 					//阻尼系数
@@ -267,30 +282,69 @@
 						indicators: true, //是否显示滚动条
 						deceleration: deceleration
 					});
-					mui(".circle-list").on("tap", ".cont", function() {
 
-						var diaryId = this.getAttribute("diaryId");
-						var _webView = plus.webview.getWebviewById("account-circle-info");
-						mui.fire(_webView, "loadInit", {
-							diaryId: diaryId
+					mui.plusReady(function() {
+
+						var page = mui.preload({
+							url: "info.html",
+							id: "community-circle-info", //默认使用当前页面的url作为id
+							styles: {}, //窗口参数
+							extras: {} //自定义扩展参数
 						});
-						mui.openWindow({
-							id: "account-circle-info"
-						})
 
-					});
-					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
-						var memberId = this.getAttribute("memberId");
-						var _webView = mui.openWindow({
-							url: "homepage.html",
-							id: "ccircle-homepage",
-							styles: {},
-							extras: {
-								memberId: memberId
+						mui(".circle-list").on("tap", ".cont", function() {
+
+							var diaryId = this.getAttribute("diaryId");
+							var dataName = this.getAttribute("dataName");
+							var totalInfo = {};
+							if(dataName == "newViewList") {
+								mui.each($scope.newViewList, function() {
+									var viewList = this;
+									if(viewList.id == diaryId) {
+										totalInfo.praiseNum = viewList.praiseNum;
+										totalInfo.commentNum = viewList.commentNum;
+										totalInfo.clickNum = viewList.clickNum;
+										totalInfo.like = viewList.like;
+									} 
+								});
+							} else {
+								mui.each($scope.hotViewList, function() {
+									var viewList = this;
+									if(viewList.id == diaryId) {
+										totalInfo.praiseNum = viewList.praiseNum;
+										totalInfo.commentNum = viewList.commentNum;
+										totalInfo.clickNum = viewList.clickNum;
+										totalInfo.like = viewList.like;
+									}
+								});
 							}
+
+							var _webView = plus.webview.getWebviewById("community-circle-info");
+							mui.fire(_webView, "loadInit", {
+								totalInfo: totalInfo,
+								diaryId: diaryId
+							});
+							mui.openWindow({
+								id: "community-circle-info"
+							});
+
 						});
-						_webView.show("slide-in-right");
+
+						mui(".mui-content").on("tap", ".go-pson-home-page", function() {
+							var memberId = this.getAttribute("memberId");
+							var _webView = mui.openWindow({
+								url: "homepage.html",
+								id: "ccircle-homepage",
+								styles: {},
+								extras: {
+									memberId: memberId
+								}
+							});
+							_webView.show("slide-in-right");
+						});
+
 					});
+
 				});
 		</script>
 	</body>

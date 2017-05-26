@@ -11,6 +11,15 @@
 		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
+		<style type="text/css">
+			.circle-content .mui-table-view-mtop {
+				margin-top: 0.1rem;
+			}
+			
+			.circle-content .mui-table-view-cell.interfix .text-title {
+				padding: 0;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -18,39 +27,32 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">详情</h1>
 		</header>
-		<div class="mui-content circle-content">
+		<div class="mui-content circle-content" ng-cloak>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell mui-media">
 					<a href="javascript:;" class="mui-navigate-right go-pson-home-page">
-						<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/3.jpg">
+						<img class="mui-media-object mui-pull-left" src="{{port + member.qrCode}}">
 						<div class="mui-media-body">
-							张雷奇
+							<span ng-bind="member.nickName">231231</span>
 							<p class="mui-ellipsis">
-								<span>女</span>
-								<span>20-25岁</span>
-								<span>广东省</span>
+								<span ng-if="member.sex == 0">男</span>
+								<span ng-if="member.sex == 1">女</span>
+								<span>{{member.age}}岁</span>
+								<span ng-bind="member.address">广东省</span>
 							</p>
 						</div>
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right go-pson-home-page">
-						<span><i class="iconfont icon-browse"></i>查看更多日记</span>
+						<span><i class="iconfont icon-office"></i>查看更多日记</span>
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right go-pson-home-page">
-						<span><i class="iconfont icon-browse"></i>查看更多日记</span>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right go-pson-home-page">
-						<span><i class="iconfont icon-browse"></i>查看更多日记</span>
-					</a>
-				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-mtop">
 				<li class="mui-table-view-cell interfix">
 					<p class="text-title">相关服务</p>
-					<a href="javascript:;" class="mui-navigate-right view-item serving-info-page">
+					<!--<a href="javascript:;" class="mui-navigate-right view-item serving-info-page">
 						<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
 						<div class="mui-media-body">
 							健康管理中心
@@ -58,17 +60,29 @@
 								健康是人类最宝贵的财富。有了健康与活力，人生便有无限的...
 							</p>
 						</div>
+					</a>-->
+				</li>
+				<li class="mui-table-view-cell mui-media" ng-repeat="item in memberRecord.informationList">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="{{port + item.imageUrl}}">
+						<div class="mui-media-body">
+							<span ng-bind="item.title"></span>
+							<p class="mui-ellipsis" ng-bind="item.synopsis"></p>
+						</div>
 					</a>
 				</li>
 			</ul>
 		</div>
-		<div class="circle-cont">
-			<p>太空核磁共振仪由俄罗斯太空总署所研发，是一个能够藉由体内组织、个别细胞所发出独特生物波的特殊性来追踪身体状态的仪器融合光谱共振分析、量子共振分析、音频共振分析的光波共振细胞能量比对健康评量系统，此系统是以诺贝尔奖“核磁共振”的理论为基础所研发出来的。太空诊断仪器将提供您非侵入</p>
-			<img src="../../../imgs/temp/exp/tx.jpg" />
-			<img src="../../../imgs/temp/exp/tx.jpg" />
-			<img src="../../../imgs/temp/exp/tx.jpg" />
-			<img src="../../../imgs/temp/exp/tx.jpg" />
-			<div class="circle-footer">
+		<div class="circle-cont" ng-if="viewList.length>0">
+
+			<div class="diarys-page-item" ng-repeat="view in viewList">
+				<div class="diary-date" ng-bind="view.updateTime | date:'yyyy-MM-dd'">2017-5-19</div>
+				<p ng-bind="view.content"></p>
+				<p ng-repeat="imgView in view.imgUrls">
+					<img src="{{port + imgView}}" />
+				</p>
+			</div>
+			<!--<div class="circle-footer">
 				<div class="footer-icon mui-pull-left">
 					<span><i class="iconfont icon-browse"></i>3572</span>
 					<span><i class="iconfont icon-good"></i>3572</span>
@@ -77,17 +91,42 @@
 					<p class="time">发布日期：2017-5-6</p>
 				</div>
 				<div class="clear"></div>
+			</div>-->
 
-			</div>
 		</div>
 		<div class="circle-discuss">
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">全部评论</li>
+				<li class="mui-table-view-cell">全部评论 ({{totalInfo.commentNum}}条评论)</li>
 			</ul>
-			<ul class="mui-table-view circle-list">
+			<ul class="mui-table-view circle-list reply-view-list">
 
-				<li class="circle-item">
-					<a href="javascript:void(0)" class="mui-control-item">
+				<li class="circle-item" ng-repeat="item in replyList">
+					<a href="javascript:void(0)">
+						<div class="top" class=" go-pson-home-page">
+							<div class="l">
+								<img class="tx" src="{{port + item.memberUrl}}" alt="" />
+								<span ng-bind="item.memberName">小泽777</span>
+							</div>
+							<div class="r">
+								<span ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-6</span>
+							</div>
+						</div>
+						<div class="cont reply-hfbtn" replyId="{{item.id}}" replyName="{{item.memberName}}" memberId="{{item.memberId}}">
+							<p ng-bind="item.content"></p>
+						</div>
+					</a>
+					<div class="reply" ng-if="item.commentList.length > 0">
+
+						<div class="reply-list reply-hfbtn" ng-repeat="ritem in item.commentList" commentId="{{ritem.commentId}}" replyId="{{item.id}}" replyName="{{ritem.commentName}}">
+							<strong ng-if="item.memberId == ritem.memberId">{{ritem.commentName}}：</strong>
+							<strong ng-if="item.memberId != ritem.memberId">{{ritem.commentName}}&nbsp;回复 {{ritem.memberName}}：</strong>
+							<p>{{ritem.content}}</p>
+						</div>
+
+					</div>
+				</li>
+				<!--<li class="circle-item">
+					<a href="javascript:void(0)">
 						<div class="top" class=" go-pson-home-page">
 							<div class="l">
 								<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
@@ -102,12 +141,22 @@
 						</div>
 					</a>
 					<div class="reply">
-						<strong>姓名：</strong>
-						<p>回复内容</p>
+						<div class="reply-list">
+							<strong>姓名：</strong>
+							<p>回复内容</p>
+						</div>
+						<div class="reply-list">
+							<strong>姓名：</strong>
+							<p>回复内容</p>
+						</div>
+						<div class="reply-list">
+							<strong>姓名：</strong>
+							<p>回复内容</p>
+						</div>
 					</div>
 				</li>
 				<li class="circle-item">
-					<a href="javascript:void(0)" class="mui-control-item">
+					<a href="javascript:void(0)" >
 						<div class="top" class=" go-pson-home-page">
 							<div class="l">
 								<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
@@ -122,12 +171,26 @@
 						</div>
 					</a>
 					<div class="reply">
-						<strong>姓名：</strong>
-						<p>回复内容</p>
+						<div class="reply-list">
+							<strong>姓名：</strong>
+							<p>回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容</p>
+						</div>
+						<div class="reply-list">
+							<strong>姓名：</strong>
+							<p>回复内容</p>
+						</div>
+						<div class="reply-list">
+							<strong>姓名：</strong>
+							<p>回复内容</p>
+						</div>
 					</div>
-				</li>
+				</li>-->
 
 			</ul>
+			<div class="discuss-sofa" ng-if="replyList.length<=0">
+				<span class="iconfont icon-shafa"></span>
+				<p>暂时没有人发表评论</p>
+			</div>
 			<p class="current-all-info">已显示全部内容</p>
 			<br />
 			<br />
@@ -140,13 +203,15 @@
 					<span class="pl">发表评论</span>
 				</div>
 				<div class="f-cont mui-col-xs-3">
-					<span class="dz"><i class="iconfont icon-good"></i>234</span>
+					<!--<span class="dz" ng-cloak><i class="iconfont icon-good"></i>{{totalInfo.praiseNum}}</span>-->
+					<span class="dz praise" ng-if="totalInfo.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{totalInfo.praiseNum}}</span>
+					<span class="dz praise mui-active" ng-if="totalInfo.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{totalInfo.praiseNum}}</span>
 				</div>
 			</div>
 			<div id="reply-wrap" class="reply-wrap">
 				<textarea id="textarea" rows="2" placeholder="多行文本框"></textarea>
 				<div class="btns">
-					<button class="mui-btn mui-btn-blue mui-pull-right">发表</button>
+					<button id="replySubmit" class="mui-btn mui-btn-blue mui-pull-right">发表</button>
 				</div>
 			</div>
 		</div>
@@ -157,19 +222,45 @@
 		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+			mui.init();
 			angular.module("jrzhApp", [])
 				.controller("jrzhCtrl", function($scope) {
-					mui.init();
 
+					$scope.totalInfo = {}; //评论、点赞、关注统计
 					$scope.member = {};
 					$scope.replyList = [];
 					$scope.infomation = {};
 					$scope.isFans = {};
 					$scope.viewList = [];
+					$scope.diaryId = "";
+					$scope.port = JRZH.port;
 					var state = app.getState();
 
+					var muiMask;
+					var setTimeMask;
 					window.addEventListener("loadInit", function(event) {
 						var diaryId = event.detail.diaryId;
+						$scope.totalInfo = event.detail.totalInfo;
+						$scope.diaryId = diaryId;
+						$scope.$apply();
+						loadInit(diaryId);
+						muiMask = mui.createMask();
+						setTimeMask = setTimeout(function() {
+							muiMask.show(); //显示遮罩
+							plus.nativeUI.showWaiting("加载中...");
+						}, JRZH.styles.maskBuffer);
+					});
+
+					mui.plusReady(function() {
+						plus.nativeUI.closeWaiting();
+						mui.preload({ //预加载个人主页
+							url: "homepage.html",
+							id: "account-ccircle-homepage",
+						});
+						mui.preload({ //预加载相应服务
+							url: "../../server/serving/info.html",
+							id: "serving-info",
+						});
 					});
 
 					function loadInit(diaryId) {
@@ -178,58 +269,228 @@
 							userId: state.userId,
 							diaryId: diaryId
 						}, function(response) {
-							console.log(JSON.stringify(response))
+							$scope.diaryInfo = response.object; //整个日记的所有信息
+							var viewlist = response.object.viewList || [];
+							$scope.member = response.object.member; //个人信息
+							$scope.replyList = response.object.replyList; //评论
+							$scope.memberRecord = response.object.memberRecord; //服务
+							$scope.isFans = response.object.isFans; //是否关注
+							$scope.viewList = response.object.viewList; //日记内容
+
+							//图片数组预处理
+							mui.each($scope.viewList, function(index, view) {
+								var arr = view.imgUrl.split(",");
+								mui.each(arr, function(index) {
+									arr[index] = arr[index];
+								});
+								$scope.viewList[index].imgUrls = arr;
+							});
+
+							$scope.$apply(); //数据更新view
+							clearTimeout(setTimeMask);
+							muiMask.close();
+							plus.nativeUI.closeWaiting();
+
 						}, function(err) {
-							plus.nativeUI.toast(err.message);
+							mui.toast(err.message);
 						});
 
 					}
-
-					mui.plusReady(function() {
-
-					});
 
 					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
-						openPsonMore();
+
+						var diaryId = this.getAttribute("diaryId");
+						var _webView = plus.webview.getWebviewById("account-ccircle-homepage");
+
+						mui.fire(_webView, "loadInit", {
+							diaryId: diaryId
+						});
+
+						mui.openWindow({
+							id: "account-ccircle-homepage"
+						});
+
 					});
 					mui(".mui-content").on("tap", ".serving-info-page", function() {
-						openServing();
-					});
-
-					function openPsonMore() { //打开个人主页
-						mui.openWindow({
-							url: "homepage.html",
-							id: "ccircle-homepage",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
-						})
-					}
-
-					function openServing() { //打开相应服务
-						mui.openWindow({
-							url: "../../server/serving/info.html",
-							id: "serving-info",
-							styles: {},
-							extras: {
-								csid: "1234"
-							}
+						var diaryId = this.getAttribute("diaryId");
+						var _webView = plus.webview.getWebviewById("serving-info");
+						mui.fire(_webView, "loadInit", {
+							diaryId: diaryId
 						});
-					}
+						mui.openWindow({
+							id: "serving-info"
+						});
+					});
+					/*
+					 * 点赞
+					 */
+					mui(".reply-footer").on("tap", ".praise", function() {
 
+						var praise = this;
+						var iconElem = praise.getElementsByClassName("iconfont")[0];
+						var linkClass = iconElem.getAttribute("linkClass");
+						var activeClass = iconElem.getAttribute("activeClass");
+						var diaryId = $scope.diaryId;
+						var dataName = this.getAttribute("dataName");
+						var parm = {
+							diaryId: diaryId,
+							userId: state.userId
+						};
+
+						appData.diaryPraise(parm, function(response) {
+							var num = 0;
+							var action = response.object.action;
+							if(action == "点赞") {
+								mui.toast("点赞成功"); //点赞、
+								iconElem.classList.remove(linkClass);
+								iconElem.classList.add(activeClass);
+								praise.classList.add("mui-active");
+								num = 1;
+							} else {
+								mui.toast("取消点赞");
+								//取消赞
+								iconElem.classList.remove(activeClass);
+								iconElem.classList.add(linkClass);
+								praise.classList.remove("mui-active");
+								num = -1;
+							}
+							mui.each($scope.newViewList, function() {
+								var viewList = this;
+								if(viewList.id == diaryId) {
+									$scope.newViewList[index].praiseNum = viewList.praiseNum * 1 + num;
+								}
+							});
+							mui.each($scope.hotViewList, function(index) {
+								var viewList = this;
+								if(viewList.id == diaryId) {
+									$scope.hotViewList[index].praiseNum = viewList.praiseNum * 1 + num;
+								}
+							});
+
+						}, function(err) {
+							mui.toast(err.message);
+						});
+
+					});
+					/*
+					 * 评论回复
+					 */
+					mui(".reply-view-list").on("tap", ".reply-hfbtn", function() {
+						var replyId = this.getAttribute("replyId");
+						var replyName = this.getAttribute("replyName");
+						var commentId = this.getAttribute("commentId");
+						replyPanelShow("reply", replyName, replyId, commentId);
+					});
+					//-------------------------评论模块
 					var mask = mui.createMask(maskCallBack); //callback为用户点击蒙版时自动执行的回调；
 					function maskCallBack() {
-						document.getElementById("plbtn").parentNode.style.display = "block";
+						//关闭评论界面
 						document.getElementById("reply-wrap").style.display = "none";
+						setTimeout(function() {
+							document.getElementById("plbtn").parentNode.style.display = "block";
+						}, 200);
+					}
+
+					function replyPanelShow(statusStr, replyName, replyId, commentId) {
+						replyId = replyId || "";
+						replyName = replyName || "";
+						commentId = commentId || "";
+						var textstr = "回复 " + replyName + " :";
+						//不能回复自己的评论
+
+						mask.show(); //显示遮罩
+						var replyElem = document.getElementById("reply-wrap");
+						var contElem = document.querySelectorAll("#textarea")[0];
+						replyElem.setAttribute("status", statusStr);
+						replyElem.setAttribute("replyId", replyId);
+						replyElem.setAttribute("commentId", commentId);
+						replyElem.setAttribute("replyName", replyName);
+						replyElem.style.display = "block";
+						contElem.placeholder = textstr;
+						contElem.focus();
+						var plbtn = document.querySelectorAll("#plbtn")[0]
+						plbtn.parentNode.style.display = "none";
+
 					}
 					mui(".reply-footer").on("tap", "#plbtn", function() {
-						mask.show(); //显示遮罩
-						this.parentNode.style.display = "none";
-						var replyElem = document.getElementById("reply-wrap");
-						replyElem.style.display = "block";
-						replyElem.getElementsByTagName("textarea")[0].focus();
+						replyPanelShow("discuss", "发表评论");
 					});
+
+					var replySubmitBtn = document.querySelectorAll("#replySubmit")[0];
+					replySubmitBtn.addEventListener("tap", function() {
+
+						var contElem = document.querySelectorAll("#textarea")[0];
+						var replyElem = document.getElementById("reply-wrap");
+						var replyStatue = replyElem.getAttribute("status");
+						var replyId = replyElem.getAttribute("replyId");
+						var memberId = replyElem.getAttribute("commentId");
+						var memberName = replyElem.getAttribute("replyName");
+						var textCont = contElem.value;
+
+						var newReplyObj = {
+							memberId: memberId,
+							memberName: memberName,
+							content: textCont,
+							commentId: state.userId,
+							commentName: state.userName,
+							replyId: replyId,
+						};
+						//获得评论list
+						var list_index = 0;
+						mui.each($scope.replyList, function(index, list) {
+							if(list.id == replyId) {
+								list_index = index;
+							}
+						});
+
+						if(textCont.length <= 0) {
+							mui.toast("回复内容不能为空");
+							return;
+						}
+						var prm = {};
+						if(replyStatue == "discuss") { //下方input点击评论
+							newReplyObj = {
+								memberId: state.userId,
+								memberName: state.userName,
+								content: textCont
+							};
+							prm = {
+								userId: state.userId,
+								diaryId: $scope.diaryId,
+								content: textCont
+							};
+							appData.diaryReply(prm, function(response) {
+								mui.toast("发表成功！");
+								mask.close();
+								$scope.replyList.push(newReplyObj);
+								$scope.$apply();
+								//新评论显示
+							}, function(err) {
+								mui.toast(err.message);
+							});
+
+						} else { //点击回复
+							prm = {
+								userId: state.userId,
+								replyId: replyId,
+								content: textCont
+							};
+							if(memberId.length > 0) { //回复的回复
+								prm.memberId = memberId;
+							}
+							appData.diaryComment(prm, function(response) {
+								mui.toast("回复成功！");
+								mask.close();
+								$scope.replyList[list_index].commentList.push(newReplyObj);
+								$scope.$apply();
+								//新评论显示
+							}, function(err) {
+								mui.toast(err.message);
+							})
+						}
+
+					});
+
 				});
 		</script>
 	</body>
