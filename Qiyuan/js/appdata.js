@@ -140,6 +140,18 @@ appData.getPersonalDiary = function(parameters, successcallback, errorcallback, 
 	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
 };
 /*
+ * 个人 - 关注列表
+ */
+appData.myFocus = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 个人 - 粉丝列表
+ */
+appData.myFans = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
+};
+/*
  * 个人 - 创建日记本
  */
 appData.diaryIssue = function(parameters, successcallback, errorcallback, xhrerrorback) {

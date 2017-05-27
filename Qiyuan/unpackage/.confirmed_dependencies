@@ -544,7 +544,10 @@
 			"js/JRZH.js",
 			"css/fonts/mui.ttf",
 			"css/fonts/iconfont.ttf",
-			"css/fonts/iconfont.woff"
+			"css/fonts/iconfont.woff",
+			"js/app.js",
+			"js/angular.js",
+			"js/appdata.js"
 		]
 	},
 	"temp/rmationVideo.html": {

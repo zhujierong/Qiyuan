@@ -469,6 +469,9 @@ $home_pd: 0.035rem;
                 //2017-5-25
                 padding-bottom: 33.33%;
                 position: relative;
+                //2017-5-27
+                border-right: 0.06rem solid #FFFFFF;
+                margin-bottom: 0.06rem;
                 img {
                     width: 100%;
                     //2017-5-25
@@ -477,6 +480,17 @@ $home_pd: 0.035rem;
                     //                  left: 0;
                     //                  height: 100%;
                 }
+                i.bgimg {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background: red;
+                }
+            }
+            .img-box:nth-of-type(n+3) {
+                border-right-width: 0;
             }
             img {}
             .text-title {
@@ -879,6 +893,10 @@ $home_pd: 0.035rem;
                 }
             }
         }
+    }
+    .home-page-list-footerinfo {
+        padding: 20px;
+        text-align: center;
     }
 }
 .personal-top {

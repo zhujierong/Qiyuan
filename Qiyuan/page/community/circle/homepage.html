@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -24,8 +24,12 @@
 						<img src="../../../imgs/temp/wxtx.jpg">
 					</div>
 					<div class="b">
-						<strong>沫沫_507031 <span class="leve">v3</span></strong><br />
-						<span class="gz"><i class="mui-icon mui-icon-plusempty"></i> 关注</span>
+						<strong ng-cloak>{{member.nickName}} 
+							<span class="leve" ng-if="member.sex == 1">男</span>
+							<span class="leve" ng-if="member.sex == 2">女</span>
+						</strong><br />
+						<span class="gz addfollow" ng-if="member.isFans == true"><i class="mui-icon mui-icon-plusempty"></i> 关注</span>
+						<span class="gz addfollow" ng-if="member.isFans == false">已关注</span>
 					</div>
 				</div>
 				<img class="bg" src="../../../imgs/temp/wxtx.jpg">
@@ -35,30 +39,64 @@
 					<ul>
 						<li class="mui-active">
 							<a class="mui-control-item mui-active" href="#diary">
-								<span>1</span>
+								<span ng-bind="member.diaryNum">0</span>
 								<strong>日记</strong>
 							</a>
 						</li>
 						<li>
 							<a class="mui-control-item" href="#follow">
-								<span>27</span>
+								<span ng-bind="member.focusNum">0</span>
 								<strong>关注</strong>
 							</a>
 						</li>
 						<li>
 							<a class="mui-control-item" href="#follower">
-								<span>33</span>
+								<span ng-bind="member.fansNum">0</span>
 								<strong>粉丝</strong>
 							</a>
 						</li>
 					</ul>
 				</div>
 				<div class="hp-cont">
+
+					<!--日记-->
 					<div id="diary" class="mui-control-content hp-diary mui-active">
 						<ul class="mui-table-view circle-list">
 
+							<li class="circle-item" ng-repeat="item in diaryInfo.list">
+								<a href="javascript:void(0)">
+									<div class="top go-pson-home-page" memberId="{{member.id}}">
+										<div class="l">
+											<img class="tx" src="{{port + member.imageUrl}}" alt="" />
+											<span ng-bind="member.nickName"></span>
+										</div>
+										<div class="r">
+											<span ng-bind="item.updateTime | date:'yyyy-MM-dd'"></span>
+										</div>
+									</div>
+									<div class="cont" diaryId="{{item.id}}">
+										<div class="text-title">
+											<span ng-bind="item.title"></span>
+										</div>
+										<span class="img-box" ng-repeat="itemImg in item.lastDetails.imgUrls" style="background: url({{port + itemImg}}) center;background-size: cover;">
+													<!--<img src="{{port + itemImg}}" alt="" />-->
+												</span>
+										<div class="clear"></div>
+										<div class="text">
+											<p ng-bind="item.lastDetails.content"></p>
+										</div>
+									</div>
+								</a>
+								<div class="footer">
+									<span><i class="iconfont icon-browse"></i>{{item.clickNum}}</span>
+									<span><i class="iconfont icon-comments"></i>{{item.commentNum}}</span>
+									<span diaryId="{{item.id}}" dataName="newViewList" class="praise" ng-if="item.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
+									<span diaryId="{{item.id}}" dataName="newViewList" class="praise mui-active" ng-if="item.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{item.praiseNum}}</span>
+									<div class="clear"></div>
+								</div>
+							</li>
 							<li class="circle-item">
-								<a href="javascript:void(0)" class="mui-control-item">
+								<a href="javascript:void(0)">
 									<div class="top">
 										<div class="l">
 											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
@@ -72,132 +110,141 @@
 										<div class="text-title">
 											<span>健康监测</span>
 										</div>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<div class="clear"></div>
-										<div class="text">
-											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
-										</div>
-									</div>
-								</a>
-								<div class="footer">
-									<span><i class="iconfont icon-browse"></i>3572</span>
-									<span><i class="iconfont icon-comments"></i>3572</span>
-									<span><i class="iconfont icon-good"></i>3572</span>
-									<div class="clear"></div>
-								</div>
-							</li>
-							<li class="circle-item">
-								<a href="javascript:void(0)" class="mui-control-item">
-									<div class="top">
-										<div class="l">
-											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
-											<span>小泽777</span>
-										</div>
-										<div class="r">
-											<span>2017-5-6</span>
-										</div>
-									</div>
-									<div class="cont">
-										<div class="text-title">
-											<span>健康监测</span>
-										</div>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<div class="clear"></div>
-										<div class="text">
-											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
-										</div>
-									</div>
-								</a>
-								<div class="footer">
-									<span><i class="iconfont icon-browse"></i>3572</span>
-									<span><i class="iconfont icon-comments"></i>3572</span>
-									<span><i class="iconfont icon-good"></i>3572</span>
-									<div class="clear"></div>
-								</div>
-							</li>
-							<li class="circle-item">
-								<a href="javascript:void(0)" class="mui-control-item">
-									<div class="top">
-										<div class="l">
-											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
-											<span>小泽777</span>
-										</div>
-										<div class="r">
-											<span>2017-5-6</span>
-										</div>
-									</div>
-									<div class="cont">
-										<div class="text-title">
-											<span>健康监测</span>
-										</div>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<div class="clear"></div>
-										<div class="text">
-											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
-										</div>
-									</div>
-								</a>
-								<div class="footer">
-									<span><i class="iconfont icon-browse"></i>3572</span>
-									<span><i class="iconfont icon-comments"></i>3572</span>
-									<span><i class="iconfont icon-good"></i>3572</span>
-									<div class="clear"></div>
-								</div>
-							</li>
-							<li class="circle-item">
-								<a href="javascript:void(0)" class="mui-control-item">
-									<div class="top">
-										<div class="l">
-											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
-											<span>小泽777</span>
-										</div>
-										<div class="r">
-											<span>2017-5-6</span>
-										</div>
-									</div>
-									<div class="cont">
-										<div class="text-title">
-											<span>健康监测</span>
-										</div>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
-										<div class="clear"></div>
-										<div class="text">
-											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
-										</div>
-									</div>
-								</a>
-								<div class="footer">
-									<span><i class="iconfont icon-browse"></i>3572</span>
-									<span><i class="iconfont icon-comments"></i>3572</span>
-									<span><i class="iconfont icon-good"></i>3572</span>
-									<div class="clear"></div>
-								</div>
-							</li>
+										<span class="img-box" style="background: url(../../../imgs/temp/exp/tx.jpg) no-repeat center;background-size: cover;">
+											<!--<img src="../../../imgs/temp/exp/tx.jpg" alt="" />-->
+										</span>
+										<span class="img-box" style="background: url(../../../imgs/temp/exp/tx.jpg) no-repeat center;background-size: cover;">
+											<!--<img src="../../../imgs/temp/exp/tx.jpg" alt="" />-->
+										</span>
+										<span class="img-box" style="background: url(../../../imgs/temp/exp/tx.jpg) no-repeat center;background-size: cover;">
+											<!--<img src="../../../imgs/temp/exp/tx.jpg" alt="" />-->
+										</span>
 
+										<div class="clear"></div>
+										<div class="text">
+											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
+										</div>
+									</div>
+								</a>
+								<div class="footer">
+									<span><i class="iconfont icon-browse"></i>3572</span>
+									<span><i class="iconfont icon-comments"></i>3572</span>
+									<span><i class="iconfont icon-good"></i>3572</span>
+									<div class="clear"></div>
+								</div>
+							</li>
+							<!--<li class="circle-item">
+								<a href="javascript:void(0)">
+									<div class="top">
+										<div class="l">
+											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+											<span>小泽777</span>
+										</div>
+										<div class="r">
+											<span>2017-5-6</span>
+										</div>
+									</div>
+									<div class="cont">
+										<div class="text-title">
+											<span>健康监测</span>
+										</div>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<div class="clear"></div>
+										<div class="text">
+											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
+										</div>
+									</div>
+								</a>
+								<div class="footer">
+									<span><i class="iconfont icon-browse"></i>3572</span>
+									<span><i class="iconfont icon-comments"></i>3572</span>
+									<span><i class="iconfont icon-good"></i>3572</span>
+									<div class="clear"></div>
+								</div>
+							</li>
+							<li class="circle-item">
+								<a href="javascript:void(0)">
+									<div class="top">
+										<div class="l">
+											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+											<span>小泽777</span>
+										</div>
+										<div class="r">
+											<span>2017-5-6</span>
+										</div>
+									</div>
+									<div class="cont">
+										<div class="text-title">
+											<span>健康监测</span>
+										</div>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<div class="clear"></div>
+										<div class="text">
+											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
+										</div>
+									</div>
+								</a>
+								<div class="footer">
+									<span><i class="iconfont icon-browse"></i>3572</span>
+									<span><i class="iconfont icon-comments"></i>3572</span>
+									<span><i class="iconfont icon-good"></i>3572</span>
+									<div class="clear"></div>
+								</div>
+							</li>
+							<li class="circle-item">
+								<a href="javascript:void(0)">
+									<div class="top">
+										<div class="l">
+											<img class="tx" src="../../../imgs/temp/1.jpg" alt="" />
+											<span>小泽777</span>
+										</div>
+										<div class="r">
+											<span>2017-5-6</span>
+										</div>
+									</div>
+									<div class="cont">
+										<div class="text-title">
+											<span>健康监测</span>
+										</div>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<span class="img-box"><img src="../../../imgs/temp/exp/tx.jpg" alt="" /></span>
+										<div class="clear"></div>
+										<div class="text">
+											<p>每一个细胞都是一名歌唱者，人体每根骨头、器官各自以特定音律发出和谐的音乐；罗某器官的“嗓子”出问题，以致音律有所偏差，整身体将受影响而导致生病...</p>
+										</div>
+									</div>
+								</a>
+								<div class="footer">
+									<span><i class="iconfont icon-browse"></i>3572</span>
+									<span><i class="iconfont icon-comments"></i>3572</span>
+									<span><i class="iconfont icon-good"></i>3572</span>
+									<div class="clear"></div>
+								</div>
+							</li>-->
 						</ul>
+						<p class="home-page-list-footerinfo" ng-hide="diaryInfo.isMore">已显示所有内容</p>
 					</div>
 
+					<!--关注-->
 					<div id="follow" class="mui-control-content hp-follow">
 						<ul class="mui-table-view">
-							<li class="mui-table-view-cell mui-media">
+							<li class="mui-table-view-cell mui-media" ng-repeat="item in focusInfo.list">
 								<a href="javascript:;">
-									<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+									<img class="mui-media-object mui-pull-left" src="{{port + item.imageUrl}}">
 									<div class="mui-media-body">
-										<span class="text-title">长线条</span>
-										<p class="mui-ellipsis">4 篇日记，25岁</p>
+										<span class="text-title" ng-bind="item.nickName">长线条</span>
+										<p class="mui-ellipsis">{{item.diaryNum}} 篇日记，{{item.age}}岁</p>
 										<button class="mui-btn mui-btn-blue"><i class="mui-icon mui-icon-plusempty"></i><span>关注</span></button>
+										<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
 									</div>
 								</a>
 							</li>
-							<li class="mui-table-view-cell mui-media">
+							<!--<li class="mui-table-view-cell mui-media">
 								<a href="javascript:;">
 									<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/exp/tx.jpg">
 									<div class="mui-media-body">
@@ -226,11 +273,11 @@
 										<button class="mui-btn mui-btn-blue"><i class="mui-icon mui-icon-plusempty"></i><span>关注</span></button>
 									</div>
 								</a>
-							</li>
+							</li>-->
 						</ul>
 					</div>
+					<!--粉丝-->
 					<div id="follower" class="mui-control-content hp-follow hp-follower">
-
 						<ul class="mui-table-view">
 							<li class="mui-table-view-cell mui-media">
 								<a href="javascript:;">
@@ -273,7 +320,6 @@
 								</a>
 							</li>
 						</ul>
-
 					</div>
 
 				</div>
@@ -284,42 +330,135 @@
 		<br />
 		<br />
 		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			mui.init();
-			mui(".hp-follow").on("tap", ".mui-media-body .mui-btn", function() {
-				if(this.classList.contains("mui-active")) {
-					this.classList.remove("mui-active");
-					this.getElementsByTagName("i")[0].style.display = "inline-block";
-					this.getElementsByTagName("span")[0].innerHTML = "关注";
-					plus.nativeUI.toast("取消关注成功");
-				} else {
-					this.classList.add("mui-active");
-					this.getElementsByTagName("i")[0].style.display = "none";
-					this.getElementsByTagName("span")[0].innerHTML = "已关注";
-					plus.nativeUI.toast("关注成功");
-				}
-			});
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
 
-			mui(".home-page-wrap .top-tab").on("tap", ".mui-control-item", function() {
-				mui(".home-page-wrap .top-tab .mui-control-item").each(function() {
-					this.classList.remove("mui-active");
-				});
-			});
-			mui(".circle-list").on("tap", ".cont", function() {
-				mui.openWindow({
-					url: "info.html",
-					id: "ccircle-info",
-					styles: {},
-					extras: {
-						csid: "1234"
+					$scope.member = {};
+					$scope.port = JRZH.port;
+					$scope.diaryInfo = {
+						page: 1,
+						rows: 10,
+						list: [],
+						isMore: true
+					};
+					$scope.focusInfo = {
+						page: 1,
+						rows: 10,
+						list: [],
+						isMore: true
+					};
+					$scope.fansInfo = {
+						page: 1,
+						rows: 10,
+						list: [],
+						isMore: true
+					};
+
+					var state = app.getState();
+
+					window.addEventListener("loadInit", function(event) {
+						$scope.member = event.detail.member;
+						$scope.$apply();
+						loadInit($scope.member);
+					});
+
+					function loadInit(member) {
+						var memberId = member.id;
+						var page = 1;
+						var rows = 10;
+						//获取日记列表
+						appData.getPersonalDiary({
+							userId: state.userId,
+							page: $scope.diaryInfo.page,
+							rows: $scope.diaryInfo.rows
+						}, function(response) {
+							mui(response.object.viewList).each(function(index, view) {
+								if(view.lastDetails != null) {
+									if(view.lastDetails.imgUrl != null) {
+										//图片数组预处理
+										var arr = view.lastDetails.imgUrl.split(",");
+										mui.each(arr, function(index) {
+											arr[index] = arr[index];
+										});
+										view.lastDetails.imgUrls = arr;
+									}
+								}
+								response.object.viewList[index] = view;
+							});
+							$scope.diaryInfo.list = response.object.viewList;
+							$scope.$apply();
+						}, function(err) {
+							mui.toast(err.message);
+						});
+						//获取关注列表
+						appData.myFocus({
+							userId: state.userId,
+							page: $scope.focusInfo.page,
+							rows: $scope.focusInfo.rows
+						}, function(response) {
+							$scope.focusInfo.list = response.object.focusList;
+							$scope.$apply();
+						}, function(err) {
+							mui.toast(err.message);
+						});
+						//获取粉丝列表
+						appData.myFans({
+							userId: state.userId,
+							page: $scope.fansInfo.page,
+							rows: $scope.fansInfo.rows
+						}, function(response) {
+							$scope.fansInfo.list = response.object.fansList;
+							$scope.$apply();
+						}, function(err) {
+							mui.toast(err.message);
+						});
 					}
-				})
-			});
-			mui.plusReady(function() {
 
-			});
+					mui(".hp-follow").on("tap", ".mui-media-body .mui-btn", function() {
+						mui(".hp-follow").on("tap", ".mui-media-body .mui-btn", function() {
+							if(this.classList.contains("mui-active")) { //关注
+								this.classList.remove("mui-active");
+								this.getElementsByTagName("i")[0].style.display = "inline-block";
+								this.getElementsByTagName("span")[0].innerHTML = "关注";
+								plus.nativeUI.toast("取消关注");
+							} else { //取消关注
+								this.classList.add("mui-active");
+								this.getElementsByTagName("i")[0].style.display = "none";
+								this.getElementsByTagName("span")[0].innerHTML = "已关注";
+								plus.nativeUI.toast("关注成功");
+							}
+						});
+					});
+
+					mui(".home-page-wrap .top-tab").on("tap", ".mui-control-item", function() {
+						mui(".home-page-wrap .top-tab .mui-control-item").each(function() {
+							this.classList.remove("mui-active");
+						});
+					});
+
+					mui(".circle-list").on("tap", ".cont", function() {
+						mui.openWindow({
+							url: "info.html",
+							id: "ccircle-info",
+							styles: {},
+							extras: {
+								csid: "1234"
+							}
+						})
+					});
+
+					mui.plusReady(function() {
+
+					});
+
+				});
 		</script>
 	</body>
 

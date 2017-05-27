@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
 
 	<head>
 		<meta charset="utf-8">
@@ -19,89 +19,167 @@
 			<h1 class="mui-title">我的关注</h1>
 		</header>
 		<div class="home-page-wrap mui-content">
-			<div id="follower" class="hp-follow hp-follower">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
-							<div class="mui-media-body">
-								<span class="text-title">柠檬树</span>
-								<p class="mui-ellipsis">4 篇日记，25岁</p>
-								<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
-							<div class="mui-media-body">
-								<span class="text-title">长线条</span>
-								<p class="mui-ellipsis">4 篇日记，25岁</p>
-								<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
-							<div class="mui-media-body">
-								<span class="text-title">柠檬树</span>
-								<p class="mui-ellipsis">4 篇日记，25岁</p>
-								<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/exp/tx.jpg">
-							<div class="mui-media-body">
-								<span class="text-title">雨天</span>
-								<p class="mui-ellipsis">4 篇日记，25岁</p>
-								<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
-							</div>
-						</a>
-					</li>
-				</ul>
 
+			<div class="mui-slider-group">
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+
+							<div id="follower" class="hp-follow hp-follower">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell mui-media" ng-repeat="item in focusInfo.list">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
+											<div class="mui-media-body">
+												<span class="text-title" ng-bind="item.nickName">柠檬树</span>
+												<p class="mui-ellipsis">{{item.diaryNum}} 篇日记，{{item.age}}岁</p>
+												<button class="mui-btn mui-btn-blue"><i class="mui-icon mui-icon-plusempty"></i><span>关注</span></button>
+												<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+											<div class="mui-media-body">
+												<span class="text-title">长线条</span>
+												<p class="mui-ellipsis">4 篇日记，25岁</p>
+												<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
+											<div class="mui-media-body">
+												<span class="text-title">柠檬树</span>
+												<p class="mui-ellipsis">4 篇日记，25岁</p>
+												<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/exp/tx.jpg">
+											<div class="mui-media-body">
+												<span class="text-title">雨天</span>
+												<p class="mui-ellipsis">4 篇日记，25岁</p>
+												<button class="mui-btn mui-btn-blue mui-active"><span>取消关注</span></button>
+											</div>
+										</a>
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			mui.init();
-			mui(".hp-follow").on("tap", ".mui-media-body .mui-btn", function() {
-				if(this.classList.contains("mui-active")) {
-					this.classList.remove("mui-active");
-					this.getElementsByTagName("i")[0].style.display = "inline-block";
-					this.getElementsByTagName("span")[0].innerHTML = "关注";
-					plus.nativeUI.toast("取消关注成功");
-				} else {
-					this.classList.add("mui-active");
-					this.getElementsByTagName("i")[0].style.display = "none";
-					this.getElementsByTagName("span")[0].innerHTML = "已关注";
-					plus.nativeUI.toast("关注成功");
-				}
-			});
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
 
-			mui(".home-page-wrap .top-tab").on("tap", ".mui-control-item", function() {
-				mui(".home-page-wrap .top-tab .mui-control-item").each(function() {
-					this.classList.remove("mui-active");
+					$scope.focusInfo = {
+						page: 1,
+						rows: 15,
+						list: [],
+						isMore: true
+					};
+
+					var state = app.getState();
+					//获取关注列表
+					appData.myFocus({
+						userId: state.userId,
+						page: $scope.focusInfo.page,
+						rows: $scope.focusInfo.rows
+					}, function(response) {
+						$scope.focusInfo.list = response.object.focusList;
+						$scope.$apply();
+					}, function(err) {
+						mui.toast(err.message);
+					});
+					//循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							up: {
+								height: 50, //可选.默认50.触发上拉加载拖动距离
+								auto: true, //可选,默认false.自动上拉加载一次
+								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+								callback: function() {
+									var self = this;
+									var ul = self.element.querySelector('.mui-table-view');
+									loadMoreList(self, ul);
+								}
+							}
+						});
+					});
+
+					function loadMoreList(self, ul) {
+
+						var page = ul.getAttribute("page") * 1 + 1;
+						var rows = 10;
+						var dataName = ul.getAttribute("dataName");
+						var isHot = (dataName == "hotViewList");
+						//获取关注列表
+						appData.myFocus({
+							userId: state.userId,
+							page: $scope.focusInfo.page,
+							rows: $scope.focusInfo.rows
+						}, function(response) {
+							$scope.focusInfo.list = response.object.focusList;
+							mui.each(response.object.focusList, function(index, list) {
+								$scope.focusInfo.list.push(list);
+							});
+							$scope.focusInfo.page++;
+							$scope.$apply();
+						}, function(err) {
+							mui.toast(err.message);
+						});
+
+					};
+
+					mui(".hp-follow").on("tap", ".mui-media-body .mui-btn", function() {
+						if(this.classList.contains("mui-active")) {
+							this.classList.remove("mui-active");
+							this.getElementsByTagName("i")[0].style.display = "inline-block";
+							this.getElementsByTagName("span")[0].innerHTML = "关注";
+							plus.nativeUI.toast("取消关注成功");
+						} else {
+							this.classList.add("mui-active");
+							this.getElementsByTagName("i")[0].style.display = "none";
+							this.getElementsByTagName("span")[0].innerHTML = "已关注";
+							plus.nativeUI.toast("关注成功");
+						}
+					});
+
+					mui(".home-page-wrap .top-tab").on("tap", ".mui-control-item", function() {
+						mui(".home-page-wrap .top-tab .mui-control-item").each(function() {
+							this.classList.remove("mui-active");
+						});
+					});
+					mui(".circle-list").on("tap", ".cont", function() {
+						mui.openWindow({
+							url: "info.html",
+							id: "ccircle-info",
+							styles: {},
+							extras: {
+								csid: "1234"
+							}
+						})
+					});
+					mui.plusReady(function() {
+
+					});
 				});
-			});
-			mui(".circle-list").on("tap", ".cont", function() {
-				mui.openWindow({
-					url: "info.html",
-					id: "ccircle-info",
-					styles: {},
-					extras: {
-						csid: "1234"
-					}
-				})
-			});
-			mui.plusReady(function() {
-
-			});
 		</script>
 	</body>
 

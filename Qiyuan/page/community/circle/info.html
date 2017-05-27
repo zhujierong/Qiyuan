@@ -27,7 +27,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">详情</h1>
 		</header>
-		<div class="mui-content circle-content" ng-cloak>
+		<div class="mui-content circle-content load-page-data-content mui-hidden">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell mui-media">
 					<a href="javascript:;" class="mui-navigate-right go-pson-home-page">
@@ -35,8 +35,8 @@
 						<div class="mui-media-body">
 							<span ng-bind="member.nickName">231231</span>
 							<p class="mui-ellipsis">
-								<span ng-if="member.sex == 0">男</span>
-								<span ng-if="member.sex == 1">女</span>
+								<span ng-if="member.sex == 1">男</span>
+								<span ng-if="member.sex == 2">女</span>
 								<span>{{member.age}}岁</span>
 								<span ng-bind="member.address">广东省</span>
 							</p>
@@ -72,17 +72,17 @@
 					</a>
 				</li>
 			</ul>
-		</div>
-		<div class="circle-cont" ng-if="viewList.length>0">
+			<!--</div>-->
+			<div class="circle-cont" ng-if="viewList.length>0">
 
-			<div class="diarys-page-item" ng-repeat="view in viewList">
-				<div class="diary-date" ng-bind="view.updateTime | date:'yyyy-MM-dd'">2017-5-19</div>
-				<p ng-bind="view.content"></p>
-				<p ng-repeat="imgView in view.imgUrls">
-					<img src="{{port + imgView}}" />
-				</p>
-			</div>
-			<!--<div class="circle-footer">
+				<div class="diarys-page-item" ng-repeat="view in viewList">
+					<div class="diary-date" ng-bind="view.updateTime | date:'yyyy-MM-dd'">2017-5-19</div>
+					<p ng-bind="view.content"></p>
+					<p ng-repeat="imgView in view.imgUrls">
+						<img src="{{port + imgView}}" />
+					</p>
+				</div>
+				<!--<div class="circle-footer">
 				<div class="footer-icon mui-pull-left">
 					<span><i class="iconfont icon-browse"></i>3572</span>
 					<span><i class="iconfont icon-good"></i>3572</span>
@@ -93,39 +93,39 @@
 				<div class="clear"></div>
 			</div>-->
 
-		</div>
-		<div class="circle-discuss">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">全部评论 ({{totalInfo.commentNum}}条评论)</li>
-			</ul>
-			<ul class="mui-table-view circle-list reply-view-list">
+			</div>
+			<div class="circle-discuss">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">全部评论 ({{totalInfo.commentNum}}条评论)</li>
+				</ul>
+				<ul class="mui-table-view circle-list reply-view-list">
 
-				<li class="circle-item" ng-repeat="item in replyList">
-					<a href="javascript:void(0)">
-						<div class="top" class=" go-pson-home-page">
-							<div class="l">
-								<img class="tx" src="{{port + item.memberUrl}}" alt="" />
-								<span ng-bind="item.memberName">小泽777</span>
+					<li class="circle-item" ng-repeat="item in replyList">
+						<a href="javascript:void(0)">
+							<div class="top" class=" go-pson-home-page">
+								<div class="l">
+									<img class="tx" src="{{port + item.memberUrl}}" alt="" />
+									<span ng-bind="item.memberName">小泽777</span>
+								</div>
+								<div class="r">
+									<span ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-6</span>
+								</div>
 							</div>
-							<div class="r">
-								<span ng-bind="item.updateTime | date:'yyyy-MM-dd'">2017-5-6</span>
+							<div class="cont reply-hfbtn" replyId="{{item.id}}" replyName="{{item.memberName}}" memberId="{{item.memberId}}">
+								<p ng-bind="item.content"></p>
 							</div>
-						</div>
-						<div class="cont reply-hfbtn" replyId="{{item.id}}" replyName="{{item.memberName}}" memberId="{{item.memberId}}">
-							<p ng-bind="item.content"></p>
-						</div>
-					</a>
-					<div class="reply" ng-if="item.commentList.length > 0">
+						</a>
+						<div class="reply" ng-if="item.commentList.length > 0">
 
-						<div class="reply-list reply-hfbtn" ng-repeat="ritem in item.commentList" commentId="{{ritem.commentId}}" replyId="{{item.id}}" replyName="{{ritem.commentName}}">
-							<strong ng-if="item.memberId == ritem.memberId">{{ritem.commentName}}：</strong>
-							<strong ng-if="item.memberId != ritem.memberId">{{ritem.commentName}}&nbsp;回复 {{ritem.memberName}}：</strong>
-							<p>{{ritem.content}}</p>
-						</div>
+							<div class="reply-list reply-hfbtn" ng-repeat="ritem in item.commentList" commentId="{{ritem.commentId}}" replyId="{{item.id}}" replyName="{{ritem.commentName}}">
+								<strong ng-if="item.memberId == ritem.memberId">{{ritem.commentName}}：</strong>
+								<strong ng-if="item.memberId != ritem.memberId">{{ritem.commentName}}&nbsp;回复 {{ritem.memberName}}：</strong>
+								<p>{{ritem.content}}</p>
+							</div>
 
-					</div>
-				</li>
-				<!--<li class="circle-item">
+						</div>
+					</li>
+					<!--<li class="circle-item">
 					<a href="javascript:void(0)">
 						<div class="top" class=" go-pson-home-page">
 							<div class="l">
@@ -186,32 +186,33 @@
 					</div>
 				</li>-->
 
-			</ul>
-			<div class="discuss-sofa" ng-if="replyList.length<=0">
-				<span class="iconfont icon-shafa"></span>
-				<p>暂时没有人发表评论</p>
+				</ul>
+				<div class="discuss-sofa" ng-if="replyList.length<=0">
+					<span class="iconfont icon-shafa"></span>
+					<p>暂时没有人发表评论</p>
+				</div>
+				<p class="current-all-info">已显示全部内容</p>
+				<br />
+				<br />
+				<br />
 			</div>
-			<p class="current-all-info">已显示全部内容</p>
-			<br />
-			<br />
-			<br />
-		</div>
 
-		<div class="reply-footer">
-			<div class="mui-row">
-				<div id="plbtn" class="f-cont mui-col-xs-9">
-					<span class="pl">发表评论</span>
+			<div class="reply-footer">
+				<div class="mui-row">
+					<div id="plbtn" class="f-cont mui-col-xs-9">
+						<span class="pl">发表评论</span>
+					</div>
+					<div class="f-cont mui-col-xs-3">
+						<!--<span class="dz" ng-cloak><i class="iconfont icon-good"></i>{{totalInfo.praiseNum}}</span>-->
+						<span class="dz praise" ng-if="totalInfo.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{totalInfo.praiseNum}}</span>
+						<span class="dz praise mui-active" ng-if="totalInfo.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{totalInfo.praiseNum}}</span>
+					</div>
 				</div>
-				<div class="f-cont mui-col-xs-3">
-					<!--<span class="dz" ng-cloak><i class="iconfont icon-good"></i>{{totalInfo.praiseNum}}</span>-->
-					<span class="dz praise" ng-if="totalInfo.like==0"><i class="iconfont icon-xian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{totalInfo.praiseNum}}</span>
-					<span class="dz praise mui-active" ng-if="totalInfo.like==1"><i class="iconfont icon-mian_dianzan" linkClass="icon-xian_dianzan" activeClass="icon-mian_dianzan"></i>{{totalInfo.praiseNum}}</span>
-				</div>
-			</div>
-			<div id="reply-wrap" class="reply-wrap">
-				<textarea id="textarea" rows="2" placeholder="多行文本框"></textarea>
-				<div class="btns">
-					<button id="replySubmit" class="mui-btn mui-btn-blue mui-pull-right">发表</button>
+				<div id="reply-wrap" class="reply-wrap">
+					<textarea id="textarea" rows="2" placeholder="多行文本框"></textarea>
+					<div class="btns">
+						<button id="replySubmit" class="mui-btn mui-btn-blue mui-pull-right">发表</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -230,15 +231,19 @@
 					$scope.member = {};
 					$scope.replyList = [];
 					$scope.infomation = {};
-					$scope.isFans = {};
+					$scope.isFans = false;
 					$scope.viewList = [];
 					$scope.diaryId = "";
 					$scope.port = JRZH.port;
-					var state = app.getState();
 
+					var state = app.getState();
+					var loadPageDataContentElem = document.querySelectorAll(".load-page-data-content")[0];
 					var muiMask;
 					var setTimeMask;
 					window.addEventListener("loadInit", function(event) {
+
+						loadPageDataContentElem.classList.add("mui-hidden");
+
 						var diaryId = event.detail.diaryId;
 						$scope.totalInfo = event.detail.totalInfo;
 						$scope.diaryId = diaryId;
@@ -279,31 +284,39 @@
 
 							//图片数组预处理
 							mui.each($scope.viewList, function(index, view) {
-								var arr = view.imgUrl.split(",");
-								mui.each(arr, function(index) {
-									arr[index] = arr[index];
-								});
-								$scope.viewList[index].imgUrls = arr;
+								if(view.imgUrl != null) {
+									var arr = view.imgUrl.split(",");
+									mui.each(arr, function(index) {
+										arr[index] = arr[index];
+									});
+									$scope.viewList[index].imgUrls = arr;
+								}
 							});
 
 							$scope.$apply(); //数据更新view
-							clearTimeout(setTimeMask);
-							muiMask.close();
-							plus.nativeUI.closeWaiting();
-
+							initView();
 						}, function(err) {
 							mui.toast(err.message);
 						});
 
 					}
 
+					function initView() {
+						clearTimeout(setTimeMask);
+						muiMask.close();
+						plus.nativeUI.closeWaiting();
+						loadPageDataContentElem.classList.remove("mui-hidden");
+					};
+
 					mui(".mui-content").on("tap", ".go-pson-home-page", function() {
 
 						var diaryId = this.getAttribute("diaryId");
 						var _webView = plus.webview.getWebviewById("account-ccircle-homepage");
 
+						$scope.member.isFans = $scope.isFans;
+
 						mui.fire(_webView, "loadInit", {
-							diaryId: diaryId
+							member: $scope.member
 						});
 
 						mui.openWindow({
