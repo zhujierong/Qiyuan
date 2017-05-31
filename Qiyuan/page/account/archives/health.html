@@ -102,7 +102,6 @@
 							$scope.dataList.push(this);
 						});
 						$scope.$apply();
-						console.log($scope.dataList.length)
 						ul.setAttribute("page", page);
 						self.endPullUpToRefresh();
 					}, function(err) {

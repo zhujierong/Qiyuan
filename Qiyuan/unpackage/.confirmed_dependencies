@@ -262,7 +262,8 @@
 			"js/appdata.js",
 			"imgs/temp/3.jpg",
 			"css/fonts/iconfont.css",
-			"css/fonts/iconfont.ttf"
+			"css/fonts/iconfont.ttf",
+			"css/fonts/iconfont.woff"
 		],
 		"refer": [
 			"page/server/serving/info.html"
@@ -463,7 +464,9 @@
 			"page/account/messageCenter/news.html",
 			"page/account/circle/follow.html",
 			"page/more/propose.html",
-			"page/account/circle/follower.html"
+			"page/account/circle/follower.html",
+			"page/account/circle/fans.html",
+			"page/account/circle/attention.html"
 		]
 	},
 	"page/more/setting.html": {
@@ -878,6 +881,43 @@
 			"css/fonts/iconfont.css",
 			"css/libs/mui.min.css",
 			"css/style.css"
+		]
+	},
+	"page/account/circle/fans.html": {
+		"resources": [
+			"imgs/temp/exp/tx.jpg",
+			"imgs/temp/1.jpg",
+			"imgs/temp/server/list.jpg",
+			"css/fonts/mui.ttf",
+			"css/fonts/iconfont.woff",
+			"js/mui.pullToRefresh.js",
+			"js/app.js",
+			"js/common.js",
+			"js/angular.js",
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.material.js",
+			"js/appdata.js",
+			"css/fonts/iconfont.css",
+			"css/libs/mui.min.css",
+			"css/style.css",
+			"js/JRZH.js"
+		]
+	},
+	"page/account/circle/attention.html": {
+		"resources": [
+			"css/libs/mui.min.css",
+			"js/mui.pullToRefresh.js",
+			"js/app.js",
+			"js/common.js",
+			"js/angular.js",
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.material.js",
+			"js/appdata.js",
+			"js/JRZH.js",
+			"imgs/temp/server/list.jpg",
+			"css/fonts/iconfont.css",
+			"css/style.css",
+			"css/fonts/mui.ttf"
 		]
 	}
 }

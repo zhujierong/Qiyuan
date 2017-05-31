@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html ng-app="jrzhApp" ng-controller="jrzhCtrl">
+
+	<head>
+		<meta charset="utf-8">
+		<title>圈子 - 我的粉丝</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/libs/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/fonts/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的粉丝</h1>
+		</header>
+		<div class="home-page-wrap mui-content">
+
+			<div class="mui-slider mui-fullscreen">
+
+				<div class="mui-slider-group">
+					<div class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+
+								<div id="follower" class="hp-follow hp-follower">
+									<ul class="mui-table-view">
+
+										<li class="mui-table-view-cell mui-media" ng-tap="openHomePage(item.id)" ng-repeat="item in fans.list track by $index">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
+												<div class="mui-media-body">
+													<span class="text-title" ng-bind="item.nickName">柠檬树1234</span>
+													<p class="mui-ellipsis">{{item.diaryNum}} 篇日记，{{item.age}}岁</p>
+													<button class="mui-btn mui-btn-blue mui-active" memberId="{{item.id}}"><i class="mui-icon mui-icon-plusempty" style="display: none;"></i><span>已关注</span></button>
+												</div>
+											</a>
+										</li>
+
+										<!--<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/1.jpg">
+												<div class="mui-media-body">
+													<span class="text-title">长线条</span>
+													<p class="mui-ellipsis">4 篇日记，25岁</p>
+													<button class="mui-btn mui-btn-blue"><i class="mui-icon mui-icon-plusempty"></i><span>关注</span></button>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/server/list.jpg">
+												<div class="mui-media-body">
+													<span class="text-title">柠檬树</span>
+													<p class="mui-ellipsis">4 篇日记，25岁</p>
+													<button class="mui-btn mui-btn-blue"><i class="mui-icon mui-icon-plusempty"></i><span>关注</span></button>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-left" src="../../../imgs/temp/exp/tx.jpg">
+												<div class="mui-media-body">
+													<span class="text-title">雨天</span>
+													<p class="mui-ellipsis">4 篇日记，25岁</p>
+													<button class="mui-btn mui-btn-blue"><i class="mui-icon mui-icon-plusempty"></i><span>关注</span></button>
+												</div>
+											</a>
+										</li>-->
+									</ul>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/angular.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/JRZH.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/appdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/mui.pullToRefresh.js"></script>
+		<script src="../../../js/mui.pullToRefresh.material.js"></script>
+		<script>
+			mui.init({
+				preloadPages: [{
+					url: "../../community/circle/homepage.html",
+					id: "account-ccircle-homepage"
+				}]
+			});
+			angular.module("jrzhApp", [])
+				.controller("jrzhCtrl", function($scope) {
+
+					$scope.fans = {
+						page: 1,
+						rows: 15,
+						list: [],
+						isMore: true
+					};
+
+					var state = app.getState();
+					//循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							up: {
+								height: 50, //可选.默认50.触发上拉加载拖动距离
+								auto: true, //可选,默认false.自动上拉加载一次
+								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+								callback: function() {
+									var self = this;
+									var ul = self.element.querySelector('.mui-table-view');
+									loadMoreList(self, ul);
+								}
+							}
+						});
+					});
+
+					function loadMoreList(self) {
+
+						//获取关注列表
+						appData.myFans({
+							userId: state.userId,
+							page: $scope.fans.page,
+							rows: $scope.fans.rows
+						}, function(response) {
+
+							mui.each(response.object.fansList, function(index, list) {
+								$scope.fans.list.push(list);
+							});
+							$scope.fans.page++;
+							$scope.$apply();
+							if(response.object.fansList.length < $scope.fans.rows) {
+								self.endPullUpToRefresh(true);
+							} else {
+								self.endPullUpToRefresh();
+							}
+
+						}, function(err) {
+							mui.toast(err.message);
+						});
+
+					};
+
+					mui(".mui-table-view").on("tap", ".mui-media-body .mui-btn", function() {
+						var ElemBtn = this;
+						var memberId = ElemBtn.getAttribute("memberId");
+						appData.focusPerson({
+							userId: state.userId,
+							memberId: memberId
+						}, function(response) {
+							if(ElemBtn.classList.contains("mui-active")) {
+								ElemBtn.classList.remove("mui-active");
+								ElemBtn.getElementsByTagName("i")[0].style.display = "inline-block";
+								ElemBtn.getElementsByTagName("span")[0].innerHTML = "关注";
+								mui.toast("取消关注");
+							} else {
+								ElemBtn.classList.add("mui-active");
+								ElemBtn.getElementsByTagName("i")[0].style.display = "none";
+								ElemBtn.getElementsByTagName("span")[0].innerHTML = "已关注";
+								mui.toast("关注成功");
+							}
+						}, function(err) {
+							mui.toast(err.message);
+						});
+
+					});
+
+					$scope.openHomePage = function(diaryId) {
+
+						var _webView = plus.webview.getWebviewById("account-ccircle-homepage");
+						mui.fire(_webView, "loadInit", {
+							diaryId: diaryId
+						});
+						mui.openWindow({
+							id: "account-ccircle-homepage"
+						});
+
+					}
+
+					mui.plusReady(function() {
+
+					});
+				});
+		</script>
+	</body>
+
+</html>

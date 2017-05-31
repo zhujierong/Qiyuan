@@ -79,56 +79,30 @@
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 
 		<script>
+			mui.init();
 			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
 
 				$scope.orderInfo = {};
 				var state = app.getState();
-				
-				mui.init();
-				(function() { //循环初始化所有下拉刷新，上拉加载。
-					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-						mui(pullRefreshEl).pullToRefresh({
-							up: {
-								height: 50, //可选.默认50.触发上拉加载拖动距离
-								auto: true, //可选,默认false.自动上拉加载一次
-								contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
-								contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
-								callback: function() {
-									var self = this;
-									var listElem = self.element.querySelector('.order-view-list');
-									loadMoreData(self, listElem);
-								}
-							}
-						});
+
+				window.addEventListener("initLoad", function(event) {
+					var memberRecordId = event.detail.memberRecordId;
+					initLoad(memberRecordId);
+				});
+
+				function initLoad(memberRecordId) {
+					//数据加载
+					appData.record({
+						userId: state.userId,
+						memberRecordId: memberRecordId
+					}, function(response) {
+						var viewlist = response.object.viewList || [];
+						$scope.orderInfo = viewlist[0];
+						$scope.$apply(); //数据更新view
+					}, function(err) {
+						mui.toast(err.message);
 					});
-
-					function loadMoreData(self, wrapElem) {
-						var page = wrapElem.getAttribute("page") * 1 + 1;
-						var rows = 10;
-						//数据加载
-						appData.record({
-							userId: state.userId,
-							memberRecordId: memberRecordId
-						}, function(response) {
-							var viewlist = response.object.viewList || [];
-							if(viewlist.length <= 0) { //已经没有更多数据
-								self.endPullUpToRefresh(true);
-								return;
-							}
-							$scope.orderInfo = response.object.viewList[0];
-							$scope.$apply(); //数据更新view
-							if(response.object.viewList.length < rows) {
-								self.endPullUpToRefresh(true); //没有更多数据了
-							} else {
-								self.endPullUpToRefresh(); //加载结束
-							}
-							wrapElem.setAttribute("page", page);
-						}, function(err) {
-							mui.toast(err.message);
-						});
-					}
-				})();
-
+				}
 			});
 		</script>
 	</body>

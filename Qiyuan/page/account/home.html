@@ -49,13 +49,13 @@
 							<strong>日记</strong>
 						</a>
 					</div>
-					<div class="pson-item mui-col-xs-3" pageId="account-circle-follow">
+					<div class="pson-item mui-col-xs-3" pageId="account-circle-fans">
 						<a>
 							<span ng-bind="accountData.fansNum">0</span>
 							<strong>粉丝</strong>
 						</a>
 					</div>
-					<div class="pson-item mui-col-xs-3" pageId="account-circle-follower">
+					<div class="pson-item mui-col-xs-3" pageId="account-circle-attention">
 						<a>
 							<span ng-bind="accountData.focusNum">0</span>
 							<strong>关注</strong>
@@ -151,9 +151,6 @@
 			.controller("jrzhCtrl", function($scope) {
 				$scope.accountData = {};
 				var preloadpages = [{
-					url: "circle/diary.html", //日记
-					id: "account-circle-diary"
-				}, {
 					url: "orderForm/index.html", //我的订单
 					id: "account-orderForm-index"
 				}, {
@@ -178,11 +175,14 @@
 					url: "collect/index.html", //收藏
 					id: "account-collect-index"
 				}, {
-					url: "circle/follow.html", //粉丝
-					id: "account-circle-follow"
+					url: "circle/diary.html", //日记
+					id: "account-circle-diary"
 				}, {
-					url: "circle/follower.html", //关注
-					id: "account-circle-follower"
+					url: "circle/fans.html", //粉丝
+					id: "account-circle-fans"
+				}, {
+					url: "circle/attention.html", //关注
+					id: "account-circle-attention"
 				}, {
 					url: "messageCenter/news.html", //消息
 					id: "account-messageCenter-news"
@@ -193,26 +193,6 @@
 					url: "../more/propose.html", //意见反馈
 					id: "account-more-propose"
 				}];
-				/*
-				 * 粉丝
-				 */
-				function openFollow() {
-					var _view = mui.openWindow({
-						url: "circle/follow.html",
-						id: "account-circle-follow"
-					});
-					_view.show("slide-in-right");
-				};
-				/*
-				 * 关注
-				 */
-				function openFollower() {
-					var _view = mui.openWindow({
-						url: "circle/follower.html",
-						id: "account-circle-follower"
-					});
-					_view.show("slide-in-right");
-				};
 				var pagesKeyValue = {};
 				mui(preloadpages).each(function() {
 					pagesKeyValue[this.id] = this.url;
@@ -231,28 +211,19 @@
 					}, function(err) {
 						console.log(err);
 					});
-					//绑定功能页面按钮 - 九宫格
-					mui(".personal-content").on("tap", ".pson-item", function() {
-
-						var pageId = this.getAttribute("pageId") || "";
-						if(pageId.length <= 0) return;
-
-						mui.openWindow({
-							url: pagesKeyValue[pageId],
-							id: pageId
-						});
-
-					});
-
-					mui(".pson-qz").on("tap", "#acountdiary", function() {
-						mui.openWindow({
-							url: "circle/diary.html",
-							id: "account-circle-diary"
-						}); 
-					});
 
 				});
+				//绑定功能页面按钮 - 九宫格
+				mui(".personal-content").on("tap", ".pson-item", function() {
 
+					var pageId = this.getAttribute("pageId") || "";
+					if(pageId.length <= 0) return;
+					mui.openWindow({
+						url: pagesKeyValue[pageId],
+						id: pageId
+					}); 
+
+				});
 				//				/*
 				//				 * 消息
 				//				 */
@@ -284,6 +255,26 @@
 				//					_view.show("slide-in-right");
 				//				};
 
+				//				/*
+				//				 * 粉丝
+				//				 */
+				//				function openFollow() {
+				//					var _view = mui.openWindow({
+				//						url: "circle/follow.html",
+				//						id: "account-circle-follow"
+				//					});
+				//					_view.show("slide-in-right");
+				//				};
+				//				/*
+				//				 * 关注
+				//				 */
+				//				function openFollower() {
+				//					var _view = mui.openWindow({
+				//						url: "circle/follower.html",
+				//						id: "account-circle-follower"
+				//					});
+				//					_view.show("slide-in-right");
+				//				};
 			});
 	</script>
 

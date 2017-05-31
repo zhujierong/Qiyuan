@@ -143,13 +143,19 @@ appData.getPersonalDiary = function(parameters, successcallback, errorcallback, 
  * 个人 - 关注列表
  */
 appData.myFocus = function(parameters, successcallback, errorcallback, xhrerrorback) {
-	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
+	appData.ajaxRTS('bbs/myFocus.json', parameters, successcallback, errorcallback)
+};
+/*
+ * 个人 - 关注/取消关注
+ */
+appData.focusPerson = function(parameters, successcallback, errorcallback, xhrerrorback) {
+	appData.ajaxRTS('bbs/focusPerson.json', parameters, successcallback, errorcallback)
 };
 /*
  * 个人 - 粉丝列表
  */
 appData.myFans = function(parameters, successcallback, errorcallback, xhrerrorback) {
-	appData.ajaxRTS('bbs/getPersonalDiary.json', parameters, successcallback, errorcallback)
+	appData.ajaxRTS('bbs/myFans.json', parameters, successcallback, errorcallback)
 };
 /*
  * 个人 - 创建日记本

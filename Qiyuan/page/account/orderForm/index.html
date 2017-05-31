@@ -25,6 +25,7 @@
 						<div class="mui-scroll">
 
 							<div class="order-view-list" id="order-view-list" page="0">
+
 								<div class="order-form-item" ng-repeat="item in dataList track by $index">
 									<ul class="mui-table-view">
 										<li class="mui-table-view-cell order-view-cell" memberRecordId="{{item.id}}">
@@ -55,7 +56,7 @@
 									</div>
 								</div>
 
-								<div class="order-form-item">
+								<!--<div class="order-form-item">
 									<ul class="mui-table-view">
 										<li class="mui-table-view-cell">
 											<label for="">订单：039472014768928</label>
@@ -87,7 +88,8 @@
 											<span class="je">￥560000</span>
 										</div>
 									</div>
-								</div>
+								</div>-->
+
 							</div>
 
 						</div>
@@ -105,12 +107,16 @@
 		<script src="../../../js/mui.pullToRefresh.material.js"></script>
 
 		<script>
+			mui.init({
+				preloadPages: [{
+					url: "info.html",
+					id: "account-orderForm-info",
+				}]
+			});
 			angular.module("jrzhApp", []).controller("jrzhCtrl", function($scope) {
 
 				$scope.dataList = [];
 				var state = app.getState();
-
-				mui.init();
 
 				(function() { //循环初始化所有下拉刷新，上拉加载。
 					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
@@ -143,7 +149,6 @@
 								self.endPullUpToRefresh(true);
 								return;
 							}
-							$scope.dataList = response.object.viewList;
 							mui(response.object.viewList).each(function() {
 								$scope.dataList.push(this);
 							});
@@ -162,14 +167,13 @@
 				//打开订单详情
 				mui("#order-view-list").on("tap", ".order-view-cell", function() {
 					var memberRecordId = this.getAttribute("memberRecordId");
-					var _viewPage = mui.openWindow({
-						url: "info.html",
-						id: "account-orderForm-info",
-						extras: {
-							memberRecordId: memberRecordId
-						}
+					var _viewPage = plus.webview.getWebviewById("account-orderForm-info");
+					mui.fire(_viewPage, "", {
+						memberRecordId: memberRecordId
 					});
-					_viewPage.show("slide-in-right");
+					mui.openWindow({
+						id: "account-orderForm-info",
+					});
 				});
 				//打开服务详情
 				mui("#order-view-list").on("tap", ".server-view-cell", function() {
